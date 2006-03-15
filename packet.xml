@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<!-- <!DOCTYPE protocol PUBLIC="-//TP//DTD tpprotocol 1.0" "http://www.thousandparsec.net/tp/xml"> -->
+<protocol version="TP03">
+	<packet name="Header">
+		<direction>any</direction>
+		<structure>
+			<character size="4">
+				<name>version</name>
+				<longname>Packet Version</longname>
+				<description>Always has value "TP02" ("TP" plus version number), no null terminator.</description>
+				<example>TP03</example>
+			</character>
+			<integer type="signed" size="32">
+				<name>sequence</name>
+				<longname>Sequence Number</longname>
+				<description> An incrementing number "sequence number". The sequence number should always be one more then the previous frames sequence number.</description>
+				<example>2345</example>
+			</integer>
+			<integer type="signed" size="32">
+				<name>type</name>
+				<longname>Type</longname>
+				<description>Type of packet</description>
+				<example>2</example>
+			</integer>
+			<integer type="signed" size="32">
+				<name>length</name>
+				<longname>Length</longname>
+				<description>Length of the packet</description>
+				<example>32</example>
+			</integer>
+		</structure>
+	</packet>
+	<packet base="Header" name="Request"></packet>
+	<packet base="Header">
+		<name>Response</name>
+	</packet>
+	<packet base="Response">
+		<name>Okay</name>
+		<structure>
+			<string>
+				<name>result</name>
+				<longname>Result</longname>
+				<description>the string can be safely ignored (However it may contain useful information for debugging purposes)</description>
+				<example>Order was created successfully in slot 1</example>
+			</string>
+		</structure>
+	</packet>
+	<packet base="Request">
+		<name>GetWithID</name>
+		<structure>
+			<list>
+				<name>ids</name>
+				<longname>IDs</longname>
+				<description>The IDs to get</description>
+				<example>10, 5, 6</example>
+				<structure>
+					<integer type="signed" size="32">
+						<name>id</name>
+						<longname>ID</longname>
+					</integer>
+				</structure>
+			</list>
+		</structure>
+	</packet>
+</protocol>
