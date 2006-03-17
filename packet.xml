@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!-- <!DOCTYPE protocol PUBLIC="-//TP//DTD tpprotocol 1.0" "http://www.thousandparsec.net/tp/xml"> -->
+<!DOCTYPE protocol PUBLIC "-//TP//DTD tpprotocol 1.0" "http://www.thousandparsec.net/tp/xml">
 <protocol version="TP03">
 	<packet name="Header">
 		<direction>any</direction>
@@ -10,19 +10,19 @@
 				<description>Always has value "TP02" ("TP" plus version number), no null terminator.</description>
 				<example>TP03</example>
 			</character>
-			<integer type="signed" size="32">
+			<integer type="unsigned" size="32">
 				<name>sequence</name>
 				<longname>Sequence Number</longname>
 				<description> An incrementing number "sequence number". The sequence number should always be one more then the previous frames sequence number.</description>
 				<example>2345</example>
 			</integer>
-			<integer type="signed" size="32">
+			<integer type="unsigned" size="32">
 				<name>type</name>
 				<longname>Type</longname>
 				<description>Type of packet</description>
 				<example>2</example>
 			</integer>
-			<integer type="signed" size="32">
+			<integer type="unsigned" size="32">
 				<name>length</name>
 				<longname>Length</longname>
 				<description>Length of the packet</description>
@@ -31,30 +31,72 @@
 		</structure>
 	</packet>
 	<packet base="Header" name="Request"></packet>
-	<packet base="Header">
-		<name>Response</name>
-	</packet>
-	<packet base="Response">
-		<name>Okay</name>
+	<packet base="Header" name="Response"></packet>
+
+	<packet base="Response" name="Okay">
+		<description>A request was successful in some sort of way.</description>
 		<structure>
 			<string>
 				<name>result</name>
 				<longname>Result</longname>
-				<description>the string can be safely ignored (However it may contain useful information for debugging purposes)</description>
-				<example>Order was created successfully in slot 1</example>
+				<description>The string can be safely ignored (However it may contain useful information for debugging purposes).</description>
+				<example>Order was created successfully in slot 1.</example>
 			</string>
 		</structure>
 	</packet>
-	<packet base="Request">
-		<name>GetWithID</name>
+	<packet base="Response" name="Fail">
+		<description>A request has failed in some sort of way.</description>
+		<structure>
+			<enumeration type="unsigned" size="32">
+				<name>code</name>
+				<longname>Error Code</longname>
+				<description>Text message of the error.</description>
+				<example>-1</example>
+				<values>
+					<value id="0" name="Protocol Error">Something went wrong with the protocol</value>
+					<value id="1" name="Frame Error">One of the frames sent was bad or corrupted</value>
+					<value id="2" name="Unavailable Permanently">This operation is unavailable</value>
+					<value id="3" name="Unavailable Temporarily">This operation is unavailable at this moment</value>
+					<value id="4" name="No such thing">The object/order/message does not exist</value>
+					<value id="5" name="Permission Denied">You don't have permission to do this operation</value>
+				</values>
+			</enumeration>
+			<string>
+				<name>result</name>
+				<longname>Result</longname>
+				<description>Text message of the error.</description>
+				<example>Order was created successfully in slot 1.</example>
+			</string>
+		</structure>
+		<notes>
+			<note>If the connect frame is not valid TP frame, this frame will not be returned, instead a plain text string will be sent saying that the wrong protocol has been used. A fail frame may be send if the wrong protocol version is detected. This does not affect clients as they should always get the connect frame right.</note>
+		</notes>
+	</packet>
+	<packet base="Response" name="Sequence">
+		<description>Frame which says that there are multiple frames coming in response to the request.</description>
+		<structure>
+			<string>
+				<name>number</name>
+				<longname>Number of Frames</longname>
+				<description>Number of frames which will follow this one.</description>
+				<example>34</example>
+			</string>
+		</structure>
+	</packet>
+
+
+
+	<packet base="Request" name="GetWithID">
+		<longname>Get (something) using IDs</longname>
+		<description>This packet is used to get things using their IDs. Such things would be objects, message boards, etc.</description>
 		<structure>
 			<list>
 				<name>ids</name>
 				<longname>IDs</longname>
-				<description>The IDs to get</description>
+				<description>The IDs to get.</description>
 				<example>10, 5, 6</example>
 				<structure>
-					<integer type="signed" size="32">
+					<integer type="unsigned" size="32">
 						<name>id</name>
 						<longname>ID</longname>
 					</integer>
@@ -62,4 +104,36 @@
 			</list>
 		</structure>
 	</packet>
+	<packet base="Request" name="GetWithIDSlot">
+		<longname>Get (something) using ID and slot</longname>
+		<description> This packet is used to get things which are in "slots" on a parent. Examples would be orders (on objects), messages (on boards), etc.</description>
+		<structure>
+			<integer type="unsigned" size="32">
+				<name>id</name>
+				<longname>ID</longname>
+				<description>ID of the base thing.</description>
+				<example>2345</example>
+			</integer>
+			<list>
+				<name>slots</name>
+				<longname>Slots</longname>
+				<description>The slots on the thing to get.</description>
+				<example>10, 5, 6</example>
+				<structure>
+					<integer type="unsigned" size="32">
+						<name>slot</name>
+						<longname>Slot</longname>
+					</integer>
+				</structure>
+				<notes>
+					<note>An empty list is equivalent to requesting all slots.</note>
+				</notes>
+			</list>
+		</structure>
+		<notes>
+			<note>If this is really a Remove frame then slot numbers should be in decrementing value if you don't want strange things to happen. (IE 10, 4, 1)</note>
+		</notes>
+	</packet>
+
+	
 </protocol>
