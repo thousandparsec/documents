@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!DOCTYPE protocol PUBLIC "-//TP//DTD tpprotocol 1.0" "http://www.thousandparsec.net/tp/xml">
+<!DOCTYPE protocol SYSTEM "http://www.thousandparsec.net/tp/xml/protocol.dtd">
 <protocol version="TP03">
 	<packet name="Header">
 		<direction>any</direction>
@@ -199,8 +199,8 @@
 				</integer>
 				<integer type="unsigned" size="64">
 					<name>modtime</name>
-					<longname>the last modified time of this ID</longname>
-					<description>the last modified time of this ID</description>
+					<longname>Last Modification Time</longname>
+					<description>The time at which the thing which this ID referes to was last modified.</description>
 				</integer>
 			</structure>
 		</list>
@@ -410,11 +410,6 @@
 					<longname>the IDs</longname>
 					<description>the IDs</description>
 				</integer>
-				<integer type="unsigned" size="64">
-					<name>modtime</name>
-					<longname>the last modified time of this ID</longname>
-					<description>the last modified time of this ID</description>
-				</integer>
 			</structure>
 		</list>
 		<list>
@@ -426,11 +421,6 @@
 					<name>ID</name>
 					<longname>the IDs</longname>
 					<description>the IDs</description>
-				</integer>
-				<integer type="unsigned" size="64">
-					<name>modtime</name>
-					<longname>the last modified time of this ID</longname>
-					<description>the last modified time of this ID</description>
 				</integer>
 			</structure>
 		</list>
@@ -469,12 +459,15 @@
 			<structure>
 				<integer type="signed" size="64">
 					<name>x</name>
+					<longname>X Coordinate</longname>
 				</integer>
 				<integer type="signed" size="64">
 					<name>y</name>
+					<longname>Y Coordinate</longname>
 				</integer>
 				<integer type="signed" size="64">
 					<name>z</name>
+					<longname>Z Coordinate</longname>
 				</integer>
 			</structure>
 		</group>
@@ -495,9 +488,9 @@
 	<longname>Get Object IDs by Container</longname>
 	<structure>
 		<integer type="unsigned" size="32">
-			<name>object that is the container</name>
-			<longname>object that is the container</longname>
-			<description>object that is the container</description>
+			<name>id</name>
+			<longname>Container</longname>
+			<description>The Object that is the container.</description>
 		</integer>
 	</structure>
 	<note>
@@ -513,12 +506,12 @@
 </packet>
 
 
-<packet name="GetOrderDesc" base="GetwithID">
+<packet name="GetOrderDesc" base="GetWithID">
 	<longname>Get Order Description</longname>
 </packet>
 
 
-<packet name="OrderDesc">
+<packet name="OrderDesc" base="Response">
 	<longname>Order Description</longname>
 	<structure>
 		<integer type="unsigned" size="32">
@@ -555,10 +548,14 @@
 						</string>
 				</structure>
 		</list>
-		<li class="new">a UInt64, the last time this description was modified</li>
+		<integer type="unsigned" size="64">
+			<name>modtime</name>
+			<longname>Last Modification Time</longname>
+			<description>The time at which this order description was last modified.</description>
+		</integer>
 	</structure>
 
-<!--
+<!-- FIXME: Not sure how to do this yet.
 <table class="tabular">
 	<tr>
 		<th>Name</th>
@@ -954,7 +951,11 @@
 			<longname>number of messages on the Board</longname>
 			<description>number of messages on the Board</description>
 		</integer>
-		<li class="new">a UInt64, the last modified time</li>
+		<integer type="unsigned" size="64">
+			<name>modtime</name>
+			<longname>Last Modification Time</longname>
+			<description>The time at which this Board was last modified.</description>
+		</integer>
 	</structure>
 
 	<note>
@@ -1126,7 +1127,11 @@
 			<longname>size per unit of resource (0 for not applicable)</longname>
 			<description>size per unit of resource (0 for not applicable)</description>
 		</integer>
-		<li class="new">a UInt64, the last modified time of this resource description</li>
+		<integer type="unsigned" size="64">
+			<name>modtime</name>
+			<longname>Last Modification Time</longname>
+			<description>The time at which this resource was last modified.</description>
+		</integer>
 	</structure>
 </packet>
 
@@ -1184,8 +1189,6 @@
 
 <packet name="Category">
 	<longname>Category Frame, Add Category</longname>
-
-
 	<structure>
 		<integer type="semisigned" size="32">
 			<name>Category ID</name>
@@ -1193,9 +1196,9 @@
 			<description>Category ID</description>
 		</integer>
 		<integer type="unsigned" size="64">
-			<name>the last modified time of this category description</name>
-			<longname>the last modified time of this category description</longname>
-			<description>the last modified time of this category description</description>
+			<name>modtime</name>
+			<longname>Last Modification Time</longname>
+			<description>The time at which this category was last modified.</description>
 		</integer>
 		<li>a Formatted String, name of the category</li>
 		<li>a Formatted String, description of the category</li>
@@ -1236,11 +1239,11 @@
 	<longname>Design ID</longname>
 	<description>Design ID</description>
 </integer>
-<integer type="unsigned" size="64">
-	<name>the last modified time of this design description</name>
-	<longname>the last modified time of this design description</longname>
-	<description>the last modified time of this design description</description>
-</integer>
+		<integer type="unsigned" size="64">
+			<name>modtime</name>
+			<longname>Last Modification Time</longname>
+			<description>The time at which this design was last modified.</description>
+		</integer>
 		<list>UInt32, categories this design is in</li>
 		<li>a Formatted String, name of the design</li>
 		<li>a Formatted String, description of the design</li>
@@ -1328,9 +1331,9 @@
 			<description>component ID</description>
 		</integer>
 		<integer type="unsigned" size="64">
-			<name>the last modified time of this component</name>
-			<longname>the last modified time of this component</longname>
-			<description>the last modified time of this component</description>
+			<name>modtime</name>
+			<longname>Last Modification Time</longname>
+			<description>The time at which this component was last modified.</description>
 		</integer>
 		<list>UInt32, categories this component is in</li>
 		<li>a Formatted String, name of the component</li>
@@ -1376,14 +1379,14 @@
 	<longname>Property</longname>
 	<structure>
 		<integer type="unsigned" size="32">
-			<name>property ID</name>
-			<longname>property ID</longname>
+			<name>id</name>
+			<longname>Property ID</longname>
 			<description>property ID</description>
 		</integer>
 		<integer type="unsigned" size="64">
-			<name>the last modified time of this property</name>
-			<longname>the last modified time of this property</longname>
-			<description>the last modified time of this property</description>
+			<name>modtime</name>
+			<longname>Last Modification Time</longname>
+			<description>The time at which this property was last modified.</description>
 		</integer>
 		<list>UInt32, categories this property is in</li>
 		<integer type="unsigned" size="32">
