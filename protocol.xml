@@ -302,7 +302,7 @@
 						<value id="0x3" name="HTTPHere">HTTP Tunneling available on this port.</value>
 						<value id="0x4" name="HTTPThere">HTTP Tunneling available on another port.</value>
 						<value id="0x5" name="KeepAlive">Support Keep alive frames.</value>
-						<value id="0x6" name="PropertyCalculation">Support server side property calculation.</value>
+						<value id="0x6" name="PropertyCalc">Support server side property calculation.</value>
 						<value id="0x10000" name="DescObjectID">Sends Object ID Sequences in descending modified time order.</value>
 						<value id="0x10001" name="DescOrderID">Sends Order Description ID Sequences in descending modified time order.</value>
 						<value id="0x10002" name="DescBoardID">Sends Board ID Sequences in descending modified time order.</value>
@@ -425,7 +425,7 @@
 			</structure>
 		</list>
 		<integer type="unsigned" size="32">
-			<name>number of orders currently on this object</name>
+			<name>orders</name>
 			<longname>number of orders currently on this object</longname>
 			<description>number of orders currently on this object</description>
 		</integer>
@@ -515,34 +515,34 @@
 	<longname>Order Description</longname>
 	<structure>
 		<integer type="unsigned" size="32">
-			<name>order type</name>
+			<name>id</name>
 			<longname>order type</longname>
 			<description>order type</description>
 		</integer>
 		<string>
-			<name></name>
+			<name>name</name>
 			<longname></longname>
 			<description></description>
 		</string>
 		<string>
-			<name></name>
+			<name>description</name>
 			<longname></longname>
 			<description></description>
 		</string>
 		<list>
 				<structure>
 						<string>
-							<name></name>
-							<longname></longname>
+							<name>name</name>
+							<longname>argument name</longname>
 							<description></description>
 						</string>
 						<integer type="unsigned" size="32">
-							<name>argument type ID</name>
+							<name>type</name>
 							<longname>argument type ID</longname>
 							<description>argument type ID</description>
 						</integer>
 						<string>
-							<name></name>
+							<name>description</name>
 							<longname></longname>
 							<description></description>
 						</string>
@@ -945,7 +945,9 @@
 			<longname></longname>
 			<description></description>
 		</string>
-		<li>a Formatted String, description of the Board</li>
+		<string type="formatted">
+			<name>description of the Board</name>
+		</string>
 		<integer type="unsigned" size="32">
 			<name>number of messages on the Board</name>
 			<longname>number of messages on the Board</longname>
@@ -995,23 +997,34 @@
 			<longname>Board ID of the message is on/to be placed on</longname>
 			<description>Board ID of the message is on/to be placed on</description>
 		</integer>
-		<li>a <span class="new">SInt32</span>, Slot number of the message/to be put in, 
-			-1 will insert at the last position, otherwise it is inserted before the number</li>
-
-		<li>a Formatted String, Subject of the message</li>
-		<li>a Formatted String, Body of the message</li>
-		<li class="new">a UInt32, Turn the message was generated on</li>
-		<li class="new">a list of as described in the Generic Reference System</li>
+		<integer type="semisigned" size="32">
+			<name>slot number of the message/to be put in</name>
+			<note>-1 will insert at the last position, otherwise it is inserted before the number</note>
+		</integer>
+		<string type="formatted">
+			<name>Subject of the message</name>
+		</string>
+		<string type="formatted">
+			<name>a Formatted String</name>
+			<description>Body of the message</description>
+		</string>
+		<integer type="unsigned" size="32">
+			<name>Turn the message was generated on</name>
+		</integer>
+		<list>
+<!--		<integerli class="new">a list of as described in the Generic Reference System</li> -->
+		</list>
 	</structure>
-<p class="new">
-	Please note that messages should be immutable, once posted/created they should not change. <span class="fixme">Maybe 
 
-<p class="new">
+	<note>
+	Please note that messages should be immutable, once posted/created they should not change. Maybe
+
 	The new reference system is similar to the old type system but has been expanded to cover more features.
 
 	The reference system uses two integers to reference any object in the game. The first integer indicated what
 	type of thing is being referenced and the second gives the ID of the thing being referenced.
-
+	</note>
+<!--
 	<structure>
 		<integer type="signed" size="type of thing being referenced">
 			<name></name>
@@ -1091,8 +1104,8 @@
 		<li>(-1, 3) would be a player joined message</li>
 	</structure>
 
+-->
 </packet>
-
 
 <packet name="GetResource" base="GetwithID">
 	<longname>Get Resource Description</longname>
@@ -1112,11 +1125,21 @@
 			<longname>Resource ID</longname>
 			<description>Resource ID</description>
 		</integer>
-		<li>a Formatted String, singular name of the resource</li>
-		<li>a Formatted String, plural name of the resource</li>
-		<li>a Formatted String, singular name of the resources unit</li>
-		<li>a Formatted String, plural name of the resources unit</li>
-		<li>a Formatted String, description of the resource</li>
+		<string type="formatted">
+			<name>singular name of the resource</name>
+		</string>
+		<string type="formatted">
+			<name>plural name of the resource</name>
+		</string>
+		<string type="formatted">
+			<name>singular name of the resources unit</name>
+		</string>
+		<string type="formatted">
+			<name>plural name of the resources unit</name>
+		</string>
+		<string type="formatted">
+			<name>description of the resource</name>
+		</string>
 		<integer type="unsigned" size="32">
 			<name>weight per unit of resource (0 for not applicable)</name>
 			<longname>weight per unit of resource (0 for not applicable)</longname>
@@ -1173,9 +1196,10 @@
 		</string>
 				<li>(more?)</li>
 			</structure>
-		<p class="fixme">
+		<note>
 			FIXME: Should this include details about a race? What happens if a player controls more then
 			once race? What if a player can have partial control over an allies race? What about player governors?
+		</note>
 </packet>
 
 
@@ -1200,8 +1224,12 @@
 			<longname>Last Modification Time</longname>
 			<description>The time at which this category was last modified.</description>
 		</integer>
-		<li>a Formatted String, name of the category</li>
-		<li>a Formatted String, description of the category</li>
+		<string type="formatted">
+			<name>name of the category</name>
+		</string>
+		<string type="formatted">
+			<name>description of the category</name>
+		</string>
 	</structure>
 	<note>
 			<b>Note:</b>If adding a category send the ID as -1. The returned Category frame will contain 
@@ -1244,9 +1272,19 @@
 			<longname>Last Modification Time</longname>
 			<description>The time at which this design was last modified.</description>
 		</integer>
-		<list>UInt32, categories this design is in</li>
-		<li>a Formatted String, name of the design</li>
-		<li>a Formatted String, description of the design</li>
+		<list>
+			<structure>
+				<integer type="unsigned" size="32">
+					<name>categories this design is in</name>
+				</integer>
+			</structure>
+		</list>
+		<string type="formatted">
+			<name>name of the design</name>
+		</string>
+		<string type="formatted">
+			<name>description of the design</name>
+		</string>
 <integer type="semisigned" size="32">
 	<name>number of times the design is in use</name>
 	<longname>number of times the design is in use</longname>
@@ -1272,7 +1310,9 @@
 </integer>
 				</structure>
 		</li>
-		<li>a Formatted String, human readable feedback on the design</li>
+		<string type="formatted">
+			<name>human readable feedback on the design</name>
+		</string>
 		<li>
 			a list of,
 				<structure>
@@ -1281,7 +1321,9 @@
 	<longname>property id</longname>
 	<description>property id</description>
 </integer>
-					<li>a Formatted String, property display string</li>
+					<string type="formatted">
+			<name>property display string</name>
+		</string>
 				</structure>
 		</li>
 	</structure>
@@ -1335,9 +1377,17 @@
 			<longname>Last Modification Time</longname>
 			<description>The time at which this component was last modified.</description>
 		</integer>
-		<list>UInt32, categories this component is in</li>
-		<li>a Formatted String, name of the component</li>
-		<li>a Formatted String, description of the component</li>
+		<list>
+			<structure>
+				<integer type="unsigned" size="32"><name>categories this component is in</name></integer>
+			</structure>
+		</list>
+		<string type="formatted">
+			<name>name of the component</name>
+		</string>
+		<string type="formatted">
+			<name>description of the component</name>
+		</string>
 		<string>
 			<name></name>
 			<longname></longname>
@@ -1388,7 +1438,11 @@
 			<longname>Last Modification Time</longname>
 			<description>The time at which this property was last modified.</description>
 		</integer>
-		<list>UInt32, categories this property is in</li>
+		<list>
+			<structure>
+				<integer type="unsigned" size="32"><name>categories this component is in</name></integer>
+			</structure>
+		</list>
 		<integer type="unsigned" size="32">
 			<name>rank of the property</name>
 			<longname>rank of the property</longname>
@@ -1399,8 +1453,12 @@
 			<longname></longname>
 			<description></description>
 		</string>
-		<li>a Formatted String, display name of the property</li>
-		<li>a Formatted String, description of the property</li>
+		<string type="formatted">
+			<name>display name of the property</name>
+		</string>
+		<string type="formatted">
+			<name>description of the property</name>
+		</string>
 		<string>
 			<name></name>
 			<longname></longname>
@@ -1418,6 +1476,6 @@
 <packet name="GetPropertyIDs" base="GetIDSequence">
 </packet>
 
-
 <packet name="PropertyIDs" base="IDSequence">
 </packet>
+</protocol>
