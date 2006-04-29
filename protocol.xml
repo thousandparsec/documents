@@ -33,7 +33,7 @@
 	<packet base="Header" name="Request"></packet>
 	<packet base="Header" name="Response"></packet>
 
-	<packet base="Response" name="Okay">
+	<packet code="0" base="Response" name="Okay">
 		<description>A request was successful in some sort of way.</description>
 		<structure>
 			<string>
@@ -44,7 +44,7 @@
 			</string>
 		</structure>
 	</packet>
-	<packet base="Response" name="Fail">
+	<packet code="1" base="Response" name="Fail">
 		<description>A request has failed in some sort of way.</description>
 		<structure>
 			<enumeration type="unsigned" size="32">
@@ -69,7 +69,7 @@
 		</structure>
 		<note>If the connect frame is not valid TP frame, this frame will not be returned, instead a plain text string will be sent saying that the wrong protocol has been used. A fail frame may be send if the wrong protocol version is detected. This does not affect clients as they should always get the connect frame right.</note>
 	</packet>
-	<packet base="Response" name="Sequence">
+	<packet code="2" base="Response" name="Sequence">
 		<description>Frame which says that there are multiple frames coming in response to the request.</description>
 		<structure>
 			<string>
@@ -126,7 +126,7 @@
 		<note>If this is really a Remove frame then slot numbers should be in decrementing value if you don't want strange things to happen. (IE 10, 4, 1)</note>
 	</packet>
 
-<packet name="GetIDSequence">
+<packet base="Request" name="GetIDSequence">
 	<longname>Get ID Sequence</longname>
 	<structure>
 		<integer type="semisigned" size="32">
@@ -176,7 +176,7 @@
 </packet>
 
 
-<packet name="IDSequence">
+<packet base="Response" name="IDSequence">
 	<longname>ID Sequence</longname>
 	<description>A sequence of IDs and their last modified times.</description>
 	<structure>
@@ -209,7 +209,7 @@
 </packet>
 
 
-<packet name="Redirect">
+<packet code="24" base="Response" name="Redirect">
 	<longname>Redirect</longname>
 	<structure>
 		<string>
@@ -234,7 +234,7 @@
 </packet>
 
 
-<packet name="Connect">
+<packet code="3" base="Request" name="Connect">
 	<longname>Connect</longname>
 	<structure>
 		<string>
@@ -254,7 +254,7 @@
 </packet>
 
 
-<packet name="Login">
+<packet code="4" base="Request" name="Login">
 	<longname>Login</longname>
 	<structure>
 		<string>
@@ -275,7 +275,7 @@
 	</note>
 </packet>
 
-<packet name="GetFeatures">
+<packet code="25" base="Request" name="GetFeatures">
 	<longname>Get Features</longname>
 	<note>
 		The Get Features frame has no data.
@@ -285,7 +285,7 @@
 </packet>
 
 
-<packet name="Features">
+<packet code="26" base="Response" name="Features">
 	<longname>Features</longname>
 	<structure>
 		<list>
@@ -323,7 +323,7 @@
 </packet>
 
 
-<packet name="Ping">
+<packet code="27" base="Request" name="Ping">
 	<longname>Ping</longname>
 	<note>
 		The Ping frame is empty and is only used to keep a connection alive
@@ -333,12 +333,12 @@
 </packet>
 
 
-<packet name="GetObjectsByID" base="GetwithID">
+<packet code="5" base="GetwithID" name="GetObjectsByID">
 	<longname>Get Objects by ID</longname>
 </packet>
 
 
-<packet name="GetObjectsByPos">
+<packet code="6" base="Request" name="GetObjectsByPos">
 	<longname>Get Objects by Position</longname>
 	<note>
 		This frame type is deprecated in TP03, see TP02 protocol documentation 
@@ -347,7 +347,7 @@
 	</note>
 </packet>
 
-<packet name="Object" base="Response">
+<packet code="7" base="Response" name="Object">
 	<longname>Object</longname>
 	<structure>
 		<integer type="unsigned" size="32">
@@ -445,11 +445,11 @@
 </packet>
 
 
-<packet name="GetObjectIDs" base="GetIDSequence">
+<packet code="28" base="GetIDSequence" name="GetObjectIDs">
 	<longname>Get Object IDs</longname>
 </packet>
 
-<packet name="GetObjectIDsByPos">
+<packet code="29" base="Request" name="GetObjectIDsByPos">
 	<longname>Get Object IDs by Position</longname>
 	<structure>
 		<group>
@@ -484,7 +484,7 @@
 </packet>
 
 
-<packet name="GetObjectIDsByContainer">
+<packet code="30" base="Request" name="GetObjectIDsByContainer">
 	<longname>Get Object IDs by Container</longname>
 	<structure>
 		<integer type="unsigned" size="32">
@@ -501,17 +501,17 @@
 </packet>
 
 
-<packet name="ObjectIDs" base="IDSequence">
+<packet code="31" base="IDSequence" name="ObjectIDs">
 	<longname>List of Object IDs</longname>
 </packet>
 
 
-<packet name="GetOrderDesc" base="GetWithID">
+<packet code="8" base="GetWithID" name="GetOrderDesc">
 	<longname>Get Order Description</longname>
 </packet>
 
 
-<packet name="OrderDesc" base="Response">
+<packet code="9" base="Response" name="OrderDesc">
 	<longname>Order Description</longname>
 	<structure>
 		<integer type="unsigned" size="32">
@@ -806,26 +806,26 @@
 </packet>
 
 
-<packet name="GetOrderDescIDs" base="GetIDSequence">
+<packet code="32" base="GetIDSequence" name="GetOrderDescIDs">
 	<longname>Get Order Description IDs</longname>
 </packet>
 
 
-<packet name="OrderDescIDs" base="IDSequence">
+<packet code="33" base="IDSequence" name="OrderDescIDs">
 	<longname>List of Order Description IDs</longname>
 </packet>
 
 
-<packet name="GetOrder" base="GetwithIDandSlot">
+<packet code="10" base="GetwithIDandSlot" name="GetOrder">
 	<longname>Get Order</longname>
 </packet>
 
-<packet name="RemoveOrder" base="GetwithIDandSlot">
+<packet code="13" base="GetwithIDandSlot" name="RemoveOrder">
 	<longname>Remove Order</longname>
 </packet>
 
 
-<packet name="Order">
+<packet code="11" base="Response" name="Order">
 	<longname>Order</longname>
 	<structure>
 		<integer type="unsigned" size="32">
@@ -883,9 +883,9 @@
 		Order's do not have a last modified time. Instead when an order changes	the object which they are on has it's last modified time updated. This is because orders can change position and do all types of other weird stuff.
 	</note>
 </packet>
-<packet name="OrderInsert" base="Order"></packet>
+<packet code="12" base="Order" name="OrderInsert"></packet>
 
-<packet name="OrderProbe" base="Order">
+<packet code="34" base="Order" name="OrderProbe">
 	<longname>Probe Order</longname>
 	<note>
 	A Probe Order frame gets an order as if the order given was put in the object's order queue. 
@@ -906,13 +906,13 @@
 </packet>
 
 
-<packet name="GetTimeRemaining">
+<packet code="14" base="Request" name="GetTimeRemaining">
 	<longname>Get Time Remaining</longname>
 	<description>Get the time remaining before the end of turn.</description>
 </packet>
 
 
-<packet name="TimeRemaining">
+<packet code="15" base="Response" name="TimeRemaining">
 	<longname>Time Remaining</longname>
 	<structure>
 		<integer type="unsigned" size="32">
@@ -927,12 +927,12 @@
 </packet>
 
 
-<packet name="GetBoards" base="GetwithID">
+<packet code="16" base="GetwithID" name="GetBoards">
 	<longname>Get Boards</longname>
 </packet>
 
 
-<packet name="Board">
+<packet code="17" base="Response" name="Board">
 	<longname>Board</longname>
 	<structure>
 		<integer type="unsigned" size="32">
@@ -967,26 +967,26 @@
 </packet>
 
 
-<packet name="GetBoardIDs" base="GetIDSequence">
+<packet code="35" base="GetIDSequence" name="GetBoardIDs">
 	<longname>Get Board IDs</longname>
 </packet>
 
 
-<packet name="BoardIDs" base="IDSequence">
+<packet code="36" base="IDSequence" name="BoardIDs">
 	<longname>List Of Board IDs</longname>
 </packet>
 
 
-<packet name="GetMessage" base="GetwithIDandSlot">
+<packet code="18" base="GetwithIDandSlot" name="GetMessage">
 <!-- Remove Message">-->
 	<longname>Get Message</longname>
 </packet>
 
-<packet name="RemoveMessage" base="GetMessage">
+<packet code="21" base="GetMessage" name="RemoveMessage">
 	<longname>Remove Message</longname>
 </packet>
 
-<packet name="Message">
+<packet code="19" base="Response" name="Message">
 <!-- Post Message">-->
 	<longname>Message Frame, Post Message</longname>
 
@@ -1107,12 +1107,12 @@
 -->
 </packet>
 
-<packet name="GetResource" base="GetwithID">
+<packet code="22" base="GetwithID" name="GetResource">
 	<longname>Get Resource Description</longname>
 </packet>
 
 
-<packet name="Resource">
+<packet code="23" base="Response" name="Resource">
 	<longname>Resource Description</longname>
 	<description>
 		A Resource is something that things are build out of, or consumed 
@@ -1159,22 +1159,22 @@
 </packet>
 
 
-<packet name="GetResourceIDs" base="GetIDSequence">
+<packet code="37" base="GetIDSequence" name="GetResourceIDs">
 	<longname>Get Resource Description IDs</longname>
 </packet>
 
 
-<packet name="ResourceIDs" base="IDSequence">
+<packet code="38" base="IDSequence" name="ResourceIDs">
 	<longname>List Of Resource Description IDs</longname>
 </packet>
 
 
-<packet name="GetPlayer" base="GetwithID">
+<packet code="39" base="GetwithID" name="GetPlayer">
 	<longname>Get Player Data</longname>
 </packet>
 
 
-<packet name="Player">
+<packet code="40" base="Response" name="Player">
 	<longname>Player Data</longname>
 
 
@@ -1203,15 +1203,15 @@
 </packet>
 
 
-<packet name="GetCategory" base="GetwithID">
+<packet code="41" base="GetwithID" name="GetCategory">
 	<longname>Get Category Frame</longname>
 </packet>
 
-<packet name="RemoveCategory" base="GetCategory">
+<packet code="44" base="GetCategory" name="RemoveCategory">
 	<longname>Remove Category</longname>
 </packet>
 
-<packet name="Category">
+<packet code="42" base="Response" name="Category">
 	<longname>Category Frame, Add Category</longname>
 	<structure>
 		<integer type="semisigned" size="32">
@@ -1239,25 +1239,25 @@
 	</note>
 </packet>
 
-<packet name="AddCategory" base="Category">
+<packet code="43" base="Category" name="AddCategory">
 </packet>
 
-<packet name="GetCategoryIDs" base="GetIDSequence">
-</packet>
-
-
-<packet name="CategoryIDs" base="IDSequence">
+<packet code="45" base="GetIDSequence" name="GetCategoryIDs">
 </packet>
 
 
-<packet name="GetDesign" base="GetwithID">
+<packet code="46" base="IDSequence" name="CategoryIDs">
+</packet>
+
+
+<packet code="47" base="GetwithID" name="GetDesign">
 	<longname>Get Design</longname>
 </packet>
 
-<packet name="RemoveDesign" base="GetDesign">
+<packet code="51" base="GetDesign" name="RemoveDesign">
 </packet>
 
-<packet name="Design">
+<packet code="48" base="Response" name="Design">
 	<longname>Design Frame, Add Design Frame, Modify Design</longname>
 
 
@@ -1346,25 +1346,25 @@
 
 </packet>
 
-<packet name="AddDesign" base="Design">
+<packet code="49" base="Design" name="AddDesign">
 </packet>
 
-<packet name="ModifyDesign" base="Design">
+<packet code="50" base="Design" name="ModifyDesign">
 </packet>
 
-<packet name="GetDesignIDs" base="GetIDSequence">
+<packet code="52" base="GetIDSequence" name="GetDesignIDs">
 </packet>
 
 
-<packet name="DesignIDs" base="IDSequence">
+<packet code="53" base="IDSequence" name="DesignIDs">
 </packet>
 
-<packet name="GetComponent" base="GetwithID">
+<packet code="54" base="GetwithID" name="GetComponent">
 	<longname>Get Component</longname>
 </packet>
 
 
-<packet name="Component">
+<packet code="55" base="Response" name="Component">
 	<longname>Component</longname>
 	<structure>
 		<integer type="unsigned" size="32">
@@ -1412,20 +1412,20 @@
 </packet>
 
 
-<packet name="GetComponentIDs" base="GetIDSequence">
+<packet code="56" base="GetIDSequence" name="GetComponentIDs">
 </packet>
 
 
-<packet name="ComponentIDs" base="IDSequence">
+<packet code="57" base="IDSequence" name="ComponentIDs">
 </packet>
 
 
-<packet name="GetProperty" base="GetwithID">
+<packet code="58" base="GetwithID" name="GetProperty">
 	<longname>Get Property</longname>
 </packet>
 
 
-<packet name="Property">
+<packet code="59" base="Response" name="Property">
 	<longname>Property</longname>
 	<structure>
 		<integer type="unsigned" size="32">
@@ -1473,9 +1473,9 @@
 </packet>
 
 
-<packet name="GetPropertyIDs" base="GetIDSequence">
+<packet code="60" base="GetIDSequence" name="GetPropertyIDs">
 </packet>
 
-<packet name="PropertyIDs" base="IDSequence">
+<packet code="61" base="IDSequence" name="PropertyIDs">
 </packet>
 </protocol>
