@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!DOCTYPE protocol SYSTEM "http://www.thousandparsec.net/tp/xml/protocol.dtd">
+<!DOCTYPE protocol SYSTEM "protocol.dtd">
 <protocol version="TP03">
 	<packet name="Header">
 		<direction>any</direction>
@@ -33,7 +33,7 @@
 	<packet base="Header" name="Request"></packet>
 	<packet base="Header" name="Response"></packet>
 
-	<packet code="0" base="Response" name="Okay">
+	<packet base="Response" name="Okay">
 		<description>A request was successful in some sort of way.</description>
 		<structure>
 			<string>
@@ -44,7 +44,7 @@
 			</string>
 		</structure>
 	</packet>
-	<packet code="1" base="Response" name="Fail">
+	<packet base="Response" name="Fail">
 		<description>A request has failed in some sort of way.</description>
 		<structure>
 			<enumeration type="unsigned" size="32">
@@ -69,7 +69,7 @@
 		</structure>
 		<note>If the connect frame is not valid TP frame, this frame will not be returned, instead a plain text string will be sent saying that the wrong protocol has been used. A fail frame may be send if the wrong protocol version is detected. This does not affect clients as they should always get the connect frame right.</note>
 	</packet>
-	<packet code="2" base="Response" name="Sequence">
+	<packet base="Response" name="Sequence">
 		<description>Frame which says that there are multiple frames coming in response to the request.</description>
 		<structure>
 			<string>
@@ -126,7 +126,7 @@
 		<note>If this is really a Remove frame then slot numbers should be in decrementing value if you don't want strange things to happen. (IE 10, 4, 1)</note>
 	</packet>
 
-<packet base="Request" name="GetIDSequence">
+<packet name="GetIDSequence">
 	<longname>Get ID Sequence</longname>
 	<structure>
 		<integer type="semisigned" size="32">
@@ -176,7 +176,7 @@
 </packet>
 
 
-<packet base="Response" name="IDSequence">
+<packet name="IDSequence">
 	<longname>ID Sequence</longname>
 	<description>A sequence of IDs and their last modified times.</description>
 	<structure>
@@ -209,7 +209,7 @@
 </packet>
 
 
-<packet code="24" base="Response" name="Redirect">
+<packet name="Redirect">
 	<longname>Redirect</longname>
 	<structure>
 		<string>
@@ -234,7 +234,7 @@
 </packet>
 
 
-<packet code="3" base="Request" name="Connect">
+<packet name="Connect">
 	<longname>Connect</longname>
 	<structure>
 		<string>
@@ -254,7 +254,7 @@
 </packet>
 
 
-<packet code="4" base="Request" name="Login">
+<packet name="Login">
 	<longname>Login</longname>
 	<structure>
 		<string>
@@ -275,7 +275,7 @@
 	</note>
 </packet>
 
-<packet code="25" base="Request" name="GetFeatures">
+<packet name="GetFeatures">
 	<longname>Get Features</longname>
 	<note>
 		The Get Features frame has no data.
@@ -285,7 +285,7 @@
 </packet>
 
 
-<packet code="26" base="Response" name="Features">
+<packet name="Features">
 	<longname>Features</longname>
 	<structure>
 		<list>
@@ -323,7 +323,7 @@
 </packet>
 
 
-<packet code="27" base="Request" name="Ping">
+<packet name="Ping">
 	<longname>Ping</longname>
 	<note>
 		The Ping frame is empty and is only used to keep a connection alive
@@ -333,12 +333,12 @@
 </packet>
 
 
-<packet code="5" base="GetwithID" name="GetObjectsByID">
+<packet name="GetObjectsByID" base="GetwithID">
 	<longname>Get Objects by ID</longname>
 </packet>
 
 
-<packet code="6" base="Request" name="GetObjectsByPos">
+<packet name="GetObjectsByPos">
 	<longname>Get Objects by Position</longname>
 	<note>
 		This frame type is deprecated in TP03, see TP02 protocol documentation 
@@ -347,7 +347,7 @@
 	</note>
 </packet>
 
-<packet code="7" base="Response" name="Object">
+<packet name="Object" base="Response">
 	<longname>Object</longname>
 	<structure>
 		<integer type="unsigned" size="32">
@@ -445,11 +445,11 @@
 </packet>
 
 
-<packet code="28" base="GetIDSequence" name="GetObjectIDs">
+<packet name="GetObjectIDs" base="GetIDSequence">
 	<longname>Get Object IDs</longname>
 </packet>
 
-<packet code="29" base="Request" name="GetObjectIDsByPos">
+<packet name="GetObjectIDsByPos">
 	<longname>Get Object IDs by Position</longname>
 	<structure>
 		<group>
@@ -484,7 +484,7 @@
 </packet>
 
 
-<packet code="30" base="Request" name="GetObjectIDsByContainer">
+<packet name="GetObjectIDsByContainer">
 	<longname>Get Object IDs by Container</longname>
 	<structure>
 		<integer type="unsigned" size="32">
@@ -501,11 +501,11 @@
 </packet>
 
 
-<packet code="31" base="IDSequence" name="ObjectIDs">
+<packet name="ObjectIDs" base="IDSequence">
 	<longname>List of Object IDs</longname>
 </packet>
 
-
+--><!--
 <packet code="8" base="GetWithID" name="GetOrderDesc">
 	<longname>Get Order Description</longname>
 </packet>
@@ -554,8 +554,7 @@
 			<description>The time at which this order description was last modified.</description>
 		</integer>
 	</structure>
-
-<!-- FIXME: Not sure how to do this yet.
+--><!-- FIXME: Not sure how to do this yet.
 <table class="tabular">
 	<tr>
 		<th>Name</th>
@@ -802,7 +801,7 @@
 	empty lists or empty string to conserve bandwidth. The server will
 	ignore any information in read only field (even if they are non-empty).
 
--->
+--><!--
 </packet>
 
 
@@ -867,11 +866,11 @@
 				</integer>
 			</structure>
 		</list>
-		<!-- <li>extra data, required by the order is appended to the end</li>
+		--><!-- <li>extra data, required by the order is appended to the end</li>
 	<note>
 			The extra data is defined by Order descriptions frames.
 	</note>
--->
+--><!--
 	</structure>
 	<note>
 		The number of turns 	and the size of the	resource list should be zero (0) when sent by the client.
@@ -978,7 +977,7 @@
 
 
 <packet code="18" base="GetwithIDandSlot" name="GetMessage">
-<!-- Remove Message">-->
+--><!-- Remove Message">--><!--
 	<longname>Get Message</longname>
 </packet>
 
@@ -987,7 +986,7 @@
 </packet>
 
 <packet code="19" base="Response" name="Message">
-<!-- Post Message">-->
+--><!-- Post Message">--><!--
 	<longname>Message Frame, Post Message</longname>
 
 
@@ -1012,7 +1011,7 @@
 			<name>Turn the message was generated on</name>
 		</integer>
 		<list>
-<!--		<integerli class="new">a list of as described in the Generic Reference System</li> -->
+--><!--		<integerli class="new">a list of as described in the Generic Reference System</li> --><!--
 		</list>
 	</structure>
 
@@ -1024,7 +1023,7 @@
 	The reference system uses two integers to reference any object in the game. The first integer indicated what
 	type of thing is being referenced and the second gives the ID of the thing being referenced.
 	</note>
-<!--
+--><!--
 	<structure>
 		<integer type="signed" size="type of thing being referenced">
 			<name></name>
@@ -1104,7 +1103,7 @@
 		<li>(-1, 3) would be a player joined message</li>
 	</structure>
 
--->
+--><!--
 </packet>
 
 <packet code="22" base="GetwithID" name="GetResource">
@@ -1477,5 +1476,5 @@
 </packet>
 
 <packet code="61" base="IDSequence" name="PropertyIDs">
-</packet>
+</packet> -->
 </protocol>

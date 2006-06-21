@@ -1,4 +1,4 @@
-<!ELEMENT protocol packet+>
+<!ELEMENT protocol (packet+)>
 <!ATTRLIST protocol version CDATA #REQUIRED>
 <!ELEMENT packet longname? direction? description? structure? note*>
 <!ATTRLIST packet name ID #REQUIRED base IDREF #IMPLIED>
