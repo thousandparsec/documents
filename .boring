@@ -15,6 +15,7 @@
 (^|/)_darcs($|/)
 \.bak$
 \.BAK$
+\.sw.$
 \.orig$
 (^|/)vssver\.scc$
 \.swp$
