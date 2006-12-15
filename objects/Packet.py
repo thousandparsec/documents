@@ -1,14 +1,17 @@
 
+from xstruct import pack, unpack, hexbyte
 
 class PacketMeta(type):
 	def get_structures(cls):
 		parent = cls.__bases__[0]
-
 		r = []
 		if parent != Packet:
-			r += parent.structures
+			r += parent.structures 
+			print "parent", parent
 		if cls.__dict__.has_key('_structures'):
 			r += cls._structures
+			print "cls", cls
+		print r
 		return r
 
 	def set_structures(cls, value):
@@ -51,12 +54,12 @@ class Packet(object):
 		
 		arguments = list(arguments)
 		
-		self.arguments = []
 		# Check each argument is valid
+		print arguments, self.structures
 		for structure in self.structures:
 			argument = arguments.pop(0)
 			structure.check(argument)
-			self.arguments.append(argument)
+			setattr(self, structure.name, argument)
 
 	def xstruct(self):
 		xstruct = ""
@@ -67,6 +70,10 @@ class Packet(object):
 	
 	def __str__(self):
 		# FIXME: This won't work with a GroupStructure!
-		print self.xstruct, self.arguments
-		return pack(self.xstruct, *self.arguments)
+		arguments = []
+		for structure in self.structures:
+			arguments.append(getattr(self, structure.name))
+
+		print self.xstruct, arguments
+		return pack(self.xstruct, *arguments)
 

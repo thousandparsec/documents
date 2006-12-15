@@ -1,5 +1,10 @@
+from types import *
+
 class Structure(object):
-	def __init__(self, name, longname, description="", example="", **kw):
+	def __init__(self, name=None, longname="", description="", example="", **kw):
+		if name is None:
+			raise ValueError("Name did not exist!")
+		
 		self.name = name
 		self.longname = longname
 		self.description = description
@@ -61,7 +66,7 @@ class CharacterStructure(StringStructure):
 			raise ValueError("Value is not the correct size! Must be length %i" % self.size)
 			
 	def length(self, value):
-		return 4*self.size
+		return self.size
 	
 	def xstruct(self):
 		if self.size == 1:
@@ -100,7 +105,7 @@ class IntegerStructure(Structure):
 
 	def check(self, value):
 		if not isinstance(value, (IntType, LongType)):
-			raise ValueError("Value must be a number")
+			raise ValueError("Value (%s) must be a number" % value)
 
 		# Do a bounds check now
 		if self.type == "signed":
@@ -132,6 +137,42 @@ class IntegerStructure(Structure):
 		return xstruct
 	xstruct = property(xstruct)
 
+import time
+from datetime import datetime
+class DateTimeStructure(Structure):
+	sizes = {
+		32: ('t'),
+		64: ('T'),
+	}
+
+	def __init__(self, *args, **kw):
+		Structure.__init__(self, *args, **kw)
+		if kw.has_key('size'):
+			size = kw['size']
+		else:
+			size = 64
+		
+		if not size in self.sizes.keys():
+			raise ValueError("Only supported sizes are %r not %i" % (self.sizes.keys(),size))
+		self.size = size
+	
+	def check(self, value):
+		if not isinstance(value, datetime):
+			raise ValueError("Value must be a datetime")
+
+		i = time.mktime(value.timetuple())
+		if i < 0:
+			raise ValueError("Value is too small! Must be bigger then %i" % min)
+		
+		if i > 2**self.size-1:
+			raise ValueError("Value is too big! Must be smaller then %i" % max)
+	
+	def length(self, value):
+		return self.size / 8
+	
+	def xstruct(self):
+		xstruct = self.sizes[self.size][0]
+	xstruct = property(xstruct)
 
 class EnumerationStructure(IntegerStructure):
 	def __init__(self, *args, **kw):
@@ -174,41 +215,6 @@ class EnumerationStructure(IntegerStructure):
 		return xstruct
 	xstruct = property(xstruct)
 
-class ListStructure(GroupStructure):
-	def check(self, list):
-		if not isinstance(list, (TupleType, ListType)):
-			raise ValueError("Value must be a list or tuple")
-		
-		for item in list:
-			if len(self.structures) != 1:
-				if not isinstance(item, (TupleType, ListType)):
-					raise ValueError("Value items must be a list or tuple not %r" % type(item))
-
-				if len(item) != len(self.structures):
-					raise ValueError("Value item was not the correct size (was %i must be %i)" % (len(item), len(self.structures)))
-			
-				for i in xrange(0, len(self.structures)):
-					self.structures[i].check(item[i])
-			else:
-				self.structures[0].check(item)
-	
-	def length(self, list):
-		length = 4
-		for item in list:
-			if len(self.structures) != 1:
-				for i in xrange(0, len(self.structures)):
-					length += self.structures[i].length(item[i])
-			else:
-				length += self.structures[0].check(item)
-		return length
-
-	def xstruct(self):
-		xstruct = "["
-		for struct in self.structures:
-			xstruct += struct.xstruct
-		return xstruct+"]"
-	xstruct = property(xstruct)
-
 class GroupStructure(Structure):
 	def __init__(self, *args, **kw):
 		Structure.__init__(self, *args, **kw)
@@ -246,3 +252,48 @@ class GroupStructure(Structure):
 		for struct in self.structures:
 			xstruct += struct.xstruct
 	xstruct = property(xstruct)
+
+class ListStructure(GroupStructure):
+	def check(self, list):
+		if not isinstance(list, (TupleType, ListType)):
+			raise ValueError("Value must be a list or tuple")
+		
+		for item in list:
+			if len(self.structures) != 1:
+				if not isinstance(item, (TupleType, ListType)):
+					raise ValueError("Value items must be a list or tuple not %r" % type(item))
+
+				if len(item) != len(self.structures):
+					raise ValueError("Value item was not the correct size (was %i must be %i)" % (len(item), len(self.structures)))
+			
+				for i in xrange(0, len(self.structures)):
+					self.structures[i].check(item[i])
+			else:
+				self.structures[0].check(item)
+	
+	def length(self, list):
+		length = 4
+		for item in list:
+			if len(self.structures) != 1:
+				for i in xrange(0, len(self.structures)):
+					length += self.structures[i].length(item[i])
+			else:
+				length += self.structures[0].check(item)
+		return length
+
+	def xstruct(self):
+		xstruct = "["
+		for struct in self.structures:
+			xstruct += struct.xstruct
+		return xstruct+"]"
+	xstruct = property(xstruct)
+
+String 		= StringStructure
+Character	= CharacterStructure
+Integer		= IntegerStructure
+DateTime	= DateTimeStructure
+Enumeration	= EnumerationStructure
+Group		= GroupStructure
+List		= ListStructure
+
+__all__ = ["StringStructure", "CharacterStructure", "IntegerStructure", "DateTimeStructure", "GroupStructure", "ListStructure"]

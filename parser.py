@@ -1,13 +1,18 @@
 
 import pprint
-
 from types import *
-from xstruct import pack, unpack, hexbyte
+import xml.parsers.expat
 
 # Squash warnings about hex/oct
 import warnings
 
-import xml.parsers.expat
+# Local Imports
+import Structures
+import objects
+
+convert = {
+	'id':	int,
+}
 
 class Parser(object):
 	def __init__(self):
@@ -16,7 +21,7 @@ class Parser(object):
 		self.structures = []
 
 	def StartElementHandler(self, name, attrs):
-		print "Start", name, attrs
+		#print "Start", name, attrs
 		self.mode.append(name)
 		self.attrs.append(attrs)
 		
@@ -25,7 +30,7 @@ class Parser(object):
 			if attrs.has_key("base"):
 				base = eval("objects." + attrs['base'])
 			else:
-				base = Packet
+				base = objects.Packet
 
 			class NewPacket(base):
 				pass
@@ -35,7 +40,7 @@ class Parser(object):
 			self.structures.append([])
 
 	def EndElementHandler(self, name):
-		print "End", name
+		#print "End", name
 		if name != self.mode[-1]:
 			raise ValueError("Element matching error")
 		name = self.mode.pop(-1)
@@ -45,13 +50,13 @@ class Parser(object):
 		if name in ("notes", "note", "example"):
 			return
 
-		print name, self.mode
-		print attrs, self.attrs
-		print "----------------------------------"
+		#print name, self.mode
+		#print attrs, self.attrs
+		#print "----------------------------------"
 		# Packet Attributes
 		if name in ("direction",):
 			if self.mode[-1] != "packet":
-				raise ValueError("Got a %s when not in a structure!" % name)
+				raise ValueError("Got a %s when not in a packet!" % name)
 				
 			self.attrs[-1][name] = self.data
 			del self.data
@@ -59,15 +64,19 @@ class Parser(object):
 		# Finished a packet
 		if name in ("packet",):
 			for key, value in attrs.items():
+				if key in convert:
+					value = convert[key](value)
 				setattr(self.packet, key, value)
+
+			print self.packet.name
 		
-			global objects
-			if not objects.has_key(self.packet.name):
+			if not hasattr(objects, self.packet.name):
 				setattr(objects, self.packet.name, self.packet)
 			else:
 				# Better check the prebuilt one is identical
 				print "Ignoring packet of type %s because it is hand coded."
 			del self.packet
+			print
 
 		# Finished a structure
 		if name in ("structure",):
@@ -92,7 +101,7 @@ class Parser(object):
 				return
 		
 		# Structure components
-		types = ("string", "character", "integer", "list", "group",)
+		types = ("string", "character", "integer", "list", "group", "enumeration", "datetime",)
 		if name in types:
 			if self.mode[-1] != "structure":
 				raise ValueError("Got a %s when not in a structure!" % name)
@@ -102,8 +111,18 @@ class Parser(object):
 				if key in ("size",):
 					value = long(value)
 				nattrs[str(key)] = value
-			
-			self.structures[-1].append(eval(name.title() + "Structure")(**nattrs))
+
+			# Check that atleast the basic arugments exist
+			packetname = self.attrs[self.__packetLevel()]['name']
+			if not nattrs.has_key('name'):
+				raise SyntaxError("%s on %s does not have a name" % (name.title(), packetname))
+			if not nattrs.has_key('longname'):
+				warnings.warn("%s on %s does not have a longname" % (nattrs['name'], packetname), SyntaxWarning)
+			if not nattrs.has_key('description'):
+				warnings.warn("%s on %s does not have a description" % (nattrs['name'], packetname), SyntaxWarning)
+
+			print "Structures.%sStructure" % name.title(), nattrs
+			self.structures[-1].append(eval("Structures.%sStructure" % name.title())(**nattrs))
 		
 		# Properties of a packet or structure
 		if name in ("name", "longname", "description", "example",):
@@ -118,6 +137,12 @@ class Parser(object):
 				self.attrs[-1][name] = self.data
 			del self.data
 
+	def __packetLevel(self):
+		n = -1
+		while self.mode[n] != "packet":
+			n -= 1
+		return n
+
 	def CharacterDataHandler(self, data):
 		self.data = data
 
@@ -125,9 +150,9 @@ class Parser(object):
 		p = xml.parsers.expat.ParserCreate()
 		c = cls()
 
-		print "dict", type(c), c.__dict__, cls.__dict__
+		#print "dict", type(c), c.__dict__, cls.__dict__
 		for name in cls.__dict__.keys():
-			if name.startswith('__') or name == "CreateParser":
+			if name.startswith('_') or name == "CreateParser":
 				continue
 			
 			value = getattr(c, name)
@@ -139,9 +164,9 @@ class Parser(object):
 
 if __name__ == "__main__":
 	parser = Parser.CreateParser()
-	parser.ParseFile(file("packet.xml", "r"))
+	parser.ParseFile(file("protocol.xml", "r"))
 
 	print objects
 	print dir(objects)
 
-	print objects.Okay("TP03", 2, 3, 23, "Test")
+	print objects.Okay(2, "Test")

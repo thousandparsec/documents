@@ -22,13 +22,15 @@ Extra stuff defined by this module:
 
  S	String
  Y	Padded String	
- [	List Start			(unsigned int32 length)
+ [	List Start		(unsigned int32 length)
  ]	List End	
- {  List Start			(unsigned int64 length)
- }  List End
- n  SInt16				(16 bit semi-signed integer)
- j  SInt32				(32 bit semi-signed integer)
- p  SInt64				(64 bit semi-signed integer)
+ {	List Start		(unsigned int64 length)
+ }	List End
+ n	SInt16			(16 bit semi-signed integer)
+ j	SInt32			(32 bit semi-signed integer)
+ p	SInt64			(64 bit semi-signed integer)
+ t	timestamp		(32 bit unsigned integer)
+ T	timestamp		(64 bit unsigned integer)
  
 The structure of the data in the list is described by the data inside the
 brackets.
@@ -57,6 +59,7 @@ _calcsize = struct.calcsize
 
 semi = {'n':(16, 'H'), 'j':(32, 'I'), 'p':(64, 'Q')}
 smallints = "njbBhHiI"
+times = {'T':'Q', 't':'I'}
 
 def hexbyte(string):
 	"""\
@@ -94,6 +97,8 @@ def pack(struct, *args):
 			# Find the closing brace
 			substruct, struct = string.split(struct, ']', maxsplit=1)
 			output += pack_list('I', substruct, args.pop(0))
+		elif char in 'Tt':
+			output += pack_time(args.pop(0), times[char])
 		elif char == 'S':
 			output += pack_string(args.pop(0))
 		elif char in string.digits:
@@ -163,6 +168,10 @@ def unpack(struct, s):
 			# Find the closing brace
 			substruct, struct = string.split(struct, ']', maxsplit=1)
 			data, s = unpack_list("I", substruct, s)
+			
+			output.append(data)
+		elif char in 'Tt':
+			data, s = unpack_time(s, times[char])
 			
 			output.append(data)
 		elif char == 'S':
@@ -282,3 +291,32 @@ def unpack_string(s):
 		return output, s
 	else:
 		return "", s
+
+
+import time
+from datetime import datetime
+
+def unpack_time(s, type='I'):
+	"""\
+	*Internal*
+
+	Returns the datetime object and any remaining data.
+	"""
+	(l,), s = unpack("!"+type, s)
+	if l < 0:
+		return None
+	return datetime.fromtimestamp(l), s
+
+def pack_time(t, type='I'):
+	"""\
+	*Internal*
+
+	Returns the datetime object and any remaining data.
+	"""
+	if t is None:
+		t = -1
+	else:
+		t = time.mktime(t.timetuple())
+	s = pack("!"+type, t)
+	return s
+
