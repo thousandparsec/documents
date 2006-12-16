@@ -150,31 +150,31 @@
 	</structure>
 	<note>
 			Requirements:
-			&gt;ul&lt;
-				&gt;li&lt;To start a sequence, the key of -1 should be sent in the first request&gt;/li&lt;
-				&gt;li&lt;Subsequent requests in a sequence should use the key which is returned&gt;/li&lt;
-				&gt;li&lt;All requests must be continuous and ascending&gt;/li&lt;
-				&gt;li&lt;Only one sequence key can exist at any time, starting a new sequence causes the old one to be discarded&gt;/li&lt;
-				&gt;li&lt;Key persist for only as long as the connection remains and there are IDs left in the sequence&gt;/li&lt;
-			&gt;/ul&lt;
+			&lt;ul&gt;
+				&lt;li&gt;To start a sequence, the key of -1 should be sent in the first request&lt;/li&gt;
+				&lt;li&gt;Subsequent requests in a sequence should use the key which is returned&lt;/li&gt;
+				&lt;li&gt;All requests must be continuous and ascending&lt;/li&gt;
+				&lt;li&gt;Only one sequence key can exist at any time, starting a new sequence causes the old one to be discarded&lt;/li&gt;
+				&lt;li&gt;Key persist for only as long as the connection remains and there are IDs left in the sequence&lt;/li&gt;
+			&lt;/ul&gt;
 			Other Information:
-			&gt;ul&lt;
-				&gt;li&lt;
+			&lt;ul&gt;
+				&lt;li&gt;
 					If the number of IDs to get is -1, then all (remaining) IDs should be returned.
-				&gt;/li&lt;&gt;li&lt;
+				&lt;/li&gt;&lt;li&gt;
 					If a key becomes invalid because of some change on the server (IE the ID order changes because
 					of modification by another client) a Fail packet will be returned
-				&gt;/li&lt;&gt;li&lt;
+				&lt;/li&gt;&lt;li&gt;
 					If the client for a key requests any of the following a Fail packet will be returned
-					&gt;ul&lt;
-						&gt;li&lt;a range has already had any part already given (IE no overlaps)&gt;/li&lt;
-						&gt;li&lt;a range specifies a range which starts below the ending (IE requesting from 6, 10 then 0 to 5)&gt;/li&lt;
-						&gt;li&lt;a range is bigger then the remaining IDs left (IE requesting 6 when only 4 remain)&gt;/li&lt;
-					&gt;/ul&lt;
-				&gt;/li&lt;
-			&gt;/ul&lt;
+					&lt;ul&gt;
+						&lt;li&gt;a range has already had any part already given (IE no overlaps)&lt;/li&gt;
+						&lt;li&gt;a range specifies a range which starts below the ending (IE requesting from 6, 10 then 0 to 5)&lt;/li&gt;
+						&lt;li&gt;a range is bigger then the remaining IDs left (IE requesting 6 when only 4 remain)&lt;/li&gt;
+					&lt;/ul&gt;
+				&lt;/li&gt;
+			&lt;/ul&gt;
 
-			&gt;b&lt;Note:&gt;/b&lt; All servers must follow all the requirements above even if the server could allow otherwise.
+			&lt;b&gt;Note:&lt;/b&gt; All servers must follow all the requirements above even if the server could allow otherwise.
 	</note>
 </packet>
 
@@ -226,13 +226,13 @@
 		service (IE If you using the tunnel service it will only redirect to another tunnel service).
 
 		Example URIs:
-		&gt;ul&lt;
-			&gt;li&lt;tp://mithro.dyndns.org/ - Connect on standard tp port&gt;/li&lt;
-			&gt;li&lt;tps://mithro.dyndns.org/ - Connect on standard tps port using SSL&gt;/li&lt;
-			&gt;li&lt;tp://mithro.dyndns.org:6999/ - Connect on port 6999&gt;/li&lt;
-			&gt;li&lt;http://mithro.dyndns.org/ - Connect using HTTP tunneling&gt;/li&lt;
-			&gt;li&lt;https://mithro.dyndns.org/ - Connect using HTTPS tunneling&gt;/li&lt;
-		&gt;/ul&lt;
+		&lt;ul&gt;
+			&lt;li&gt;tp://mithro.dyndns.org/ - Connect on standard tp port&lt;/li&gt;
+			&lt;li&gt;tps://mithro.dyndns.org/ - Connect on standard tps port using SSL&lt;/li&gt;
+			&lt;li&gt;tp://mithro.dyndns.org:6999/ - Connect on port 6999&lt;/li&gt;
+			&lt;li&gt;http://mithro.dyndns.org/ - Connect using HTTP tunneling&lt;/li&gt;
+			&lt;li&gt;https://mithro.dyndns.org/ - Connect using HTTPS tunneling&lt;/li&gt;
+		&lt;/ul&gt;
 	</note>
 </packet>
 
