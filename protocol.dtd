@@ -1,24 +1,24 @@
-<!ELEMENT protocol (packet+)>
-<!ATTRLIST protocol version CDATA #REQUIRED>
-<!ELEMENT packet longname? direction? description? structure? note*>
-<!ATTRLIST packet name ID #REQUIRED base IDREF #IMPLIED>
-<!ELEMENT longname (#PCDATA)>
-<!ELEMENT direction (#PCDATA)>
-<!ELEMENT description (#PCDATA)>
+<!ELEMENT protocol (packet+) >
+<!ATTLIST protocol version CDATA #REQUIRED >
+<!ELEMENT packet (longname?, direction?, description?, structure?, note*) >
+<!ATTLIST packet name ID #REQUIRED base IDREF #IMPLIED >
+<!ELEMENT longname (#PCDATA) >
+<!ELEMENT direction (#PCDATA) >
+<!ELEMENT description (#PCDATA) >
 <!ELEMENT structure (character | integer | string | enumeration | list | group)* >
-<!ELEMENT character name longname description example note?>
-<!ATTRLIST character size CDATA "1">
-<!ELEMENT name (#PCDATA)>
-<!ELEMENT example (#PCDATA)>
-<!ELEMENT note (#PCDATA)>
-<!ELEMENT element name longname description example note*>
-<!ATTRLIST element type (signed|unsigned|semisigned) #REQUIRED size CDATA "32">
-<!ELEMENT string name longname description example note*>
-<!ELEMENT enumeration name longname description values example note*>
-<!ATTRLIST enumeration type (signed|unsigned|semisigned) #REQUIRED size CDATA "32">
-<!ELEMENT values value+>
+<!ELEMENT character (name, longname, description, example, note?) >
+<!ATTLIST character size CDATA "1" >
+<!ELEMENT name (#PCDATA) >
+<!ELEMENT example (#PCDATA) >
+<!ELEMENT note (#PCDATA) >
+<!ELEMENT element (name, longname, description, example, note*) >
+<!ATTLIST element type (signed|unsigned|semisigned) #REQUIRED size CDATA "32" >
+<!ELEMENT string (name, longname, description, example, note*) >
+<!ELEMENT enumeration (name, longname, description, values, example, note*) >
+<!ATTLIST enumeration type (signed|unsigned|semisigned) #REQUIRED size CDATA "32" >
+<!ELEMENT values (value+) >
 <!ELEMENT value (#PCDATA)>
-<!ATTRLIST value id CDATA #REQUIRED name CDATA #REQUIRED>
-<!ELEMENT list name longname description structure example note*>
-<!ELEMENT group name longname description structure example note*>
+<!ATTLIST value id CDATA #REQUIRED name CDATA #REQUIRED >
+<!ELEMENT list (name, longname, description, structure, example, note*) >
+<!ELEMENT group (name, longname, description, structure, example, note*) >
 
