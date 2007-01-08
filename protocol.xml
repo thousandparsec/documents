@@ -75,12 +75,12 @@
 	<packet base="Response" name="Sequence" id="2">
 		<description>Frame which says that there are multiple frames coming in response to the request.</description>
 		<structure>
-			<string>
+			<integer type="unsigned" size="32">
 				<name>number</name>
 				<longname>Number of Frames</longname>
 				<description>Number of frames which will follow this one.</description>
 				<example>34</example>
-			</string>
+			</integer>
 		</structure>
 	</packet>
 
