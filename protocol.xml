@@ -17,6 +17,7 @@
 				<example>2345</example>
 			</integer>
 			<integer type="unsigned" size="32">
+				<subtype />
 				<name>type</name>
 				<longname>Type</longname>
 				<description>Type of packet</description>
@@ -361,6 +362,7 @@
 			<name>otype</name>
 			<longname>Object Type</longname>
 			<description>The type of the object.</description>
+			<subtype />
 		</integer>
 		<string>
 			<name>name</name>
@@ -444,6 +446,92 @@
 		Note: The number of orders should be the number of orders the person can see on the
 		object. Not the total number of orders on the object. 
 	</note>
+</packet>
+
+<packet base="Object" name="Universe" id="7:0">
+	<longname>Universe</longname>
+	<structure>
+		<integer type="unsigned" size="32">
+			<name>age</name>
+			<longname>Age in Turns</longname>
+			<description>The number of turns for which the Universe (i.e., the game) has existed.</description>
+		</integer>
+	</structure>
+</packet>
+<packet base="Object" name="Galaxy" id="7:1">
+	<longname>Galaxy</longname>
+</packet>
+<packet base="Object" name="StarSystem" id="7:2">
+	<longname>Star System</longname>
+</packet>
+<packet base="Object" name="Planet" id="7:3">
+	<longname>Planet</longname>
+	<structure>
+		<integer type="signed" size="32">
+			<name>owner</name>
+			<longname>Owning Player</longname>
+			<description>The ID of the Player that owns this Planet.</description>
+		</integer>
+		<list>
+			<name>resources</name>
+			<longname>Resources</longname>
+			<description>The resources available from this planet.</description>
+			<structure>
+				<integer type="unsigned" size="32">
+					<name>resource</name>
+					<longname>Resource</longname>
+					<description>The Resource</description>
+				</integer>
+				<integer type="unsigned" size="32">
+					<name>surface</name>
+					<longname>Surface</longname>
+					<description>Units of this resource that are on the planet's surface.</description>
+				</integer>
+				<integer type="unsigned" size="32">
+					<name>minable</name>
+					<longname>Minable</longname>
+					<description>Units of this resource that are minable from this planet.</description>
+				</integer>
+				<integer type="unsigned" size="32">
+					<name>inaccessible</name>
+					<longname>Inaccessible</longname>
+					<description>Units of this resource that are not accessible.</description>
+				</integer>
+			</structure>
+		</list>
+	</structure>
+</packet>
+<packet base="Object" name="Fleet" id="7:4">
+	<longname>Fleet</longname>
+	<structure>
+		<integer type="signed" size="32">
+			<name>owner</name>
+			<longname>Owning Player</longname>
+			<description>The ID of the Player that owns this Planet.</description>
+		</integer>
+		<list>
+			<name>ships</name>
+			<longname>Ships</longname>
+			<description>The ships assigned to this fleet.</description>
+			<structure>
+				<integer type="unsigned" size="32">
+					<name>shiptype</name>
+					<longname>Ship Type</longname>
+					<description>The type of the ship</description>
+				</integer>
+				<integer type="unsigned" size="32">
+					<name>count</name>
+					<longname>Ship Count</longname>
+					<description>The number of this ships of this type that are in the fleet.</description>
+				</integer>
+			</structure>
+		</list>
+		<integer type="unsigned" size="32">
+			<name>damage</name>
+			<longname>Damage Taken</longname>
+			<description>The total amount of damage that this fleet has sustained in combat.</description>
+		</integer>
+	</structure>
 </packet>
 
 
