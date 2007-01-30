@@ -17,10 +17,10 @@
 				<example>2345</example>
 			</integer>
 			<integer type="unsigned" size="32">
-				<subtype />
 				<name>type</name>
 				<longname>Type</longname>
 				<description>Type of packet</description>
+				<subtype />
 				<example>2</example>
 			</integer>
 			<integer type="unsigned" size="32">
@@ -93,13 +93,13 @@
 				<name>ids</name>
 				<longname>IDs</longname>
 				<description>The IDs to get.</description>
-				<example>10, 5, 6</example>
 				<structure>
 					<integer type="unsigned" size="32">
 						<name>id</name>
 						<longname>ID</longname>
 					</integer>
 				</structure>
+				<example>10, 5, 6</example>
 			</list>
 		</structure>
 	</packet>
@@ -117,13 +117,13 @@
 				<name>slots</name>
 				<longname>Slots</longname>
 				<description>The slots on the thing to get.</description>
-				<example>10, 5, 6</example>
 				<structure>
 					<integer type="unsigned" size="32">
 						<name>slot</name>
 						<longname>Slot</longname>
 					</integer>
 				</structure>
+				<example>10, 5, 6</example>
 				<note>An empty list is equivalent to requesting all slots.</note>
 			</list>
 		</structure>
@@ -595,7 +595,7 @@
 	<longname>List of Object IDs</longname>
 </packet>
 
---><!--
+<!--
 <packet id="8" base="GetWithID" name="GetOrderDesc">
 	<longname>Get Order Description</longname>
 </packet>

@@ -1,24 +1,39 @@
-<!ELEMENT protocol (packet+) >
+<!ELEMENT protocol (parameterset*, packet+) >
 <!ATTLIST protocol version CDATA #REQUIRED >
-<!ELEMENT packet (longname?, direction?, description?, structure?, note*) >
-<!ATTLIST packet name ID #REQUIRED base IDREF #IMPLIED >
+
+<!-- some common elements -->
 <!ELEMENT longname (#PCDATA) >
-<!ELEMENT direction (#PCDATA) >
 <!ELEMENT description (#PCDATA) >
-<!ELEMENT structure (character | integer | string | enumeration | list | group)* >
-<!ELEMENT character (name, longname, description, example, note?) >
-<!ATTLIST character size CDATA "1" >
 <!ELEMENT name (#PCDATA) >
 <!ELEMENT example (#PCDATA) >
 <!ELEMENT note (#PCDATA) >
-<!ELEMENT element (name, longname, description, example, note*) >
-<!ATTLIST element type (signed|unsigned|semisigned) #REQUIRED size CDATA "32" >
-<!ELEMENT string (name, longname, description, example, note*) >
-<!ELEMENT enumeration (name, longname, description, values, example, note*) >
+
+<!-- Packet -->
+
+<!ELEMENT packet (longname?, direction?, description?, structure?, note*) >
+<!ATTLIST packet name ID #REQUIRED base IDREF #IMPLIED id NMTOKEN #IMPLIED>
+<!ELEMENT direction (#PCDATA) >
+<!ELEMENT structure (character | integer | string | enumeration | list | group)* >
+
+<!-- stucture types -->
+<!ELEMENT character (name, longname?, description?, example?, note?) >
+<!ATTLIST character size CDATA "1" >
+<!ELEMENT integer (name, longname?, description?, subtype?, example?, note*) >
+<!ATTLIST integer type (signed|unsigned|semisigned) #REQUIRED size CDATA "32" >
+<!ELEMENT subtype EMPTY >
+<!ELEMENT string (name, longname, description?, example?, note*) >
+<!ELEMENT enumeration (name, longname, description, values, example?, note*) >
 <!ATTLIST enumeration type (signed|unsigned|semisigned) #REQUIRED size CDATA "32" >
 <!ELEMENT values (value+) >
 <!ELEMENT value (#PCDATA)>
 <!ATTLIST value id CDATA #REQUIRED name CDATA #REQUIRED >
-<!ELEMENT list (name, longname, description, structure, example, note*) >
-<!ELEMENT group (name, longname, description, structure, example, note*) >
+<!ELEMENT list (name, longname, description?, structure, example?, note*) >
+<!ELEMENT group (name, longname, description?, structure, example?, note*) >
 
+<!-- Parameterset -->
+<!ELEMENT parameterset (longname?, description?, parameter+, note*) >
+<!ATTLIST parameterset name ID #REQUIRED >
+<!ELEMENT parameter (longname?, description?, descstruct, usestruct, note*) >
+<!ATTLIST parameter name ID #REQUIRED type NMTOKEN #REQUIRED >
+<!ELEMENT descstruct (structure) >
+<!ELEMENT usestruct (structure) >
