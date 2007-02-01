@@ -13,22 +13,28 @@
 <!ELEMENT packet (longname?, direction?, description?, structure?, note*) >
 <!ATTLIST packet name ID #REQUIRED base IDREF #IMPLIED id NMTOKEN #IMPLIED>
 <!ELEMENT direction (#PCDATA) >
-<!ELEMENT structure (character | integer | string | enumeration | list | group)* >
+<!ELEMENT structure (character | integer | string | enumeration | list | group | useparameters | descparameter )* >
 
 <!-- stucture types -->
 <!ELEMENT character (name, longname?, description?, example?, note?) >
-<!ATTLIST character size CDATA "1" >
+<!ATTLIST character size CDATA "1" readonly CDATA "no"  >
 <!ELEMENT integer (name, longname?, description?, subtype?, example?, note*) >
-<!ATTLIST integer type (signed|unsigned|semisigned) #REQUIRED size CDATA "32" >
+<!ATTLIST integer type (signed|unsigned|semisigned) #REQUIRED size CDATA "32" readonly CDATA "no" >
 <!ELEMENT subtype EMPTY >
 <!ELEMENT string (name, longname, description?, example?, note*) >
+<!ATTLIST string readonly CDATA "no" >
 <!ELEMENT enumeration (name, longname, description, values, example?, note*) >
-<!ATTLIST enumeration type (signed|unsigned|semisigned) #REQUIRED size CDATA "32" >
+<!ATTLIST enumeration type (signed|unsigned|semisigned) #REQUIRED size CDATA "32" style (list | mask | single) #REQUIRED readonly CDATA "no"  >
 <!ELEMENT values (value+) >
 <!ELEMENT value (#PCDATA)>
 <!ATTLIST value id CDATA #REQUIRED name CDATA #REQUIRED >
-<!ELEMENT list (name, longname, description?, structure, example?, note*) >
+<!ELEMENT list (name, longname, description?, structure, example?, note*)  >
+<!ATTLIST list readonly CDATA "no" >
 <!ELEMENT group (name, longname, description?, structure, example?, note*) >
+<!ELEMENT useparameters EMPTY >
+<!ATTLIST useparameters ref IDREF #REQUIRED >
+<!ELEMENT descparameter EMPTY >
+<!ATTLIST descparameter ref IDREF #REQUIRED >
 
 <!-- Parameterset -->
 <!ELEMENT parameterset (longname?, description?, parameter+, note*) >
