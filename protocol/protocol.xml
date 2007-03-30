@@ -641,6 +641,8 @@
 						<value id="0x4" name="HTTPThere">HTTP Tunneling available on another port.</value>
 						<value id="0x5" name="KeepAlive">Support Keep alive frames.</value>
 						<value id="0x6" name="PropertyCalc">Support server side property calculation.</value>
+						
+						<value id="0x3E8" name="AccountCreate">Account creation is allowed.</value>
 						<value id="0x10000" name="DescObjectID">Sends Object ID Sequences in descending modified time order.</value>
 						<value id="0x10001" name="DescOrderID">Sends Order Description ID Sequences in descending modified time order.</value>
 						<value id="0x10002" name="DescBoardID">Sends Board ID Sequences in descending modified time order.</value>
