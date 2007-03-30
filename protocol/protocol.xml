@@ -605,6 +605,11 @@
 			<description>A comment for the account.</description>
 		</string>
 	</structure>
+	<note>
+		The password is transmitted in plain text. To avoid interception SSL service 
+		should be used. Some servers may refuse to authenticate on the unencrypted 
+		service and only run it to allow detection of encryption support.
+	</note>
 </packet>
 
 <packet base="Request" name="GetFeatures" id="25">
@@ -1003,7 +1008,7 @@
 	</note>
 </packet>
 
-<!--
+
 <packet id="14" base="Request" name="GetTimeRemaining">
 	<longname>Get Time Remaining</longname>
 	<description>Get the time remaining before the end of turn.</description>
@@ -1014,9 +1019,9 @@
 	<longname>Time Remaining</longname>
 	<structure>
 		<integer type="unsigned" size="32">
-			<name>the time in seconds before the next end of turn starts</name>
-			<longname>the time in seconds before the next end of turn starts</longname>
-			<description>the time in seconds before the next end of turn starts</description>
+			<name>time</name>
+			<longname>Time to Next Turn</longname>
+			<description>The time in seconds before the next end of turn starts</description>
 		</integer>
 	</structure>
 	<note>
@@ -1034,22 +1039,23 @@
 	<longname>Board</longname>
 	<structure>
 		<integer type="unsigned" size="32">
-			<name>Board ID</name>
+			<name>id</name>
 			<longname>Board ID</longname>
 			<description>Board ID</description>
 		</integer>
 		<string>
-			<name></name>
-			<longname></longname>
-			<description></description>
+			<name>name</name>
+			<longname>Board Name</longname>
+			<description>The name of the board.</description>
 		</string>
 		<string type="formatted">
-			<name>description of the Board</name>
+			<name>description</name>
+			<longname>Description of the board.</longname>
 		</string>
 		<integer type="unsigned" size="32">
-			<name>number of messages on the Board</name>
-			<longname>number of messages on the Board</longname>
-			<description>number of messages on the Board</description>
+			<name>messages</name>
+			<longname>Number of Messages</longname>
+			<description>The number of messages on the Board.</description>
 		</integer>
 		<integer type="unsigned" size="64">
 			<name>modtime</name>
@@ -1076,29 +1082,34 @@
 
 
 <packet id="18" base="GetWithIDandSlot" name="GetMessage">
---><!-- Remove Message">--><!--
 	<longname>Get Message</longname>
 </packet>
 
-<packet id="21" base="GetMessage" name="RemoveMessage">
-	<longname>Remove Message</longname>
-</packet>
-
 <packet id="19" base="Response" name="Message">
---><!-- Post Message">--><!--
-	<longname>Message Frame, Post Message</longname>
-
-
+	<longname>Message Frame</longname>
 	<structure>
 		<integer type="unsigned" size="32">
-			<name>Board ID of the message is on/to be placed on</name>
-			<longname>Board ID of the message is on/to be placed on</longname>
-			<description>Board ID of the message is on/to be placed on</description>
+			<name>id</name>
+			<longname>Board ID</longname>
+			<description>The Board ID of the message is on.</description>
 		</integer>
 		<integer type="semisigned" size="32">
-			<name>slot number of the message/to be put in</name>
-			<note>-1 will insert at the last position, otherwise it is inserted before the number</note>
+			<name>slot</name>
+			<longname>Slot</longname>
+			<description>The slot that the message is in.</description>
+			<note>When used by the Post Message frame, -1 will insert at the last position, otherwise it is inserted before the number</note>
 		</integer>
+		<list>
+			<name>msgtypelist</name>
+			<longname>Unused Message type list</longname>
+			<structure>
+				<integer type="unsigned" size="32">
+					<name>msgtype</name>
+					<longname>Unused Message type</longname>
+					<description>As of TP03 is it no longer used.</description>
+				</integer>
+			</structure>
+		</list>
 		<string type="formatted">
 			<name>Subject of the message</name>
 		</string>
@@ -1110,7 +1121,20 @@
 			<name>Turn the message was generated on</name>
 		</integer>
 		<list>
---><!--		<integerli class="new">a list of as described in the Generic Reference System</li> --><!--
+			<name>references</name>
+			<longname>References</longname>
+			<description>A list of as described in the Generic Reference System</description>
+			<structure>
+				<integer type="signed" size="32">
+					<name>type</name>
+					<longname>Reference Type</longname>
+					<description>type of thing being referenced</description>
+				</integer>
+				<integer type="unsigned" size="32">
+					<name>id</name>
+					<longname>The ID of the thing referenced</longname>
+				</integer>
+			</structure>
 		</list>
 	</structure>
 
@@ -1121,89 +1145,84 @@
 
 	The reference system uses two integers to reference any object in the game. The first integer indicated what
 	type of thing is being referenced and the second gives the ID of the thing being referenced.
-	</note>
---><!--
-	<structure>
-		<integer type="signed" size="type of thing being referenced">
-			<name></name>
-			<longname></longname>
-			<description></description>
-		</integer>
-		<integer type="unsigned" size="32">
-			<name>the ID of the object being referenced</name>
-			<longname>the ID of the object being referenced</longname>
-			<description>the ID of the object being referenced</description>
-		</integer>
-	</structure>
-
+	
 	As well the references system has a bunch of references which point to "actions" (from example an order 
 	completing). As these do not refer to actual items in the game the type is negative.
 
 	The types used in the reference system are described below,
-	<ul class="new">
-		<li>-1000 - Server specific action reference</li>
-		<li>-5? - Design action reference</li>
-		<li>-4? - Player action reference</li>
-		<li>-3? - Message action reference</li>
-		<li>-2 - Order action special reference</li>
-		<li>-1 - Object action reference</li>
-		<li>0 - Misc special reference</li>
-		<li>1 - Object</li>
-		<li>2 - Order Type (IE A type of order)</li>
-		<li>3 - Order Instance (An actual order on an object, should also include an Object reference)</li>
-		<li>4 - Board</li>
-		<li>5 - Message (Should also include a Board reference)</li>
-		<li>6 - Resource Description</li>
-		<li>7 - Player</li>
-		<li>8? - Category</li>
-		<li>9? - Component</li>
-	</structure>
+	&lt;ul&gt;
+		&lt;li&gt;-1000 - Server specific action reference&lt;/li&gt;
+		&lt;li&gt;-5? - Design action reference&lt;/li&gt;
+		&lt;li&gt;-4? - Player action reference&lt;/li&gt;
+		&lt;li&gt;-3? - Message action reference&lt;/li&gt;
+		&lt;li&gt;-2 - Order action special reference&lt;/li&gt;
+		&lt;li&gt;-1 - Object action reference&lt;/li&gt;
+		&lt;li&gt;0 - Misc special reference&lt;/li&gt;
+		&lt;li&gt;1 - Object&lt;/li&gt;
+		&lt;li&gt;2 - Order Type (IE A type of order)&lt;/li&gt;
+		&lt;li&gt;3 - Order Instance (An actual order on an object, should also include an Object reference)&lt;/li&gt;
+		&lt;li&gt;4 - Board&lt;/li&gt;
+		&lt;li&gt;5 - Message (Should also include a Board reference)&lt;/li&gt;
+		&lt;li&gt;6 - Resource Description&lt;/li&gt;
+		&lt;li&gt;7 - Player&lt;/li&gt;
+		&lt;li&gt;8? - Category&lt;/li&gt;
+		&lt;li&gt;9? - Component&lt;/li&gt;
+	&lt;/ul&gt;
 	
 
 	The special references are listed below,
 
 
 	Misc
-	<ol>
-		<li class="new">System Message, this message is from a the internal game system</li>
-		<li class="new">Administration Message, this message is an message from game administrators</li>
-		<li class="new">Important Message, this message is flagged to be important</li>
-		<li class="new">Unimportant Message, this message is flagged as unimportant</li>
-	</ol>
+	&lt;ol&gt;
+		&lt;li&gt;System Message, this message is from a the internal game system&lt;/li&gt;
+		&lt;li&gt;Administration Message, this message is an message from game administrators&lt;/li&gt;
+		&lt;li&gt;Important Message, this message is flagged to be important&lt;/li&gt;
+		&lt;li&gt;Unimportant Message, this message is flagged as unimportant&lt;/li&gt;
+	&lt;/ol&gt;
 	
 
 	Player Action
-	<ol>
-		<li class="new">Player Eliminated, this message refers to the elimination of a player from the game</li>
-		<li class="new">Player Quit, this message refers to a player leaving the game</li>
-		<li class="new">Player Joined, this message refers to a new player joining the game</li>
-	</ol>
+	&lt;ol&gt;
+		&lt;li&gt;Player Eliminated, this message refers to the elimination of a player from the game&lt;/li&gt;
+		&lt;li&gt;Player Quit, this message refers to a player leaving the game&lt;/li&gt;
+		&lt;li&gt;Player Joined, this message refers to a new player joining the game&lt;/li&gt;
+	&lt;/ol&gt;
 	
 
 	Order Action
-	<ol>
-		<li>Order Completion, this message refers to a completion of an order</li>
-		<li>Order Canceled, this message refers to the cancellation of an order (IE Building a ship and ship yard destroyed)</li>
-		<li class="new">Order Incompatible, this message refers to the inability to complete an order (IE Build Ship A when not enough material for Ship A is available)</li>
-		<li class="new">Order Invalid, this message refers to an order which is invalid (IE Mine order on a fleet with no remote miners)</li>
-	</ol>
+	&lt;ol&gt;
+		&lt;li&gt;Order Completion, this message refers to a completion of an order&lt;/li&gt;
+		&lt;li&gt;Order Canceled, this message refers to the cancellation of an order (IE Building a ship and ship yard destroyed)&lt;/li&gt;
+		&lt;li&gt;Order Incompatible, this message refers to the inability to complete an order (IE Build Ship A when not enough material for Ship A is available)&lt;/li&gt;
+		&lt;li&gt;Order Invalid, this message refers to an order which is invalid (IE Mine order on a fleet with no remote miners)&lt;/li&gt;
+	&lt;/ol&gt;
 
 
 	Object Action
-	<ol>
-		<li class="new">Object Idle, this message refers to an object having nothing to do</li>
-	</ol>
+	&lt;ol&gt;
+		&lt;li&gt;Object Idle, this message refers to an object having nothing to do&lt;/li&gt;
+	&lt;/ol&gt;
 	
 
 	Examples:
-	<ul class="new">
-		<li>(1, 6) would be a message about/from player 6</li>
-		<li>(0, 1) would be a system message</li>
-		<li>(-1, 3) would be a player joined message</li>
-	</structure>
+	&lt;ul&gt;
+		&lt;li&gt;(1, 6) would be a message about/from player 6&lt;/li&gt;
+		&lt;li&gt;(0, 1) would be a system message&lt;/li&gt;
+		&lt;li&gt;(-1, 3) would be a player joined message&lt;/li&gt;
+	&lt;/ul&gt;
 
---><!--
+	</note>
 </packet>
+
+<packet id="20" base="Message" name="PostMessage">
+	<longname>Post Message</longname>
+</packet>
+
+<packet id="21" base="GetMessage" name="RemoveMessage">
+	<longname>Remove Message</longname>
+</packet>
+
 
 <packet id="22" base="GetWithID" name="GetResource">
 	<longname>Get Resource Description</longname>
@@ -1283,21 +1302,20 @@
 			<description>the Player id</description>
 		</integer>
 		<string>
-			<name></name>
-			<longname></longname>
-			<description></description>
+			<name>name</name>
+			<longname>Player's Name</longname>
+			<description>The player's name.</description>
 		</string>
 		<string>
-			<name></name>
-			<longname></longname>
-			<description></description>
+			<name>race</name>
+			<longname>Player's Race</longname>
+			<description>The race of the player.</description>
 		</string>
-				<li>(more?)</li>
-			</structure>
-		<note>
-			FIXME: Should this include details about a race? What happens if a player controls more then
-			once race? What if a player can have partial control over an allies race? What about player governors?
-		</note>
+	</structure>
+	<note>
+		FIXME: Should this include details about a race? What happens if a player controls more then
+		once race? What if a player can have partial control over an allies race? What about player governors?
+	</note>
 </packet>
 
 
@@ -1330,21 +1348,24 @@
 		</string>
 	</structure>
 	<note>
-			<b>Note:</b>If adding a category send the ID as -1. The returned Category frame will contain 
+			&lt;b&gt;Note:&lt;/b&gt;If adding a category send the ID as -1. The returned Category frame will contain 
 			the ID of the newly added category.
 
-			<b>Note:</b>If adding the last modified time will be ignored.
+			&lt;b&gt;Note:&lt;/b&gt;If adding the last modified time will be ignored.
 	</note>
 </packet>
 
 <packet id="43" base="Category" name="AddCategory">
+	<longname>Add Category</longname>
 </packet>
 
 <packet id="45" base="GetIDSequence" name="GetCategoryIDs">
+	<longname>Get Category IDs</longname>
 </packet>
 
 
 <packet id="46" base="IDSequence" name="CategoryIDs">
+	<longname>List of Category IDs</longname>
 </packet>
 
 
@@ -1353,6 +1374,7 @@
 </packet>
 
 <packet id="51" base="GetDesign" name="RemoveDesign">
+	<longname>Remove Design</longname>
 </packet>
 
 <packet id="48" base="Response" name="Design">
@@ -1360,11 +1382,11 @@
 
 
 	<structure>
-<integer type="unsigned" size="32">
-	<name>Design ID</name>
-	<longname>Design ID</longname>
-	<description>Design ID</description>
-</integer>
+		<integer type="unsigned" size="32">
+			<name>Design ID</name>
+			<longname>Design ID</longname>
+			<description>Design ID</description>
+		</integer>
 		<integer type="unsigned" size="64">
 			<name>modtime</name>
 			<longname>Last Modification Time</longname>
@@ -1383,78 +1405,85 @@
 		<string type="formatted">
 			<name>description of the design</name>
 		</string>
-<integer type="semisigned" size="32">
-	<name>number of times the design is in use</name>
-	<longname>number of times the design is in use</longname>
-	<description>number of times the design is in use</description>
-</integer>
-<integer type="semisigned" size="32">
-	<name>owner of the design</name>
-	<longname>owner of the design</longname>
-	<description>owner of the design</description>
-</integer>
-		<li>
-			a list of,
-				<structure>
-<integer type="unsigned" size="32">
-	<name>component id</name>
-	<longname>component id</longname>
-	<description>component id</description>
-</integer>
-<integer type="unsigned" size="32">
-	<name>the number of components</name>
-	<longname>the number of components</longname>
-	<description>the number of components</description>
-</integer>
-				</structure>
-		</li>
+		<integer type="semisigned" size="32">
+			<name>number of times the design is in use</name>
+			<longname>number of times the design is in use</longname>
+			<description>number of times the design is in use</description>
+		</integer>
+		<integer type="semisigned" size="32">
+			<name>owner of the design</name>
+			<longname>owner of the design</longname>
+			<description>owner of the design</description>
+		</integer>
+		<list>
+			<name>components</name>
+			<longname>Component List</longname>
+			<structure>
+				<integer type="unsigned" size="32">
+					<name>component id</name>
+					<longname>component id</longname>
+					<description>component id</description>
+				</integer>
+				<integer type="unsigned" size="32">
+					<name>the number of components</name>
+					<longname>the number of components</longname>
+					<description>the number of components</description>
+				</integer>
+			</structure>
+		</list>
 		<string type="formatted">
 			<name>human readable feedback on the design</name>
 		</string>
-		<li>
-			a list of,
-				<structure>
-<integer type="unsigned" size="32">
-	<name>property id</name>
-	<longname>property id</longname>
-	<description>property id</description>
-</integer>
-					<string type="formatted">
-			<name>property display string</name>
-		</string>
-				</structure>
-		</li>
+		<list>
+			<name>properties</name>
+			<longname>List of Properties</longname>
+			<structure>
+				<integer type="unsigned" size="32">
+					<name>property id</name>
+					<longname>property id</longname>
+					<description>property id</description>
+				</integer>
+				<string type="formatted">
+					<name>property display string</name>
+				</string>
+			</structure>
+		</list>
 	</structure>
 
-	<b>Note:</b>If adding a design send the ID as -1. The returned Design frame will contain the ID of 
-	the newly added design.
-
-	<b>Note:</b>If adding the following fields will be ignored by the server so should be transmitted as
-	empty (although not required to be),
-	<structure>
-		<li>last modified time</li>
-		<li>number of times in use</li>
-		<li>feedback string</li>
-		<li>property list</li>
-	</structure>
-
-	<b>Note:</b>If usage is -1, then the design is unusable.
-
-	<b>Note:</b>If owner is -1, then the design is owned by an unknown player (or not owned by anyone).
-
+	<note>
+		&lt;b&gt;Note:&lt;/b&gt;If adding a design send the ID as -1. The returned Design frame will contain the ID of 
+		the newly added design.
+	
+		&lt;b&gt;Note:&lt;/b&gt;If adding the following fields will be ignored by the server so should be transmitted as
+		empty (although not required to be),
+		&lt;ul&gt;
+			&lt;li&gt;last modified time&lt;/li&gt;
+			&lt;li&gt;number of times in use&lt;/li&gt;
+			&lt;li&gt;feedback string&lt;/li&gt;
+			&lt;li&gt;property list&lt;/li&gt;
+		&lt;/ul&gt;
+	
+		&lt;b&gt;Note:&lt;/b&gt;If usage is -1, then the design is unusable.
+	
+		&lt;b&gt;Note:&lt;/b&gt;If owner is -1, then the design is owned by an unknown player (or not owned by anyone).
+	</note>
 </packet>
 
 <packet id="49" base="Design" name="AddDesign">
+	<longname>Add Design</longname>
 </packet>
 
 <packet id="50" base="Design" name="ModifyDesign">
+	<longname>Modify Design</longname>
 </packet>
 
 <packet id="52" base="GetIDSequence" name="GetDesignIDs">
+	<longname>Get Design IDs</longname>
 </packet>
 
 
 <packet id="53" base="IDSequence" name="DesignIDs">
+	<longname>List of Design IDs</longname>
 </packet>
 
 <packet id="54" base="GetWithID" name="GetComponent">
@@ -1487,34 +1516,37 @@
 			<name>description of the component</name>
 		</string>
 		<string>
-			<name></name>
-			<longname></longname>
-			<description></description>
+			<name>requirements</name>
+			<longname>TPCL Requirements function</longname>
+			<description>The requirements for this component, see the TPCL document for more information.</description>
 		</string>
-		<li>
-			a list of
-				<structure>
-					<integer type="unsigned" size="32">
-						<name>Property ID</name>
-						<longname>Property ID</longname>
-						<description>Property ID</description>
-					</integer>
-					<string>
-						<name></name>
-						<longname></longname>
-						<description></description>
-					</string>
-				</structure>
-		</li>
+		<list>
+			<name>properties</name>
+			<longname>List of Properties</longname>
+			<structure>
+				<integer type="unsigned" size="32">
+					<name>Property ID</name>
+					<longname>Property ID</longname>
+					<description>Property ID</description>
+				</integer>
+				<string>
+					<name>valuefunc</name>
+					<longname>TPCL Property value function</longname>
+					<description>The value of this property, see the TPCL document for more information.</description>
+				</string>
+			</structure>
+		</list>
 	</structure>
 </packet>
 
 
 <packet id="56" base="GetIDSequence" name="GetComponentIDs">
+	<longname>Get Component IDs</longname>
 </packet>
 
 
 <packet id="57" base="IDSequence" name="ComponentIDs">
+	<longname>Component IDs list</longname>
 </packet>
 
 
@@ -1538,7 +1570,9 @@
 		</integer>
 		<list>
 			<structure>
-				<integer type="unsigned" size="32"><name>categories this component is in</name></integer>
+				<integer type="unsigned" size="32">
+					<name>categories this component is in</name>
+				</integer>
 			</structure>
 		</list>
 		<integer type="unsigned" size="32">
@@ -1547,9 +1581,9 @@
 			<description>rank of the property</description>
 		</integer>
 		<string>
-			<name></name>
-			<longname></longname>
-			<description></description>
+			<name>name</name>
+			<longname>TPCL indentifier name</longname>
+			<description>A valid TPCL identifier for this property.</description>
 		</string>
 		<string type="formatted">
 			<name>display name of the property</name>
@@ -1558,22 +1592,25 @@
 			<name>description of the property</name>
 		</string>
 		<string>
-			<name></name>
-			<longname></longname>
-			<description></description>
+			<name>calculatefunc</name>
+			<longname>TPCL Calculate function</longname>
+			<description>Calculates the value of this funcion, see the TPCL document for more information.</description>
 		</string>
 		<string>
-			<name></name>
-			<longname></longname>
-			<description></description>
+			<name>requirementfunc</name>
+			<longname>TPCL Requirements function</longname>
+			<description>Checks the requirements for this property, see the TPCL document for more information.</description>
 		</string>
 	</structure>
 </packet>
 
 
 <packet id="60" base="GetIDSequence" name="GetPropertyIDs">
+	<longname>Get Property IDs</longname>
 </packet>
 
 <packet id="61" base="IDSequence" name="PropertyIDs">
-</packet> -->
+	<longname>List of Property IDs</longname>
+</packet>
+
 </protocol>
