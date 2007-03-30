@@ -581,6 +581,32 @@
 	</note>
 </packet>
 
+<packet base="Request" name="CreateAccount" id="62">
+	<longname>Create Account</longname>
+	<structure>
+		<string>
+			<name>username</name>
+			<longname>Username</longname>
+			<description>The username to create the account of.</description>
+		</string>
+		<string>
+			<name>password</name>
+			<longname>Password</longname>
+			<description>The password to get for the username.</description>
+		</string>
+		<string>
+			<name>email</name>
+			<longname>Email Address</longname>
+			<description>The email address of the player.</description>
+		</string>
+		<string>
+			<name>comment</name>
+			<longname>Comment</longname>
+			<description>A comment for the account.</description>
+		</string>
+	</structure>
+</packet>
+
 <packet base="Request" name="GetFeatures" id="25">
 	<longname>Get Features</longname>
 	<note>
