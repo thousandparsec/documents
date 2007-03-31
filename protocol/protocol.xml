@@ -918,8 +918,8 @@
 						</integer>
 						<string>
 							<name>description</name>
-							<longname></longname>
-							<description></description>
+							<longname>Description</longname>
+							<description>Description of this parameter.</description>
 						</string>
 						<descparameter ref="ObjectParams" />
 					</structure>
