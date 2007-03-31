@@ -307,12 +307,23 @@
 	<packet name="Header">
 		<direction>any</direction>
 		<structure>
-			<character size="4">
-				<name>version</name>
-				<longname>Packet Version</longname>
-				<description>Always has value "TP03" ("TP" plus version number), no null terminator.</description>
-				<example>TP03</example>
+			<character size="2">
+				<name>magic</name>
+				<longname>Magic letters</longname>
+				<description>Always has value &amp;quot;TP&amp;quot;, no null terminator.</description>
+				<example>TP</example>
 			</character>
+			<integer type="unsigned" size="8">
+				<name>protocolversion</name>
+				<longname>Protocol Version</longname>
+				<description>Always (binary) '4', for this protocol.</description>
+				<example>4</example>
+			</integer>
+			<integer type="unsigned" size="8">
+				<name>frameversion</name>
+				<longname>Frame Version</longname>
+				<description>Gives the version of the frame in the data of this frame. Defaults to '0'.</description>
+			</integer>
 			<integer type="unsigned" size="32">
 				<name>sequence</name>
 				<longname>Sequence Number</longname>
@@ -858,42 +869,63 @@
 		</integer>
 		<string>
 			<name>name</name>
-			<longname></longname>
-			<description></description>
+			<longname>Name</longname>
+			<description>Name of the object type.</description>
 		</string>
 		<string>
 			<name>description</name>
-			<longname></longname>
-			<description></description>
+			<longname>Description</longname>
+			<description>Description of the object type.</description>
 		</string>
-		<list>
-			<name>parameters</name>
-			<longname>Object Parameters</longname>
-			<structure>
-					<string>
-						<name>name</name>
-						<longname>argument name</longname>
-						<description></description>
-					</string>
-					<integer type="unsigned" size="32">
-						<name>type</name>
-						<longname>argument type ID</longname>
-						<description>argument type ID</description>
-						<subtype />
-					</integer>
-					<string>
-						<name>description</name>
-						<longname></longname>
-						<description></description>
-					</string>
-					<descparameter ref="ObjectParams" />
-			</structure>
-		</list>
 		<integer type="unsigned" size="64">
 			<name>modtime</name>
 			<longname>Last Modification Time</longname>
-			<description>The time at which this order description was last modified.</description>
+			<description>The time at which this object description was last modified.</description>
 		</integer>
+		<list>
+			<name>propertygroups</name>
+			<longname>Property Groups</longname>
+			<structure>
+				<integer type="unsigned" size="32">
+					<name>propertygroupid</name>
+					<longname>Property Group ID</longname>
+					<description>The ID for this Property Group.</description>
+				</integer>
+				<string>
+					<name>groupname</name>
+					<longname>Property Group Name</longname>
+					<description>Name of this Property Group.</description>
+				</string>
+				<string>
+					<name>groupdescription</name>
+					<longname>Property Group Description</longname>
+					<description>Description of this Property Group.</description>
+				</string>
+				<list>
+					<name>parameters</name>
+					<longname>Object Parameters</longname>
+					<structure>
+						<string>
+							<name>name</name>
+							<longname>argument name</longname>
+							<description></description>
+						</string>
+						<integer type="unsigned" size="32">
+							<name>type</name>
+							<longname>argument type ID</longname>
+							<description>argument type ID</description>
+							<subtype />
+						</integer>
+						<string>
+							<name>description</name>
+							<longname></longname>
+							<description></description>
+						</string>
+						<descparameter ref="ObjectParams" />
+					</structure>
+				</list>
+			</structure>
+		</list>
 	</structure>
 </packet>
 
