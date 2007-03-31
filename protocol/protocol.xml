@@ -643,6 +643,10 @@
 						<value id="0x6" name="PropertyCalc">Support server side property calculation.</value>
 						
 						<value id="0x3E8" name="AccountCreate">Account creation is allowed.</value>
+						
+						<value id="0x1000" name="FilterSSL">SSL filter can be set up.</value>
+						<value id="0x1D00" name="FilterPadding">Padding filter can be set up.</value>
+						
 						<value id="0x10000" name="DescObjectID">Sends Object ID Sequences in descending modified time order.</value>
 						<value id="0x10001" name="DescOrderID">Sends Order Description ID Sequences in descending modified time order.</value>
 						<value id="0x10002" name="DescBoardID">Sends Board ID Sequences in descending modified time order.</value>
@@ -652,14 +656,56 @@
 						<value id="0x10006" name="DescComponentID">Sends Component ID Sequences in descending modified time order.</value>
 						<value id="0x10007" name="DescPropertyID">Sends Property ID Sequences in descending modified time order.</value>
 					</values>
+					<note>
+						Optimizations are features which allow the clients to take certain shortcuts.
+						All optimization are highly optional. Optimizations have ids greater then 0xffff.
+					</note>
 				</enumeration>
 			</structure>
-			<note>
-				Optimizations are features which allow the clients to take certain shortcuts.
-				All optimization are highly optional. Optimizations have ids greater then 0xffff.
-			</note>
 		</list>
 	</structure>
+</packet>
+
+<packet base="Request" name="SetFilters" id="62">
+	<longname>Set Filters</longname>
+	<strtuture>
+		<list>
+			<name>filters</name>
+			<longname>Filters</longname>
+			<description>List of filters to set.</description>
+			<structure>
+				<enumeration type="unsigned" size="32" style="list">
+					<name>filter</name>
+					<longname>Filter to set</longname>
+					<description>The feature id of the filter to set</description>
+					<values>
+						<value id="0x1000" name="FilterSSL">SSL filter is to be set up.</value>
+						<value id="0x1D00" name="FilterPadding">Padding filter is to be set up.</value>
+					</values>
+				</enumeration>
+			</structure>
+		</list>
+	</strtuture>
+	<note>
+		&lt;ul&gt;
+		&lt;li&gt;The client will choose which filters are used.&lt;/li&gt;
+		&lt;li&gt;Server has "right of refusal".&lt;/li&gt;
+		&lt;li&gt;Filter negotiation can not be pipelined.&lt;/li&gt;
+		&lt;/ul&gt;
+		
+		An example session would be as follows, 
+		&lt;pre&gt;
+		Client  -- connect -----&amp;gt;  Server
+			&amp;lt;- okay ---------
+			-- get features &amp;gt;
+			&amp;lt;-- features ----
+			-- set filters -&amp;gt;
+			&amp;lt;-- okay --------
+		--- filters are activated here ---
+			&lt;/pre&gt;
+		If SSL filter is used it should always be the outer most filter. There should only be one compression filter in use.
+		
+	</note>
 </packet>
 
 
