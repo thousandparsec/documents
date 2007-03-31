@@ -723,6 +723,130 @@
 	<longname>Get Objects by ID</longname>
 </packet>
 
+
+<packet base="Request" name="GetGames" id="65">
+	<longname>Get Games</longname>
+	<description>Gets the sequence of game frames available on this server.</description>
+</packet>
+
+<packet base="Response" name="Game" id="66">
+	<longname>Game</longname>
+	<description>Describes a game.</description>
+	<structure>
+		<string>
+			<name>name</name>
+			<longname>Short Name</longname>
+			<description>The short name for the game.</description>
+		</string>
+		<string>
+			<name>key</name>
+			<longname>Key</longname>
+			<description>The key for the game.</description>
+			<example>tp</example>
+			<note>Only sent to metaserver, send an empty string instead to clients.</note>
+		</string>
+		<list>
+			<name>tp</name>
+			<longname>Protocol Versions</longname>
+			<description>Supported protocol versions.</description>
+			<structure>
+				<string>
+					<name>proto</name>
+					<longname>Protocol version</longname>
+				</string>
+			</structure>
+		</list>
+		<string>
+			<name>server</name>
+			<longname>Server Version</longname>
+			<description>The version of the server.</description>
+		</string>
+		<string>
+			<name>sertype</name>
+			<longname>Server type</longname>
+			<description>The name of the server software.</description>
+		</string>
+		<string>
+			<name>rule</name>
+			<longname>Ruleset Name</longname>
+			<description>The name of the ruleset.</description>
+		</string>
+		<string>
+			<name>rulever</name>
+			<longname>Ruleset Version</longname>
+			<description>The version of the ruleset.</description>
+		</string>
+		<list>
+			<name>connections</name>
+			<longname>Connections</longname>
+			<description>List of available dns/ip/port and type information for the server.</description>
+			<structure>
+				<string>
+					<name>type</name>
+					<longname>Connection Type</longname>
+					<description>The type of connection (tp, tps,...)</description>
+				</string>
+				<string>
+					<name>dns</name>
+					<longname>DNS name</longname>
+					<description>Resolvable DNS name.</description>
+				</string>
+				<string>
+					<name>ip</name>
+					<longname>IP Address</longname>
+					<description>IP Address to connect to.</description>
+				</string>
+				<integer type="unsigned" size="32">
+					<name>port</name>
+					<longname>Port Number</longname>
+					<description>The port number to connect on.</description>
+				</integer>
+			</structure>
+		</list>
+		<list>
+			<name>parameters</name>
+			<longname>Optional Parameters</longname>
+			<description>List of optional parameters.</description>
+			<structure>
+				<enumeration type="unsigned" size="32" style="list">
+					<name>paramid</name>
+					<longname>Parameter ID</longname>
+					<description>The ID number for this parameter.</description>
+					<values>
+						<value id="1" name="plys">Number of players in the game.</value>
+						<value id="2" name="cons">Number of clients currently connected.</value>
+						<value id="3" name="objs">Number of &amp;quot;objects&amp;quot; in the game universe.</value>
+						<value id="4" name="admin">Admin email address.</value>
+						<value id="5" name="cmt">Comment about the game.</value>
+						<value id="6" name="next">Unix timestamp (GMT) when next turn is generated.</value>
+						<value id="7" name="ln">Human readable name of the game.</value>
+						<value id="8" name="sn">Short (computer) name of the game.</value>
+						<value id="9" name="turn">The current turn number.</value>
+						<value id="10" name="prd">The time between turns in seconds.</value>
+					</values>
+				</enumeration>
+				<string>
+					<name>stringvalue</name>
+					<longname>String Value</longname>
+					<description>The string value of this parameter, or empty if invalid.</description>
+				</string>
+				<integer type="unsigned" size="32">
+					<name>intvalue</name>
+					<longname>Integer Value</longname>
+					<description>The integer value of this parameter, or zero if invalid.</description>
+				</integer>
+			</structure>
+		</list>
+		<string>
+			<name>mediabase</name>
+			<longname>Media Base URL</longname>
+			<description>Specifies the base URL for media used in the game.</description>
+			<note>Metaserver doesn't know (or care) so this is empty.</note>
+		</string>
+	</structure>
+</packet>
+
+
 <packet base="Request" name="GetObjectsByPos" id="6">
 	<longname>Get Objects by Position</longname>
 	<note>
