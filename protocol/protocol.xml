@@ -1071,10 +1071,29 @@
 			<longname>Time to Next Turn</longname>
 			<description>The time in seconds before the next end of turn starts</description>
 		</integer>
+		<enumeration type="unsigned" size="32" style="single">
+			<name>reason</name>
+			<longname>The reason</longname>
+			<description>Explains why this frame was sent.</description>
+			<values>
+				<value id="0x0" name="Requested">This frame was requested.</value>
+				<value id="0x1" name="TimerStarted">Turn timer has been started</value>
+				<value id="0x2" name="TimerWarning">Advanced warning of the turn timer expiring.</value>
+				<value id="0x3" name="AllFinished">All players have finished and the turn has ended.</value>
+				<value id="0x4" name="MajorityFinishedTimerStarted">Majority of player have finished, the timer for the remaining players has started.</value>
+				<value id="0x5" name="EndOfTurnStarted">End of turn started.</value>
+			</values>
+		</enumeration>
 	</structure>
 	<note>
 		If the value is 0 then the end of turn has just started.
 	</note>
+</packet>
+
+
+<packet base="Request" name="FinishedTurn" id="63">
+	<longname>Finished Turn</longname>
+	<description>The player sends this frame to the server when the player has finished everything and is ready for the end of turn.</description>
 </packet>
 
 
