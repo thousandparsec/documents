@@ -581,7 +581,7 @@
 	</note>
 </packet>
 
-<packet base="Request" name="CreateAccount" id="62">
+<packet base="Request" name="CreateAccount" id="63">
 	<longname>Create Account</longname>
 	<structure>
 		<string>
@@ -666,7 +666,7 @@
 	</structure>
 </packet>
 
-<packet base="Request" name="SetFilters" id="62">
+<packet base="Request" name="SetFilters" id="64">
 	<longname>Set Filters</longname>
 	<strtuture>
 		<list>
