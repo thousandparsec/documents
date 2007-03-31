@@ -719,11 +719,6 @@
 </packet>
 
 
-<packet base="GetWithID" name="GetObjectsByID" id="5">
-	<longname>Get Objects by ID</longname>
-</packet>
-
-
 <packet base="Request" name="GetGames" id="65">
 	<longname>Get Games</longname>
 	<description>Gets the sequence of game frames available on this server.</description>
@@ -845,6 +840,78 @@
 		</string>
 	</structure>
 </packet>
+
+
+<packet id="67" base="GetWithID" name="GetObjectDesc">
+	<longname>Get Object Description</longname>
+</packet>
+
+
+<packet id="68" base="Response" name="ObjectDesc">
+	<longname>Object Description</longname>
+	<structure>
+		<integer type="unsigned" size="32">
+			<name>id</name>
+			<longname>object type</longname>
+			<description>object type</description>
+			<subtype />
+		</integer>
+		<string>
+			<name>name</name>
+			<longname></longname>
+			<description></description>
+		</string>
+		<string>
+			<name>description</name>
+			<longname></longname>
+			<description></description>
+		</string>
+		<list>
+			<name>parameters</name>
+			<longname>Object Parameters</longname>
+			<structure>
+					<string>
+						<name>name</name>
+						<longname>argument name</longname>
+						<description></description>
+					</string>
+					<integer type="unsigned" size="32">
+						<name>type</name>
+						<longname>argument type ID</longname>
+						<description>argument type ID</description>
+						<subtype />
+					</integer>
+					<string>
+						<name>description</name>
+						<longname></longname>
+						<description></description>
+					</string>
+					<descparameter ref="ObjectParams" />
+			</structure>
+		</list>
+		<integer type="unsigned" size="64">
+			<name>modtime</name>
+			<longname>Last Modification Time</longname>
+			<description>The time at which this order description was last modified.</description>
+		</integer>
+	</structure>
+</packet>
+
+
+<packet id="69" base="GetIDSequence" name="GetObjectDescIDs">
+	<longname>Get Object Description IDs</longname>
+</packet>
+
+
+<packet id="70" base="IDSequence" name="ObjectDescIDs">
+	<longname>List of Object Description IDs</longname>
+</packet>
+
+
+<packet base="GetWithID" name="GetObjectsByID" id="5">
+	<longname>Get Objects by ID</longname>
+</packet>
+
 
 
 <packet base="Request" name="GetObjectsByPos" id="6">
