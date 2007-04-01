@@ -292,13 +292,238 @@
 	<parameterset name="ObjectParams">
 		<longname>Order Parameters</longname>
 		<description>These are the parameters for Orders and OrderDescriptions.</description>
-		<parameter name="objectnull" type="0">
-			<!-- DEFINE Object parameters here -->
+		<parameter name="objectParamPosition3d" type="0">
+			<longname>Position in 3D</longname>
+			<description>A vector for the position.</description>
 			<descstruct>
 				<structure />
 			</descstruct>
 			<usestruct>
+				<structure>
+					<group>
+						<name>position</name>
+						<longname>Position</longname>
+						<structure>
+							<integer type="signed" size="64" readonly="yes">
+								<name>x</name>
+							</integer>
+							<integer type="signed" size="64" readonly="yes">
+								<name>y</name>
+							</integer>
+							<integer type="signed" size="64" readonly="yes">
+								<name>z</name>
+							</integer>
+						</structure>
+					</group>
+					<integer type="unsigned" size="32" readonly="yes">
+						<name>relative</name>
+						<longname>Relative to Object ID</longname>
+						<description>The object ID this position is relative to.</description>
+					</integer>
+				</structure>
+			</usestruct>
+		</parameter>
+		<parameter name="objectParamVelocity3d" type="1">
+			<longname>Velocity in 3D</longname>
+			<description>A vector for the velocity.</description>
+			<descstruct>
 				<structure />
+			</descstruct>
+			<usestruct>
+				<structure>
+					<group>
+						<name>velocity</name>
+						<longname>Velocity</longname>
+						<structure>
+							<integer type="signed" size="64" readonly="yes">
+								<name>x</name>
+							</integer>
+							<integer type="signed" size="64" readonly="yes">
+								<name>y</name>
+							</integer>
+							<integer type="signed" size="64" readonly="yes">
+								<name>z</name>
+							</integer>
+						</structure>
+					</group>
+					<integer type="unsigned" size="32" readonly="yes">
+						<name>relative</name>
+						<longname>Relative to Object ID</longname>
+						<description>The object ID this vector is relative to.</description>
+					</integer>
+				</structure>
+			</usestruct>
+		</parameter>
+		<parameter name="objectParamAcceleration3d" type="2">
+			<longname>Acceleration in 3D</longname>
+			<description>A vector for the acceleration.</description>
+			<descstruct>
+				<structure />
+			</descstruct>
+			<usestruct>
+				<structure>
+					<group>
+						<name>vector</name>
+						<longname>Vector</longname>
+						<structure>
+							<integer type="signed" size="64" readonly="yes">
+								<name>x</name>
+							</integer>
+							<integer type="signed" size="64" readonly="yes">
+								<name>y</name>
+							</integer>
+							<integer type="signed" size="64" readonly="yes">
+								<name>z</name>
+							</integer>
+						</structure>
+					</group>
+					<integer type="unsigned" size="32" readonly="yes">
+						<name>relative</name>
+						<longname>Relative to Object ID</longname>
+						<description>The object ID this vector is relative to.</description>
+					</integer>
+				</structure>
+			</usestruct>
+		</parameter>
+		<parameter name="objectParamBoundPosition" type="3">
+			<longname>Bound Position</longname>
+			<description>Object is bound to ('in') an Object.</description>
+			<descstruct>
+				<structure />
+			</descstruct>
+			<usestruct>
+				<structure>
+					<integer type="signed" size="32" readonly="yes">
+						<name>slot</name>
+						<longname>Slot</longname>
+						<description>The slot in the parent object this object is in.</description>
+					</integer>
+				</structure>
+			</usestruct>
+		</parameter>
+		<parameter name="objectParamOrderQueue" type="4">
+			<longname>Order Queue</longname>
+			<description>An order queue.</description>
+			<descstruct>
+				<structure>
+					<integer type="unsigned" size="32" readonly="yes">
+						<name>maxslots</name>
+						<longname>Maximum slots</longname>
+						<description>The maximum number of slots that can be used in this queue.</description>
+					</integer>
+				</structure>
+			</descstruct>
+			<usestruct>
+				<structure>
+					<integer type="unsigned" size="32" readonly="yes">
+						<name>queueid</name>
+						<longname>Queue ID</longname>
+						<description>The ID number of the queue.</description>
+					</integer>
+					<integer type="unsigned" size="32" readonly="yes">
+						<name>numorders</name>
+						<longname>Number of Orders</longname>
+						<description>The number of orders in the queue.</description>
+					</integer>
+					<list>
+						<name>ordertypes</name>
+						<longname>List of Order Types</longname>
+						<description>A list of order types that can be put in this queue.</description>
+						<structure>
+							<integer type="unsigned" size="32" readonly="yes">
+								<name>ordertype</name>
+								<longname>Order Type</longname>
+								<description>The number of the order type.</description>
+							</integer>
+						</structure>
+					</list>
+				</structure>
+			</usestruct>
+			<note>The &lt;q&gt;default&lt;/q&gt; order queue (IE The most use queue) should have the same ID as the object it is on. Other order queue's can have any ID but the ID should not be the same as an object ID (as it would conflict with the information above). How servers solve this problem is up to them.</note>
+		</parameter>
+		<parameter name="objectParamResourceList" type="5">
+			<longname>Resource List</longname>
+			<description>A list of resources.</description>
+			<descstruct>
+				<structure />
+			</descstruct>
+			<usestruct>
+				<structure>
+					<list>
+						<name>resources</name>
+						<longname>Resource List</longname>
+						<description>A list of resources.</description>
+						<structure>
+							<integer type="unsigned" size="32" readonly="yes">
+								<name>resourceid</name>
+								<longname>Resource ID</longname>
+								<description>The Resource ID</description>
+							</integer>
+							<integer type="unsigned" size="32" readonly="yes">
+								<name>stored</name>
+								<longname>Stored Quantity</longname>
+								<description>The amount on hand currently.</description>
+							</integer>
+							<integer type="unsigned" size="32" readonly="yes">
+								<name>minable</name>
+								<longname>Minable Quantity</longname>
+								<description>The amount of the resource that is minable or creatable.</description>
+							</integer>
+							<integer type="unsigned" size="32" readonly="yes">
+								<name>unavailable</name>
+								<longname>Unavailable Quantity</longname>
+								<description>The amount that is not yet minable or creatable.</description>
+							</integer>
+						</structure>
+					</list>
+				</structure>
+			</usestruct>
+		</parameter>
+		<parameter name="objectParmReference" type="6">
+			<longname>Reference</longname>
+			<description>A generic reference to something.</description>
+			<descstruct>
+				<structure />
+			</descstruct>
+			<usestruct>
+				<integer type="signed" size="32">
+					<name>type</name>
+					<longname>Reference Type</longname>
+					<description>type of thing being referenced</description>
+				</integer>
+				<integer type="unsigned" size="32">
+					<name>id</name>
+					<longname>The ID of the thing referenced</longname>
+				</integer>
+			</usestruct>
+		</parameter>
+		<parameter name="objectParamReferenceQuantityList" type="7">
+			<longname>Reference Quality List</longname>
+			<description>Gives a list of references and how many of each of them.</description>
+			<descstruct>
+				<structure />
+			</descstruct>
+			<usestruct>
+				<list>
+					<name>references</name>
+					<longname>References</longname>
+					<description>A list of as described in the Generic Reference System</description>
+					<structure>
+						<integer type="signed" size="32">
+							<name>type</name>
+							<longname>Reference Type</longname>
+							<description>type of thing being referenced</description>
+						</integer>
+						<integer type="unsigned" size="32">
+							<name>id</name>
+							<longname>The ID of the thing referenced</longname>
+						</integer>
+						<integer type="unsigned" size="32">
+							<name>number</name>
+							<longname>The quantity of the referenced thing.</longname>
+						</integer>
+					</structure>
+				</list>
 			</usestruct>
 		</parameter>
 	</parameterset>
