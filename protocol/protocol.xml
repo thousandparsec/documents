@@ -970,12 +970,12 @@
 <packet base="Response" name="Object" id="7">
 	<longname>Object</longname>
 	<structure>
-		<integer type="unsigned" size="32">
+		<integer type="unsigned" size="32" readonly="yes">
 			<name>id</name>
 			<longname>Object ID</longname>
 			<description>The unquie identifier of the object.</description>
 		</integer>
-		<integer type="unsigned" size="32">
+		<integer type="unsigned" size="32" readonly="yes">
 			<name>otype</name>
 			<longname>Object Type</longname>
 			<description>The type of the object.</description>
@@ -986,7 +986,7 @@
 			<longname>Object Name</longname>
 			<description>The name of the object.</description>
 		</string>
-		<integer type="unsigned" size="64">
+		<integer type="unsigned" size="64" readonly="yes">
 			<name>size</name>
 			<longname>Object Size</longname>
 			<description>The size of the object (diameter).</description>
@@ -995,13 +995,13 @@
 			<name>pos</name>
 			<longname>Position</longname>
 			<structure>
-				<integer type="signed" size="64">
+				<integer type="signed" size="64" readonly="yes">
 					<name>x</name>
 				</integer>
-				<integer type="signed" size="64">
+				<integer type="signed" size="64" readonly="yes">
 					<name>y</name>
 				</integer>
-				<integer type="signed" size="64">
+				<integer type="signed" size="64" readonly="yes">
 					<name>z</name>
 				</integer>
 			</structure>
@@ -1010,13 +1010,13 @@
 			<name>vel</name>
 			<longname>Velocity</longname>
 			<structure>
-				<integer type="signed" size="64">
+				<integer type="signed" size="64" readonly="yes">
 					<name>x</name>
 				</integer>
-				<integer type="signed" size="64">
+				<integer type="signed" size="64" readonly="yes">
 					<name>y</name>
 				</integer>
-				<integer type="signed" size="64">
+				<integer type="signed" size="64" readonly="yes">
 					<name>z</name>
 				</integer>
 			</structure>
@@ -1026,7 +1026,7 @@
 			<longname>Contains</longname>
 			<description>IDs of the objects contained by this object.</description>
 			<structure>
-				<integer type="unsigned" size="32">
+				<integer type="unsigned" size="32" readonly="yes">
 					<name>ID</name>
 					<longname>the IDs</longname>
 					<description>the IDs</description>
@@ -1038,19 +1038,19 @@
 			<longname>Order Types</longname>
 			<description>The order types that a player can send to this object.</description>
 			<structure>
-				<integer type="unsigned" size="32">
+				<integer type="unsigned" size="32" readonly="yes">
 					<name>ID</name>
 					<longname>the IDs</longname>
 					<description>the IDs</description>
 				</integer>
 			</structure>
 		</list>
-		<integer type="unsigned" size="32">
+		<integer type="unsigned" size="32" readonly="yes">
 			<name>orders</name>
 			<longname>number of orders currently on this object</longname>
 			<description>number of orders currently on this object</description>
 		</integer>
-		<integer type="unsigned" size="64">
+		<integer type="unsigned" size="64" readonly="yes">
 			<name>modtime</name>
 			<longname>Last Modification Time</longname>
 			<description>The time at which this object was last modified.</description>
@@ -1064,6 +1064,10 @@
 		Note: The number of orders should be the number of orders the person can see on the
 		object. Not the total number of orders on the object. 
 	</note>
+</packet>
+
+<packet base="Object" name="ModifyObject" id="71">
+	<longname>Modify Object</longname>
 </packet>
 
 
