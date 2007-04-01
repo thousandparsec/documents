@@ -462,6 +462,12 @@
 			<longname>the number of IDs to get</longname>
 			<description>the number of IDs to get</description>
 		</integer>
+		<integer type="semisigned" size="64">
+			<name>from</name>
+			<longname>Get changes from</longname>
+			<description>The timestamp from which the changes should be pulled.</description>
+			<note>If -1, the list return are currently visible objects, otherwise deleted objects appear also.</note>
+		</integer>
 	</structure>
 	<note>
 			Requirements:
@@ -524,6 +530,12 @@
 				</integer>
 			</structure>
 		</list>
+		<integer type="semisigned" size="64">
+			<name>from</name>
+			<longname>Changes from</longname>
+			<description>The timestamp from which the changes are present.</description>
+			<note>If -1, the list has only currently visible objects, otherwise deleted objects appear also.</note>
+		</integer>
 	</structure>
 	<note>These IDs are not guaranteed to be in any order.</note>
 </packet>
