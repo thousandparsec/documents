@@ -486,15 +486,17 @@
 				<structure />
 			</descstruct>
 			<usestruct>
-				<integer type="signed" size="32">
-					<name>type</name>
-					<longname>Reference Type</longname>
-					<description>type of thing being referenced</description>
-				</integer>
-				<integer type="unsigned" size="32">
-					<name>id</name>
-					<longname>The ID of the thing referenced</longname>
-				</integer>
+				<structure>
+					<integer type="signed" size="32">
+						<name>type</name>
+						<longname>Reference Type</longname>
+						<description>type of thing being referenced</description>
+					</integer>
+					<integer type="unsigned" size="32">
+						<name>id</name>
+						<longname>The ID of the thing referenced</longname>
+					</integer>
+				</structure>
 			</usestruct>
 		</parameter>
 		<parameter name="objectParamReferenceQuantityList" type="7">
@@ -504,26 +506,44 @@
 				<structure />
 			</descstruct>
 			<usestruct>
-				<list>
-					<name>references</name>
-					<longname>References</longname>
-					<description>A list of as described in the Generic Reference System</description>
-					<structure>
-						<integer type="signed" size="32">
-							<name>type</name>
-							<longname>Reference Type</longname>
-							<description>type of thing being referenced</description>
-						</integer>
-						<integer type="unsigned" size="32">
-							<name>id</name>
-							<longname>The ID of the thing referenced</longname>
-						</integer>
-						<integer type="unsigned" size="32">
-							<name>number</name>
-							<longname>The quantity of the referenced thing.</longname>
-						</integer>
-					</structure>
-				</list>
+				<structure>
+					<list>
+						<name>references</name>
+						<longname>References</longname>
+						<description>A list of as described in the Generic Reference System</description>
+						<structure>
+							<integer type="signed" size="32">
+								<name>type</name>
+								<longname>Reference Type</longname>
+								<description>type of thing being referenced</description>
+							</integer>
+							<integer type="unsigned" size="32">
+								<name>id</name>
+								<longname>The ID of the thing referenced</longname>
+							</integer>
+							<integer type="unsigned" size="32">
+								<name>number</name>
+								<longname>The quantity of the referenced thing.</longname>
+							</integer>
+						</structure>
+					</list>
+				</structure>
+			</usestruct>
+		</parameter>
+		<parameter name="objectParamInteger" type="8">
+			<longname>Integer</longname>
+			<description>An Integer, informational.</description>
+			<descstrut>
+				<structure />
+			</descstrut>
+			<usestruct>
+				<structure>
+					<integer type="unsigned" size="32">
+						<name>int</name>
+						<longname>Value</longname>
+						<description>The value of the integer parameter.</description>
+					</integer>
+				</structure>
 			</usestruct>
 		</parameter>
 	</parameterset>
