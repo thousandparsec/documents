@@ -620,6 +620,9 @@
 					<value id="3" name="UnavailableTemporarily">Unavailable Temporarily, This operation is unavailable at this moment</value>
 					<value id="4" name="NoSuchThing">No Such Thing, The object/order/message does not exist</value>
 					<value id="5" name="PermissionDenied">Permission Denied, You don't have permission to do this operation</value>
+					<value id="6" name="Gone">Object/order/message has gone.</value>
+					<value id="7" name="FrameVersionNotSupported">The frame version is not supported</value>
+					<value id="8" name="RequestTooBig">The requested reply is too big</value>
 				</values>
 			</enumeration>
 			<string>
