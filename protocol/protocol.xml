@@ -628,6 +628,22 @@
 				<description>Text message of the error.</description>
 				<example>Order was created successfully in slot 1.</example>
 			</string>
+			<list>
+				<name>references</name>
+				<longname>References</longname>
+				<description>A list of references that this error relates to.</description>
+				<structure>
+					<integer type="signed" size="32">
+						<name>type</name>
+						<longname>Reference Type</longname>
+						<description>type of thing being referenced</description>
+					</integer>
+					<integer type="unsigned" size="32">
+						<name>id</name>
+						<longname>The ID of the thing referenced</longname>
+					</integer>
+				</structure>
+			</list>
 		</structure>
 		<note>If the connect frame is not valid TP frame, this frame will not be returned, instead a plain text string will be sent saying that the wrong protocol has been used. A fail frame may be send if the wrong protocol version is detected. This does not affect clients as they should always get the connect frame right.</note>
 	</packet>
