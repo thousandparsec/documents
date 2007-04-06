@@ -440,6 +440,10 @@
 				</structure>
 			</usestruct>
 			<note>The &lt;q&gt;default&lt;/q&gt; order queue (IE The most use queue) should have the same ID as the object it is on. Other order queue's can have any ID but the ID should not be the same as an object ID (as it would conflict with the information above). How servers solve this problem is up to them.</note>
+			<note>
+				Note: The number of orders should be the number of orders the person can see on the
+				object. Not the total number of orders on the object. 
+			</note>
 		</parameter>
 		<parameter name="objectParamResourceList" type="5">
 			<longname>Resource List</longname>
@@ -542,6 +546,22 @@
 						<name>int</name>
 						<longname>Value</longname>
 						<description>The value of the integer parameter.</description>
+					</integer>
+				</structure>
+			</usestruct>
+		</parameter>
+		<parameter name="objectParamSize" type="9">
+			<longname>Size</longname>
+			<description>The diameter of the object.</description>
+			<descstruct>
+				<structure />
+			</descstruct>
+			<usestruct>
+				<structure>
+					<integer type="unsigned" size="64" readonly="yes">
+						<name>size</name>
+						<longname>Object Size</longname>
+						<description>The size of the object (diameter).</description>
 					</integer>
 				</structure>
 			</usestruct>
@@ -1250,41 +1270,16 @@
 			<longname>Object Name</longname>
 			<description>The name of the object.</description>
 		</string>
-		<integer type="unsigned" size="64" readonly="yes">
-			<name>size</name>
-			<longname>Object Size</longname>
-			<description>The size of the object (diameter).</description>
+		<string>
+			<name>desc</name>
+			<longname>Object Description</longname>
+			<description>A description of the object.</description>
+		</string>
+		<integer type="unsigned" size="32" readonly="yes">
+			<name>parent</name>
+			<longname>Parent Object ID</longname>
+			<description>The ID of the object that contains this object.</description>
 		</integer>
-		<group>
-			<name>pos</name>
-			<longname>Position</longname>
-			<structure>
-				<integer type="signed" size="64" readonly="yes">
-					<name>x</name>
-				</integer>
-				<integer type="signed" size="64" readonly="yes">
-					<name>y</name>
-				</integer>
-				<integer type="signed" size="64" readonly="yes">
-					<name>z</name>
-				</integer>
-			</structure>
-		</group>
-		<group>
-			<name>vel</name>
-			<longname>Velocity</longname>
-			<structure>
-				<integer type="signed" size="64" readonly="yes">
-					<name>x</name>
-				</integer>
-				<integer type="signed" size="64" readonly="yes">
-					<name>y</name>
-				</integer>
-				<integer type="signed" size="64" readonly="yes">
-					<name>z</name>
-				</integer>
-			</structure>
-		</group>
 		<list>
 			<name>contains</name>
 			<longname>Contains</longname>
@@ -1297,37 +1292,16 @@
 				</integer>
 			</structure>
 		</list>
-		<list>
-			<name>ordertypes</name>
-			<longname>Order Types</longname>
-			<description>The order types that a player can send to this object.</description>
-			<structure>
-				<integer type="unsigned" size="32" readonly="yes">
-					<name>ID</name>
-					<longname>the IDs</longname>
-					<description>the IDs</description>
-				</integer>
-			</structure>
-		</list>
-		<integer type="unsigned" size="32" readonly="yes">
-			<name>orders</name>
-			<longname>number of orders currently on this object</longname>
-			<description>number of orders currently on this object</description>
-		</integer>
 		<integer type="unsigned" size="64" readonly="yes">
 			<name>modtime</name>
 			<longname>Last Modification Time</longname>
 			<description>The time at which this object was last modified.</description>
 		</integer>
-		<character size="8">
+		<character size="16">
 			<name>padding</name>
 		</character>
 		<useparameters ref="ObjectParams" />
 	</structure>
-	<note>
-		Note: The number of orders should be the number of orders the person can see on the
-		object. Not the total number of orders on the object. 
-	</note>
 </packet>
 
 <packet base="Object" name="ModifyObject" id="71">
