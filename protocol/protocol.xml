@@ -888,7 +888,7 @@
 	</note>
 </packet>
 
-<packet base="Request" name="CreateAccount" id="63">
+<packet base="Request" name="CreateAccount" id="62">
 	<longname>Create Account</longname>
 	<structure>
 		<string>
