@@ -1564,7 +1564,7 @@
 				<value id="0x1" name="TimerStarted">Turn timer has been started</value>
 				<value id="0x2" name="TimerWarning">Advanced warning of the turn timer expiring.</value>
 				<value id="0x3" name="AllFinished">All players have finished and the turn has ended.</value>
-				<value id="0x4" name="MajorityFinishedTimerStarted">Majority of player have finished, the timer for the remaining players has started.</value>
+				<value id="0x4" name="ThresholdFinishedTimerStarted">Threshold of players have finished, the timer for the remaining players has started.</value>
 				<value id="0x5" name="EndOfTurnStarted">End of turn started.</value>
 			</values>
 		</enumeration>
