@@ -566,6 +566,22 @@
 				</structure>
 			</usestruct>
 		</parameter>
+		<parameter name="objectParamMedia" type="10">
+			<longname>Media Url</longname>
+			<description>The url for the media for this object, either relative to the base url given in the Game frame, of absolute.</description>
+			<descstruct>
+				<structure />
+			</descstruct>
+			<usestruct>
+				<structure>
+					<string readonly="yes">
+						<name>url</name>
+						<longname>Url</longname>
+						<description>The url for the media.</description>
+					</string>
+				</structure>
+			</usestruct>
+		</parameter>
 	</parameterset>
 	
 	
