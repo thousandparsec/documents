@@ -991,7 +991,7 @@
 
 <packet base="Request" name="SetFilters" id="64">
 	<longname>Set Filters</longname>
-	<strtuture>
+	<structure>
 		<list>
 			<name>filters</name>
 			<longname>Filters</longname>
@@ -1008,7 +1008,7 @@
 				</enumeration>
 			</structure>
 		</list>
-	</strtuture>
+	</structure>
 	<note>
 		&lt;ul&gt;
 		&lt;li&gt;The client will choose which filters are used.&lt;/li&gt;
