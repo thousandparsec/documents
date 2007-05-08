@@ -1888,7 +1888,7 @@
 </packet>
 
 <packet id="42" base="Response" name="Category">
-	<longname>Category Frame, Add Category</longname>
+	<longname>Category Frame</longname>
 	<structure>
 		<integer type="semisigned" size="32">
 			<name>Category ID</name>
@@ -1938,7 +1938,7 @@
 </packet>
 
 <packet id="48" base="Response" name="Design">
-	<longname>Design Frame, Add Design Frame, Modify Design</longname>
+	<longname>Design Frame</longname>
 
 
 	<structure>
