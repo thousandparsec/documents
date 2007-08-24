@@ -537,9 +537,9 @@
 		<parameter name="objectParamInteger" type="8">
 			<longname>Integer</longname>
 			<description>An Integer, informational.</description>
-			<descstrut>
+			<descstruct>
 				<structure />
-			</descstrut>
+			</descstruct>
 			<usestruct>
 				<structure>
 					<integer type="unsigned" size="32">
