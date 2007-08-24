@@ -1641,7 +1641,7 @@
 </packet>
 
 
-<packet id="18" base="GetWithIDandSlot" name="GetMessage">
+<packet id="18" base="GetWithIDSlot" name="GetMessage">
 	<longname>Get Message</longname>
 </packet>
 
