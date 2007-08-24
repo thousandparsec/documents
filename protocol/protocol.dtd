@@ -22,7 +22,7 @@
 <!ATTLIST integer type (signed|unsigned|semisigned) #REQUIRED size CDATA "32" readonly CDATA "no" >
 <!ELEMENT subtype EMPTY >
 <!ELEMENT string (name, longname, description?, example?, note*) >
-<!ATTLIST string readonly CDATA "no" >
+<!ATTLIST string readonly CDATA "no" type (plain|formatted) "plain" >
 <!ELEMENT enumeration (name, longname, description, values, example?, note*) >
 <!ATTLIST enumeration type (signed|unsigned|semisigned) #REQUIRED size CDATA "32" style (list | mask | single) #REQUIRED readonly CDATA "no"  >
 <!ELEMENT values (value+) >
