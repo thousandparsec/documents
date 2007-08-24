@@ -1626,7 +1626,7 @@
 	</structure>
 
 	<note>
-			<b>Note:</b>The last modified time should be updated every time a message on the board
+			&lt;b&gt;Note:&lt;/b&gt; The last modified time should be updated every time a message on the board
 			has changed.
 	</note>
 </packet>
