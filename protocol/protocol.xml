@@ -1053,8 +1053,9 @@
 	<structure>
 		<string>
 			<name>name</name>
-			<longname>Short Name</longname>
-			<description>The short name for the game.</description>
+			<longname>Long Name</longname>
+			<description>The long name for the game.</description>
+			<note>This string should never change for the length of the game</note>
 		</string>
 		<string>
 			<name>key</name>
@@ -1137,7 +1138,7 @@
 						<value id="4" name="admin">Admin email address.</value>
 						<value id="5" name="cmt">Comment about the game.</value>
 						<value id="6" name="next">Unix timestamp (GMT) when next turn is generated.</value>
-						<value id="7" name="ln">Human readable name of the game.</value>
+						<value id="7" name="ln">Human readable name (long name) of the game.</value>
 						<value id="8" name="sn">Short (computer) name of the game.</value>
 						<value id="9" name="turn">The current turn number.</value>
 						<value id="10" name="prd">The time between turns in seconds.</value>
