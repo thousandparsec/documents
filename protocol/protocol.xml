@@ -1672,10 +1672,12 @@
 			</structure>
 		</list>
 		<string type="formatted">
-			<name>Subject of the message</name>
+			<name>subject</name>
+			<longname>Subject of the message</longname>
 		</string>
 		<string type="formatted">
-			<name>a Formatted String</name>
+			<name>body</name>
+			<longname>a Formatted String</longname>
 			<description>Body of the message</description>
 		</string>
 		<integer type="unsigned" size="32">
@@ -1804,29 +1806,34 @@
 			<description>Resource ID</description>
 		</integer>
 		<string type="formatted">
-			<name>singular name of the resource</name>
+			<name>singularname</name>
+			<longname>singular name of the resource</longname>
 		</string>
 		<string type="formatted">
-			<name>plural name of the resource</name>
+			<name>pluralname</name>
+			<longname>plural name of the resource</longname>
 		</string>
 		<string type="formatted">
-			<name>singular name of the resources unit</name>
+			<name>singularunit</name>
+			<longname>singular name of the resources unit</longname>
 		</string>
 		<string type="formatted">
-			<name>plural name of the resources unit</name>
+			<name>pluralunit</name>
+			<longname>plural name of the resources unit</longname>
 		</string>
 		<string type="formatted">
-			<name>description of the resource</name>
+			<name>description</name>
+			<longname>description of the resource</longname>
 		</string>
 		<integer type="unsigned" size="32">
-			<name>weight per unit of resource (0 for not applicable)</name>
-			<longname>weight per unit of resource (0 for not applicable)</longname>
-			<description>weight per unit of resource (0 for not applicable)</description>
+			<name>weight</name>
+			<longname>weight per unit of resource</longname>
+			<description>0 for not applicable</description>
 		</integer>
 		<integer type="unsigned" size="32">
-			<name>size per unit of resource (0 for not applicable)</name>
-			<longname>size per unit of resource (0 for not applicable)</longname>
-			<description>size per unit of resource (0 for not applicable)</description>
+			<name>size</name>
+			<longname>size per unit of resource</longname>
+			<description>0 for not applicable</description>
 		</integer>
 		<integer type="unsigned" size="64">
 			<name>modtime</name>
@@ -1858,7 +1865,7 @@
 
 	<structure>
 		<integer type="unsigned" size="32">
-			<name>the Player id</name>
+			<name>id</name>
 			<longname>the Player id</longname>
 			<description>the Player id</description>
 		</integer>
@@ -1892,7 +1899,7 @@
 	<longname>Category Frame</longname>
 	<structure>
 		<integer type="semisigned" size="32">
-			<name>Category ID</name>
+			<name>id</name>
 			<longname>Category ID</longname>
 			<description>Category ID</description>
 		</integer>
@@ -1902,10 +1909,12 @@
 			<description>The time at which this category was last modified.</description>
 		</integer>
 		<string type="formatted">
-			<name>name of the category</name>
+			<name>name</name>
+			<longname>name of the category</longname>
 		</string>
 		<string type="formatted">
-			<name>description of the category</name>
+			<name>description</name>
+			<longname>description of the category</longname>
 		</string>
 	</structure>
 	<note>
@@ -1944,7 +1953,7 @@
 
 	<structure>
 		<integer type="unsigned" size="32">
-			<name>Design ID</name>
+			<name>id</name>
 			<longname>Design ID</longname>
 			<description>Design ID</description>
 		</integer>
@@ -1954,26 +1963,30 @@
 			<description>The time at which this design was last modified.</description>
 		</integer>
 		<list>
+                        <name>catlist</name>
+                        <longname>Category List</longname>
 			<structure>
 				<integer type="unsigned" size="32">
-					<name>categories this design is in</name>
+					<name>catid</name>
+                                        <longname>Category ID</longname>
 				</integer>
 			</structure>
 		</list>
 		<string type="formatted">
-			<name>name of the design</name>
+			<name>name</name>
+			<longname>name of the design</longname>
 		</string>
 		<string type="formatted">
-			<name>description of the design</name>
+                        <name>description</name>
+			<longname>description of the design</longname>
 		</string>
 		<integer type="semisigned" size="32">
-			<name>number of times the design is in use</name>
+			<name>inuse</name>
 			<longname>number of times the design is in use</longname>
-			<description>number of times the design is in use</description>
 		</integer>
 		<integer type="semisigned" size="32">
-			<name>owner of the design</name>
-			<longname>owner of the design</longname>
+			<name>owner</name>
+			<longname>Owner Player Id</longname>
 			<description>owner of the design</description>
 		</integer>
 		<list>
@@ -1981,31 +1994,33 @@
 			<longname>Component List</longname>
 			<structure>
 				<integer type="unsigned" size="32">
-					<name>component id</name>
+					<name>componentid</name>
 					<longname>component id</longname>
 					<description>component id</description>
 				</integer>
 				<integer type="unsigned" size="32">
-					<name>the number of components</name>
+					<name>compquant</name>
 					<longname>the number of components</longname>
 					<description>the number of components</description>
 				</integer>
 			</structure>
 		</list>
 		<string type="formatted">
-			<name>human readable feedback on the design</name>
+                        <name>feedback</name>
+			<longname>human readable feedback on the design</longname>
 		</string>
 		<list>
 			<name>properties</name>
 			<longname>List of Properties</longname>
 			<structure>
 				<integer type="unsigned" size="32">
-					<name>property id</name>
+					<name>propertyid</name>
 					<longname>property id</longname>
 					<description>property id</description>
 				</integer>
 				<string type="formatted">
-					<name>property display string</name>
+					<name>displaystring</name>
+                                        <longname>String value of the property</longname>
 				</string>
 			</structure>
 		</list>
@@ -2066,15 +2081,19 @@
 			<description>The time at which this component was last modified.</description>
 		</integer>
 		<list>
+                        <name>catlist</name>
+                        <longname>Category List</longname>
 			<structure>
 				<integer type="unsigned" size="32"><name>categories this component is in</name></integer>
 			</structure>
 		</list>
 		<string type="formatted">
-			<name>name of the component</name>
+                        <name>name</name>
+			<longname>name of the component</longname>
 		</string>
 		<string type="formatted">
-			<name>description of the component</name>
+                        <name>description</name>
+			<longname>description of the component</longname>
 		</string>
 		<string>
 			<name>requirements</name>
@@ -2086,7 +2105,7 @@
 			<longname>List of Properties</longname>
 			<structure>
 				<integer type="unsigned" size="32">
-					<name>Property ID</name>
+					<name>propertyid</name>
 					<longname>Property ID</longname>
 					<description>Property ID</description>
 				</integer>
@@ -2130,6 +2149,8 @@
 			<description>The time at which this property was last modified.</description>
 		</integer>
 		<list>
+                        <name>catlist</name>
+                        <longname>Category List</longname>
 			<structure>
 				<integer type="unsigned" size="32">
 					<name>categories this component is in</name>
@@ -2147,10 +2168,12 @@
 			<description>A valid TPCL identifier for this property.</description>
 		</string>
 		<string type="formatted">
-			<name>display name of the property</name>
+                        <name>dispalyname</name>
+			<longname>display name of the property</longname>
 		</string>
 		<string type="formatted">
-			<name>description of the property</name>
+                        <name>description</name>
+			<longname>description of the property</longname>
 		</string>
 		<string>
 			<name>calculatefunc</name>
