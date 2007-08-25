@@ -1681,7 +1681,8 @@
 			<description>Body of the message</description>
 		</string>
 		<integer type="unsigned" size="32">
-			<name>Turn the message was generated on</name>
+			<name>turn</name>
+			<longname>Turn the message was generated on</longname>
 		</integer>
 		<list>
 			<name>references</name>
