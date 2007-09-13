@@ -289,19 +289,6 @@
 			</usestruct>
 		</parameter>
 	</parameterset>
-	<parameterset name="ObjectParams">
-		<longname>Order Parameters</longname>
-		<description>These are the parameters for Orders and OrderDescriptions.</description>
-		<parameter name="objectnull" type="0">
-			<!-- DEFINE Object parameters here -->
-			<descstruct>
-				<structure />
-			</descstruct>
-			<usestruct>
-				<structure />
-			</usestruct>
-		</parameter>
-	</parameterset>
 	
 	
 	<packet name="Header">
@@ -777,7 +764,6 @@
 		<character size="8">
 			<name>padding</name>
 		</character>
-		<useparameters ref="ObjectParams" />
 	</structure>
 	<note>
 		Note: The number of orders should be the number of orders the person can see on the
