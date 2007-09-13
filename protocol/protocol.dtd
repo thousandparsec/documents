@@ -34,9 +34,9 @@
 <!ATTLIST list readonly CDATA "no" >
 <!ELEMENT group (name, longname, description?, structure, example?, note*) >
 <!ELEMENT useparameters (name, longname, description?) >
-<!ATTLIST useparameters ref IDREF #REQUIRED >
+<!ATTLIST useparameters ref IDREF #REQUIRED typefield CDATA #IMPLIED >
 <!ELEMENT descparameter (name, longname, description?) >
-<!ATTLIST descparameter ref IDREF #REQUIRED >
+<!ATTLIST descparameter ref IDREF #REQUIRED typefield CDATA #IMPLIED >
 
 <!-- Parameterset -->
 <!ELEMENT parameterset (longname?, description?, parameter+, note*) >

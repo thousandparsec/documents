@@ -899,7 +899,7 @@
 			<note>-1 will insert at the last position, otherwise it is inserted before the number</note>
 		</integer>
 		<integer type="unsigned" size="32">
-			<name>type</name>
+			<name>otype</name>
 			<longname>Order Type ID</longname>
 			<subtype />
 		</integer>
@@ -926,7 +926,8 @@
 				</integer>
 			</structure>
 		</list>
-		<useparameters ref="OrderParams">
+		<!-- FIXME: otype is actually indirect through OrderDesc -->
+		<useparameters ref="OrderParams" typefield="otype">
 			<name>oderparams</name>
 			<longname>the order's parameter</longname>
 			<description>extra data, required by the order is appended to the end</description>
