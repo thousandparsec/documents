@@ -265,6 +265,9 @@
 		<parameter name="objectParamPosition3d" type="0">
 			<longname>Position in 3D</longname>
 			<description>A vector for the position.</description>
+			<descstruct>
+				<structure />
+			</descstruct>
 			<usestruct>
 				<structure>
 					<group>
@@ -293,6 +296,9 @@
 		<parameter name="objectParamVelocity3d" type="1">
 			<longname>Velocity in 3D</longname>
 			<description>A vector for the velocity.</description>
+			<descstruct>
+				<structure />
+			</descstruct>
 			<usestruct>
 				<structure>
 					<group>
@@ -321,6 +327,9 @@
 		<parameter name="objectParamAcceleration3d" type="2">
 			<longname>Acceleration in 3D</longname>
 			<description>A vector for the acceleration.</description>
+			<descstruct>
+				<structure />
+			</descstruct>
 			<usestruct>
 				<structure>
 					<group>
@@ -349,6 +358,9 @@
 		<parameter name="objectParamBoundPosition" type="3">
 			<longname>Bound Position</longname>
 			<description>Object is bound to ('in') an Object.</description>
+			<descstruct>
+				<structure />
+			</descstruct>
 			<usestruct>
 				<structure>
 					<integer type="signed" size="32" readonly="yes">
@@ -406,6 +418,9 @@
 		<parameter name="objectParamResourceList" type="5">
 			<longname>Resource List</longname>
 			<description>A list of resources.</description>
+			<descstruct>
+				<structure />
+			</descstruct>
 			<usestruct>
 				<structure>
 					<list>
@@ -441,6 +456,9 @@
 		<parameter name="objectParmReference" type="6">
 			<longname>Reference</longname>
 			<description>A generic reference to something.</description>
+			<descstruct>
+				<structure />
+			</descstruct>
 			<usestruct>
 				<structure>
 					<integer type="signed" size="32">
@@ -458,6 +476,9 @@
 		<parameter name="objectParamReferenceQuantityList" type="7">
 			<longname>Reference Quality List</longname>
 			<description>Gives a list of references and how many of each of them.</description>
+			<descstruct>
+				<structure />
+			</descstruct>
 			<usestruct>
 				<structure>
 					<list>
@@ -486,6 +507,9 @@
 		<parameter name="objectParamInteger" type="8">
 			<longname>Integer</longname>
 			<description>An Integer, informational.</description>
+			<descstruct>
+				<structure />
+			</descstruct>
 			<usestruct>
 				<structure>
 					<integer type="unsigned" size="32">
@@ -499,6 +523,9 @@
 		<parameter name="objectParamSize" type="9">
 			<longname>Size</longname>
 			<description>The diameter of the object.</description>
+			<descstruct>
+				<structure />
+			</descstruct>
 			<usestruct>
 				<structure>
 					<integer type="unsigned" size="64" readonly="yes">
@@ -512,6 +539,9 @@
 		<parameter name="objectParamMedia" type="10">
 			<longname>Media Url</longname>
 			<description>The url for the media for this object, either relative to the base url given in the Game frame, of absolute.</description>
+			<descstruct>
+				<structure />
+			</descstruct>
 			<usestruct>
 				<structure>
 					<string readonly="yes">
