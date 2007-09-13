@@ -1174,7 +1174,10 @@
 							<longname>Description</longname>
 							<description>Description of this parameter.</description>
 						</string>
-						<descparameter ref="ObjectParams" />
+						<descparameter ref="ObjectParams">
+							<name>extradata</name>
+							<longname>extra data for this parameter</longname>
+						</descparameter>
 					</structure>
 				</list>
 			</structure>
@@ -1257,7 +1260,10 @@
 		<character size="16">
 			<name>padding</name>
 		</character>
-		<useparameters ref="ObjectParams" />
+		<useparameters ref="ObjectParams">
+			<name>parameters</name>
+			<longname>the object's parameters</longname>
+		</useparameters>
 	</structure>
 </packet>
 
@@ -1371,7 +1377,10 @@
 						<longname></longname>
 						<description></description>
 					</string>
-					<descparameter ref="OrderParams" />
+					<descparameter ref="OrderParams">
+						<name>extradata</name>
+						<longname>extra data for this parameter</longname>
+					</descparameter>
 			</structure>
 		</list>
 		<integer type="unsigned" size="64">
@@ -1452,10 +1461,11 @@
 				</integer>
 			</structure>
 		</list>
-		<useparameters ref="OrderParams" />
-		<!-- <li>extra data, required by the order is appended to the end</li>
-	
--->
+		<useparameters ref="OrderParams">
+			<name>parameters</name>
+			<longname>this order's parameters</longname>
+			<description>extra data, required by the order is appended to the end</description>
+		</useparameters>
 	</structure>
 	<note>
 			The extra data is defined by Order descriptions frames.

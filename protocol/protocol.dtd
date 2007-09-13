@@ -31,9 +31,9 @@
 <!ELEMENT list (name, longname, description?, structure, example?, note*)  >
 <!ATTLIST list readonly CDATA "no" >
 <!ELEMENT group (name, longname, description?, structure, example?, note*) >
-<!ELEMENT useparameters EMPTY >
+<!ELEMENT useparameters (name, longname, description?) >
 <!ATTLIST useparameters ref IDREF #REQUIRED >
-<!ELEMENT descparameter EMPTY >
+<!ELEMENT descparameter (name, longname, description?) >
 <!ATTLIST descparameter ref IDREF #REQUIRED >
 
 <!-- Parameterset -->

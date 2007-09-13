@@ -926,8 +926,11 @@
 				</integer>
 			</structure>
 		</list>
-		<useparameters ref="OrderParams" />
-		<!-- <li>extra data, required by the order is appended to the end</li> -->
+		<useparameters ref="OrderParams">
+			<name>oderparams</name>
+			<longname>the order's parameter</longname>
+			<description>extra data, required by the order is appended to the end</description>
+		</useparameters>
 	</structure>
 	<note>
 			The extra data is defined by Order descriptions frames.
