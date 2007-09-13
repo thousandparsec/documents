@@ -259,6 +259,114 @@
 			</usestruct>
 		</parameter>
 	</parameterset>
+	<parameterset name="ObjectParams">
+		<longname>Game Objects</longname>
+		<description>These are the "parameters" that define structures of Objects.</description>
+		<parameter name="Universe" type="0">
+			<longname>the Universe</longname>
+			<descstruct>
+				<structure />
+			</descstruct>
+			<usestruct>
+				<structure>
+					<integer type="unsigned" readonly="yes" size="32">
+						<name>age</name>
+						<longname>the current year/turn number</longname>
+					</integer>
+				</structure>
+			</usestruct>
+		</parameter>
+		<parameter name="Galaxy" type="1">
+			<longname>a galaxy, a collection of star systems</longname>
+			<descstruct>
+				<structure />
+			</descstruct>
+			<usestruct>
+				<structure>
+					<!-- empty -->
+				</structure>
+			</usestruct>
+		</parameter>
+		<parameter name="StarSystem" type="2">
+			<longname>a star system, a collection of planets</longname>
+			<descstruct>
+				<structure />
+			</descstruct>
+			<usestruct>
+				<structure>
+					<!-- empty -->
+				</structure>
+			</usestruct>
+		</parameter>
+		<parameter name="Planet" type="3">
+			<longname>a celestial object that can be inhabited</longname>
+			<descstruct>
+				<structure />
+			</descstruct>
+			<usestruct>
+				<structure>
+					<integer type="semisigned" readonly="yes" size="32">
+						<name>owner</name>
+						<longname>the id of the player who "owns" this planet or -1 if not owned or unknown</longname>
+					</integer>
+					<list>
+						<name>resources</name>
+						<longname>a list of resources available on this planet</longname>
+						<structure>
+							<integer type="unsigned" readonly="yes" size="32">
+								<name>id</name>
+								<longname>the resource id</longname>
+							</integer>
+							<integer type="unsigned" readonly="yes" size="32">
+								<name>units</name>
+								<longname>the units of this resource on the "surface"</longname>
+							</integer>
+							<integer type="unsigned" readonly="yes" size="32">
+								<name>unitsminable</name>
+								<longname>the maximum units of this resource remaining which are minable</longname>
+							</integer>
+							<integer type="unsigned" readonly="yes" size="32">
+								<name>unitsinaccessible</name>
+								<longname>the maximum units of this resource remaining which are inaccessable</longname>
+							</integer>
+						</structure>
+					</list>
+				</structure>
+			</usestruct>
+		</parameter>
+		<parameter name="Fleet" type="4">
+			<longname>a group of ships</longname>
+			<descstruct>
+				<structure />
+			</descstruct>
+			<usestruct>
+				<structure>
+					<integer type="semisigned" readonly="yes" size="32">
+						<name>owner</name>
+						<longname>the id of the player who owns this fleet or -1 if not owned or unknown</longname>
+					</integer>
+					<list>
+						<name>ships</name>
+						<longname>a list of ships in this fleet</longname>
+						<structure>
+							<integer type="unsigned" readonly="yes" size="32">
+								<name>type</name>
+								<longname>the type of the ship</longname>
+							</integer>
+							<integer type="unsigned" readonly="yes" size="32">
+								<name>count</name>
+								<longname>the number of the ships in the fleet</longname>
+							</integer>
+						</structure>
+					</list>
+					<integer type="unsigned" readonly="yes" size="32">
+						<name>damage</name>
+						<longname>the amount of damage the fleet currently has</longname>
+					</integer>
+				</structure>
+			</usestruct>
+		</parameter>
+	</parameterset>
 	
 	
 	<packet name="Header">
@@ -734,6 +842,10 @@
 		<character size="8">
 			<name>padding</name>
 		</character>
+		<useparameters ref="ObjectParams" typefield="otype">
+			<name>object</name>
+			<longname>the objet's data</longname>
+		</useparameters>
 	</structure>
 	<note>
 		Note: The number of orders should be the number of orders the person can see on the
