@@ -7,9 +7,6 @@
 		<parameter name="orderParamAbsSpaceCoords" type="0">
 			<longname>Absolute Space Coordinates</longname>
 			<description>Coordinates in absolute space. (Relative to the center of the Universe)</description>
-			<descstruct>
-				<structure />
-			</descstruct>
 			<usestruct>
 				<structure>
 					<group>
@@ -33,9 +30,6 @@
 		<parameter name="orderParamTime" type="1">
 			<longname>Time</longname>
 			<description>The number of turns before something happens.</description>
-			<descstruct>
-				<structure />
-			</descstruct>
 			<usestruct>
 				<structure>
 					<integer type="signed" size="32">
@@ -53,9 +47,6 @@
 		<parameter name="orderParamObject" type="2">
 			<longname>Object</longname>
 			<description>An object's ID number.</description>
-			<descstruct>
-				<structure />
-			</descstruct>
 			<usestruct>
 				<structure>
 					<integer type="unsigned" size="32">
@@ -69,9 +60,6 @@
 		<parameter name="orderParamPlayer" type="3">
 			<longname>Player</longname>
 			<description>A player's ID number.</description>
-			<descstruct>
-				<structure />
-			</descstruct>
 			<usestruct>
 				<structure>
 					<integer type="unsigned" size="32">
@@ -97,9 +85,6 @@
 		<parameter name="orderParamRelSpaceCoords" type="4">
 			<longname>Relative Space Coordinates</longname>
 			<description>Coordinates relative to an object</description>
-			<descstruct>
-				<structure />
-			</descstruct>
 			<usestruct>
 				<structure>
 					<integer type="unsigned" size="32">
@@ -128,9 +113,6 @@
 		<parameter name="orderParamRange" type="5">
 			<longname>Range</longname>
 			<description>A number value from a range.</description>
-			<descstruct>
-				<structure />
-			</descstruct>
 			<usestruct>
 				<structure>
 					<integer type="signed" size="32">
@@ -158,9 +140,6 @@
 		<parameter name="orderParamList" type="6">
 			<longname>List</longname>
 			<description>A in which numerous items can be selected.</description>
-			<descstruct>
-				<structure />
-			</descstruct>
 			<usestruct>
 				<structure>
 					<list readonly="yes">
@@ -208,9 +187,6 @@
 		<parameter name="orderParamString" type="7">
 			<longname>String</longname>
 			<description>A textual string.</description>
-			<descstruct>
-				<structure />
-			</descstruct>
 			<usestruct>
 				<structure>	
 					<integer type="unsigned" size="32" readonly="yes">
@@ -228,9 +204,6 @@
 		<parameter name="orderParamReference" type="8">
 			<longname>Generic Reference</longname>
 			<description>A reference to something.</description>
-			<descstruct>
-				<structure />
-			</descstruct>
 			<usestruct>
 				<structure>	
 					<integer type="unsigned" size="32">
@@ -256,9 +229,6 @@
 		<parameter name="orderParamReferenceList" type="9">
 			<longname>Generic Reference List</longname>
 			<description>A list of references to something.</description>
-			<descstruct>
-				<structure />
-			</descstruct>
 			<usestruct>
 				<structure>
 					<list>
@@ -877,7 +847,6 @@
 						<longname></longname>
 						<description></description>
 					</string>
-					<descparameter ref="OrderParams" />
 			</structure>
 		</list>
 		<integer type="unsigned" size="64">
@@ -958,9 +927,7 @@
 			</structure>
 		</list>
 		<useparameters ref="OrderParams" />
-		<!-- <li>extra data, required by the order is appended to the end</li>
-	
--->
+		<!-- <li>extra data, required by the order is appended to the end</li> -->
 	</structure>
 	<note>
 			The extra data is defined by Order descriptions frames.

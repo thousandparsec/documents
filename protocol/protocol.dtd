@@ -41,7 +41,7 @@
 <!-- Parameterset -->
 <!ELEMENT parameterset (longname?, description?, parameter+, note*) >
 <!ATTLIST parameterset name ID #REQUIRED >
-<!ELEMENT parameter (longname?, description?, descstruct, usestruct, note*) >
+<!ELEMENT parameter (longname?, description?, descstruct?, usestruct, note*) >
 <!ATTLIST parameter name ID #REQUIRED type NMTOKEN #REQUIRED >
 <!ELEMENT descstruct (structure) >
 <!ELEMENT usestruct (structure) >
