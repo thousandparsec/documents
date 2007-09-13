@@ -1174,7 +1174,7 @@
 							<longname>Description</longname>
 							<description>Description of this parameter.</description>
 						</string>
-						<descparameter ref="ObjectParams">
+						<descparameter ref="ObjectParams" typefield="type">
 							<name>extradata</name>
 							<longname>extra data for this parameter</longname>
 						</descparameter>
@@ -1260,7 +1260,8 @@
 		<character size="16">
 			<name>padding</name>
 		</character>
-		<useparameters ref="ObjectParams">
+		<!-- FIXME: otype is actually indirect through ObjectDesc -->
+		<useparameters ref="ObjectParams" typefield="otype">
 			<name>parameters</name>
 			<longname>the object's parameters</longname>
 		</useparameters>
@@ -1377,7 +1378,7 @@
 						<longname></longname>
 						<description></description>
 					</string>
-					<descparameter ref="OrderParams">
+					<descparameter ref="OrderParams" typefield="type">
 						<name>extradata</name>
 						<longname>extra data for this parameter</longname>
 					</descparameter>
@@ -1433,7 +1434,7 @@
 			<note>-1 will insert at the last position, otherwise it is inserted before the number</note>
 		</integer>
 		<integer type="unsigned" size="32">
-			<name>Order Type ID</name>
+			<name>otype</name>
 			<longname>Order Type ID</longname>
 			<description>Order Type ID</description>
 			<subtype />
@@ -1461,7 +1462,8 @@
 				</integer>
 			</structure>
 		</list>
-		<useparameters ref="OrderParams">
+		<!-- FIXME: otype is actually indirect through OrderDesc -->
+		<useparameters ref="OrderParams" typefield="otype">
 			<name>parameters</name>
 			<longname>this order's parameters</longname>
 			<description>extra data, required by the order is appended to the end</description>
