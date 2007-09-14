@@ -513,7 +513,7 @@
 			<usestruct>
 				<structure>
 					<integer type="unsigned" size="32">
-						<name>int</name>
+						<name>intvalue</name>
 						<longname>Value</longname>
 						<description>The value of the integer parameter.</description>
 					</integer>
