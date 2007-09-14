@@ -789,9 +789,9 @@
 			<description>Modification Times of each ID</description>
 			<structure>
 				<integer type="unsigned" size="32">
-					<name>ID</name>
-					<longname>the IDs</longname>
-					<description>the IDs</description>
+					<name>id</name>
+					<longname>the ID</longname>
+					<description>the ID</description>
 				</integer>
 				<integer type="unsigned" size="64">
 					<name>modtime</name>
@@ -1039,6 +1039,7 @@
 			<longname>Protocol Versions</longname>
 			<description>Supported protocol versions.</description>
 			<structure>
+				<!-- TODO: integer? otherwise, what's the format? -->
 				<string>
 					<name>proto</name>
 					<longname>Protocol version</longname>
@@ -1276,9 +1277,9 @@
 			<description>IDs of the objects contained by this object.</description>
 			<structure>
 				<integer type="unsigned" size="32" readonly="yes">
-					<name>ID</name>
-					<longname>the IDs</longname>
-					<description>the IDs</description>
+					<name>id</name>
+					<longname>the ID</longname>
+					<description>the ID</description>
 				</integer>
 			</structure>
 		</list>
@@ -1782,7 +1783,7 @@
 
 	<structure>
 		<integer type="unsigned" size="32">
-			<name>Resource ID</name>
+			<name>id</name>
 			<longname>Resource ID</longname>
 			<description>Resource ID</description>
 		</integer>
@@ -1944,12 +1945,12 @@
 			<description>The time at which this design was last modified.</description>
 		</integer>
 		<list>
-                        <name>catlist</name>
-                        <longname>Category List</longname>
+			<name>catlist</name>
+			<longname>Category List</longname>
 			<structure>
 				<integer type="unsigned" size="32">
 					<name>catid</name>
-                                        <longname>Category ID</longname>
+					<longname>Category ID</longname>
 				</integer>
 			</structure>
 		</list>
@@ -1958,7 +1959,7 @@
 			<longname>name of the design</longname>
 		</string>
 		<string type="formatted">
-                        <name>description</name>
+			<name>description</name>
 			<longname>description of the design</longname>
 		</string>
 		<integer type="semisigned" size="32">
@@ -1987,7 +1988,7 @@
 			</structure>
 		</list>
 		<string type="formatted">
-                        <name>feedback</name>
+			<name>feedback</name>
 			<longname>human readable feedback on the design</longname>
 		</string>
 		<list>
@@ -2001,7 +2002,7 @@
 				</integer>
 				<string type="formatted">
 					<name>displaystring</name>
-                                        <longname>String value of the property</longname>
+					<longname>String value of the property</longname>
 				</string>
 			</structure>
 		</list>
@@ -2052,7 +2053,7 @@
 	<longname>Component</longname>
 	<structure>
 		<integer type="unsigned" size="32">
-			<name>component ID</name>
+			<name>id</name>
 			<longname>component ID</longname>
 			<description>component ID</description>
 		</integer>
@@ -2062,18 +2063,21 @@
 			<description>The time at which this component was last modified.</description>
 		</integer>
 		<list>
-                        <name>catlist</name>
-                        <longname>Category List</longname>
+			<name>catlist</name>
+			<longname>Category List</longname>
 			<structure>
-				<integer type="unsigned" size="32"><name>categories this component is in</name></integer>
+				<integer type="unsigned" size="32">
+					<name>catid</name>
+					<longname>category this component is in</longname>
+				</integer>
 			</structure>
 		</list>
 		<string type="formatted">
-                        <name>name</name>
+			<name>name</name>
 			<longname>name of the component</longname>
 		</string>
 		<string type="formatted">
-                        <name>description</name>
+			<name>description</name>
 			<longname>description of the component</longname>
 		</string>
 		<string>
@@ -2130,16 +2134,17 @@
 			<description>The time at which this property was last modified.</description>
 		</integer>
 		<list>
-                        <name>catlist</name>
-                        <longname>Category List</longname>
+			<name>catlist</name>
+			<longname>Category List</longname>
 			<structure>
 				<integer type="unsigned" size="32">
-					<name>categories this component is in</name>
+					<name>catid</name>
+					<longname>category this component is in</longname>
 				</integer>
 			</structure>
 		</list>
 		<integer type="unsigned" size="32">
-			<name>rank of the property</name>
+			<name>rank</name>
 			<longname>rank of the property</longname>
 			<description>rank of the property</description>
 		</integer>
@@ -2149,11 +2154,11 @@
 			<description>A valid TPCL identifier for this property.</description>
 		</string>
 		<string type="formatted">
-                        <name>dispalyname</name>
+			<name>dispalyname</name>
 			<longname>display name of the property</longname>
 		</string>
 		<string type="formatted">
-                        <name>description</name>
+			<name>description</name>
 			<longname>description of the property</longname>
 		</string>
 		<string>

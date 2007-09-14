@@ -552,9 +552,9 @@
 			<description>Modification Times of each ID</description>
 			<structure>
 				<integer type="unsigned" size="32">
-					<name>ID</name>
-					<longname>the IDs</longname>
-					<description>the IDs</description>
+					<name>id</name>
+					<longname>the ID</longname>
+					<description>the ID</description>
 				</integer>
 				<integer type="unsigned" size="64">
 					<name>modtime</name>
@@ -796,9 +796,9 @@
 			<description>IDs of the objects contained by this object.</description>
 			<structure>
 				<integer type="unsigned" size="32">
-					<name>ID</name>
-					<longname>the IDs</longname>
-					<description>the IDs</description>
+					<name>id</name>
+					<longname>the ID</longname>
+					<description>the ID</description>
 				</integer>
 			</structure>
 		</list>
@@ -808,9 +808,9 @@
 			<description>The order types that a player can send to this object.</description>
 			<structure>
 				<integer type="unsigned" size="32">
-					<name>ID</name>
-					<longname>the IDs</longname>
-					<description>the IDs</description>
+					<name>id</name>
+					<longname>the ID</longname>
+					<description>the ID</description>
 				</integer>
 			</structure>
 		</list>
