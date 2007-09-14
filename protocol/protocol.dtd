@@ -36,8 +36,8 @@
 <!ELEMENT useparameters (name, longname, description?) >
 <!--
 	useparameters@typefield format: (as a regex)
-	(\w+)(=(\w+)(\[(\w+)\])?.(((\w+)([.:]|$))+))?
-	1    2 3    4  5         678    9
+	(\w+)(=(\w+)(\[(\w+)\])?\.(((\w+)([.:]|$))+))?
+	1    2 3    4  5          678    9
 
 	groups:
 	1 = local field with type
