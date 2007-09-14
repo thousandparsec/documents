@@ -1038,9 +1038,8 @@
 				</integer>
 			</structure>
 		</list>
-		<!-- FIXME: otype is actually indirect through OrderDesc -->
-		<useparameters ref="OrderParams" typefield="otype">
-			<name>oderparams</name>
+		<useparameters ref="OrderParams" typefield="otype=OrderDesc[id].parameters:type">
+			<name>orderparams</name>
 			<longname>the order's parameter</longname>
 			<description>extra data, required by the order is appended to the end</description>
 		</useparameters>
