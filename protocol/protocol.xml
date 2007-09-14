@@ -1442,10 +1442,6 @@
 						<longname></longname>
 						<description></description>
 					</string>
-					<descparameter ref="OrderParams" typefield="type">
-						<name>extradata</name>
-						<longname>extra data for this parameter</longname>
-					</descparameter>
 			</structure>
 		</list>
 		<integer type="unsigned" size="64">
