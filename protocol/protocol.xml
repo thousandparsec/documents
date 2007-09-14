@@ -1290,8 +1290,7 @@
 		<character size="16">
 			<name>padding</name>
 		</character>
-		<!-- FIXME: otype is actually indirect through ObjectDesc -->
-		<useparameters ref="ObjectParams" typefield="otype">
+		<useparameters ref="ObjectParams" typefield="otype=ObjectDesc[id].propertygroups:parameters:type">
 			<name>parameters</name>
 			<longname>the object's parameters</longname>
 		</useparameters>
@@ -1492,8 +1491,7 @@
 				</integer>
 			</structure>
 		</list>
-		<!-- FIXME: otype is actually indirect through OrderDesc -->
-		<useparameters ref="OrderParams" typefield="otype">
+		<useparameters ref="OrderParams" typefield="otype=OrderDesc[id].parameters:type">
 			<name>parameters</name>
 			<longname>this order's parameters</longname>
 			<description>extra data, required by the order is appended to the end</description>
