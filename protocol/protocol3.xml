@@ -264,9 +264,6 @@
 		<description>These are the "parameters" that define structures of Objects.</description>
 		<parameter name="Universe" type="0">
 			<longname>the Universe</longname>
-			<descstruct>
-				<structure />
-			</descstruct>
 			<usestruct>
 				<structure>
 					<integer type="unsigned" readonly="yes" size="32">
@@ -278,9 +275,6 @@
 		</parameter>
 		<parameter name="Galaxy" type="1">
 			<longname>a galaxy, a collection of star systems</longname>
-			<descstruct>
-				<structure />
-			</descstruct>
 			<usestruct>
 				<structure>
 					<!-- empty -->
@@ -289,9 +283,6 @@
 		</parameter>
 		<parameter name="StarSystem" type="2">
 			<longname>a star system, a collection of planets</longname>
-			<descstruct>
-				<structure />
-			</descstruct>
 			<usestruct>
 				<structure>
 					<!-- empty -->
@@ -300,9 +291,6 @@
 		</parameter>
 		<parameter name="Planet" type="3">
 			<longname>a celestial object that can be inhabited</longname>
-			<descstruct>
-				<structure />
-			</descstruct>
 			<usestruct>
 				<structure>
 					<integer type="semisigned" readonly="yes" size="32">
@@ -336,9 +324,6 @@
 		</parameter>
 		<parameter name="Fleet" type="4">
 			<longname>a group of ships</longname>
-			<descstruct>
-				<structure />
-			</descstruct>
 			<usestruct>
 				<structure>
 					<integer type="semisigned" readonly="yes" size="32">
