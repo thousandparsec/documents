@@ -1291,9 +1291,17 @@
 		<character size="16">
 			<name>padding</name>
 		</character>
-		<useparameters ref="ObjectParams" typefield="otype=ObjectDesc[id].propertygroups:parameters:type">
+		<useparameters ref="ObjectParams">
 			<name>parameters</name>
 			<longname>the object's parameters</longname>
+			<typefield>otype</typefield>
+			<typeframe name="ObjectDesc" idfield="id">
+				<getlist name="propertygroups">
+					<getlist name="parameters">
+						<getfield name="type"/>
+					</getlist>
+				</getlist>
+			</typeframe>
 		</useparameters>
 	</structure>
 </packet>
@@ -1488,10 +1496,16 @@
 				</integer>
 			</structure>
 		</list>
-		<useparameters ref="OrderParams" typefield="otype=OrderDesc[id].parameters:type">
+		<useparameters ref="OrderParams">
 			<name>parameters</name>
 			<longname>this order's parameters</longname>
 			<description>extra data, required by the order is appended to the end</description>
+			<typefield>otype</typefield>
+			<typeframe name="OrderDesc" idfield="id">
+				<getlist name="parameters">
+					<getfield name="type"/>
+				</getlist>
+			</typeframe>
 		</useparameters>
 	</structure>
 	<note>
