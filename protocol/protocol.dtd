@@ -33,34 +33,22 @@
 <!ELEMENT list (name, longname, description?, structure, example?, note*)  >
 <!ATTLIST list readonly CDATA "no" >
 <!ELEMENT group (name, longname, description?, structure, example?, note*) >
-<!ELEMENT useparameters (name, longname, description?) >
+<!ELEMENT useparameters (name, longname, description?, typefield, typeframe?) >
 <!--
-	useparameters@typefield format: (as a regex)
-	(\w+)(=(\w+)(\[(\w+)\])?\.(((\w+)([.:]|$))+))?
-	1    2 3    4  5          678    9
-
-	groups:
-	1 = local field with type
-	2 = indirect clause (if not present, typefield is direct)
-	3 = indirect frame's name
-	4 = optional indirect frame's id field clause (for consistency checks)
-	5 = indirect frame's id field name
-	6 = search path clauses
-	7 = single search path clause
-	8 = search path element field name
-	9 = search path type; '.' is a simple field access; ':' is list traversal; none at the end
-
-	examples:
-	"otype"
-		(simple direct parameter; object data in Object frame in TP03)
-
-	"otype=OrderDesc[id].parameters:type"
-		(indirect parameters; order params in TP03)
-
-	"otype=ObjectDesc[id].propertygroups:parameters:type"
-		(indirect parameters; object params in TP04)
+	useparameters/typefield and useparameters/typeframe
+	are used to describe how to get parameter ids from
+	an "indirect" frame; lask of typeframe means that the
+	parameter is embedded directly and no extra frame is
+	necessary.
 -->
-<!ATTLIST useparameters ref IDREF #REQUIRED typefield CDATA #REQUIRED >
+<!ATTLIST useparameters ref IDREF #REQUIRED >
+<!ELEMENT typefield (#PCDATA) >
+<!ELEMENT typeframe ((getfield | getlist)) >
+<!ATTLIST typeframe name IDREF #REQUIRED idfield ID #REQUIRED >
+<!ELEMENT getfield ((getfield | getlist)?) >
+<!ATTLIST getfield name CDATA #REQUIRED >
+<!ELEMENT getlist ((getfield | getlist)?) >
+<!ATTLIST getlist name CDATA #REQUIRED >
 <!ELEMENT descparameter (name, longname, description?) >
 <!ATTLIST descparameter ref IDREF #REQUIRED typefield CDATA #REQUIRED >
 

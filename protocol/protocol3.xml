@@ -827,9 +827,10 @@
 		<character size="8">
 			<name>padding</name>
 		</character>
-		<useparameters ref="ObjectParams" typefield="otype">
+		<useparameters ref="ObjectParams">
 			<name>object</name>
 			<longname>the objet's data</longname>
+			<typefield>otype</typefield>
 		</useparameters>
 	</structure>
 	<note>
@@ -1023,10 +1024,16 @@
 				</integer>
 			</structure>
 		</list>
-		<useparameters ref="OrderParams" typefield="otype=OrderDesc[id].parameters:type">
+		<useparameters ref="OrderParams">
 			<name>orderparams</name>
 			<longname>the order's parameter</longname>
 			<description>extra data, required by the order is appended to the end</description>
+			<typefield>otype</typefield>
+			<typeframe name="OrderDesc" idfield="id">
+				<getlist name="parameters">
+					<getfield name="type"/>
+				</getlist>
+			</typeframe>
 		</useparameters>
 	</structure>
 	<note>
