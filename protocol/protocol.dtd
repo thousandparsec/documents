@@ -35,14 +35,14 @@
 <!--
 	useparameters/typefield and useparameters/typeframe
 	are used to describe how to get parameter ids from
-	an "indirect" frame; lask of typeframe means that the
+	an "indirect" frame; lack of typeframe means that the
 	parameter is embedded directly and no extra frame is
 	necessary.
 -->
 <!ATTLIST useparameters ref IDREF #REQUIRED >
 <!ELEMENT typefield (#PCDATA) >
 <!ELEMENT typeframe ((getfield | getlist)) >
-<!ATTLIST typeframe name IDREF #REQUIRED idfield ID #REQUIRED >
+<!ATTLIST typeframe name IDREF #REQUIRED idfield CDATA #REQUIRED >
 <!ELEMENT getfield ((getfield | getlist)?) >
 <!ATTLIST getfield name CDATA #REQUIRED >
 <!ELEMENT getlist ((getfield | getlist)?) >
