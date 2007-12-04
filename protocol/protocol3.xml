@@ -1626,4 +1626,10 @@
 	<longname>List of Property IDs</longname>
 </packet>
 
+<!--  TP03+: a frame implanted from TP04, which tpserver-cpp will accept in TP03 mode too -->
+<packet base="Request" name="FinishedTurn" id="63">
+	<longname>Finished Turn</longname>
+	<description>The player sends this frame to the server when the player has finished everything and is ready for the end of turn.</description>
+</packet>
+
 </protocol>
