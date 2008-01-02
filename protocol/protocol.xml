@@ -63,6 +63,19 @@
 						<longname>Object ID</longname>
 						<description>The object's Id number.</description>
 					</integer>
+					<list readonly="yes">
+						<name>validtypes</name>
+						<longname>List of valid object types</longname>
+						<description>List of the valid object types which can be chosen.</description>
+						<structure>
+							<integer type="unsigned" size="32">
+								<name>validtype</name>
+								<longname>Valid Object Type</longname>
+								<description>A valid object type for the chosen Object ID.</description>
+							</integer>
+						</structure>
+						<note>An empty list indicates that all types are valid.</note>
+					</list>
 				</structure>
 			</usestruct>
 		</parameter>
