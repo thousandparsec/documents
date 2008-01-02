@@ -625,10 +625,30 @@
 				<example>32</example>
 			</integer>
 		</structure>
+		<failtype type="0">
+			<description>Unable to decode frame header correctly.</description>
+		</failtype>
+		<failtype type="1">
+			<description>Something was wrong with decoding the contents of the frame.</description>
+		</failtype>
+		<failtype type="5">
+			<description>This frame is now allowed.</description>
+		</failtype>
+		<failtype type="7">
+			<description>The version of the frame is not supported.</description>
+		</failtype>
+		<failtype type="8">
+			<description>The frame that was going to be sent was too large for the protocol.</description>
+		</failtype>
 	</packet>
 
-	<packet base="Header" name="Request"></packet>
-	<packet base="Header" name="Response"></packet>
+	<packet base="Header" name="Request">
+		<direction>server</direction>
+	</packet>
+	
+	<packet base="Header" name="Response">
+		<direction>client</direction>
+	</packet>
 
 	<packet base="Response" name="Okay" id="0">
 		<description>A request was successful in some sort of way.</description>
@@ -1323,6 +1343,7 @@
 
 <packet base="Object" name="ModifyObject" id="71">
 	<longname>Modify Object</longname>
+	<direction>server</direction>
 </packet>
 
 
@@ -1528,10 +1549,13 @@
 	</note>
 </packet>
 
-<packet id="12" base="Order" name="OrderInsert"></packet>
+<packet id="12" base="Order" name="OrderInsert">
+	<direction>server</direction>
+</packet>
 
 <packet id="34" base="Order" name="OrderProbe">
 	<longname>Probe Order</longname>
+	<direction>server</direction>
 	<note>
 	A Probe Order frame gets an order as if the order given was put in the object's order queue. 
 	These probes should occur as if no orders currently exist on object and should 
@@ -1781,6 +1805,7 @@
 
 <packet id="20" base="Message" name="PostMessage">
 	<longname>Post Message</longname>
+	<direction>server</direction>
 </packet>
 
 <packet id="21" base="GetMessage" name="RemoveMessage">
@@ -1928,6 +1953,7 @@
 
 <packet id="43" base="Category" name="AddCategory">
 	<longname>Add Category</longname>
+	<direction>server</direction>
 </packet>
 
 <packet id="45" base="GetIDSequence" name="GetCategoryIDs">
@@ -2048,10 +2074,12 @@
 
 <packet id="49" base="Design" name="AddDesign">
 	<longname>Add Design</longname>
+	<direction>server</direction>
 </packet>
 
 <packet id="50" base="Design" name="ModifyDesign">
 	<longname>Modify Design</longname>
+	<direction>server</direction>
 </packet>
 
 <packet id="52" base="GetIDSequence" name="GetDesignIDs">
