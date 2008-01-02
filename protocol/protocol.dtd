@@ -10,9 +10,11 @@
 
 <!-- Packet -->
 
-<!ELEMENT packet (longname?, direction?, description?, structure?, note*) >
+<!ELEMENT packet (longname?, direction?, description?, structure?, failtype*, note*) >
 <!ATTLIST packet name ID #REQUIRED base IDREF #IMPLIED id NMTOKEN #IMPLIED>
 <!ELEMENT direction (#PCDATA) >
+<!ELEMENT failtype (description?, note?) >
+<!ATTLIST failtype type NMTOKEN #REQUIRED >
 <!ELEMENT structure (character | integer | string | enumeration | list | group | useparameters | descparameter )* >
 
 <!-- stucture types -->
