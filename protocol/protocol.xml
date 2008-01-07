@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <!DOCTYPE protocol SYSTEM "protocol.dtd">
-<protocol version="TP03">
+<protocol version="TP04">
 	<parameterset name="OrderParams">
 		<longname>Order Parameters</longname>
 		<description>These are the parameters for Orders and OrderDescriptions.</description>
