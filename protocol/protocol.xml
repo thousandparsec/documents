@@ -8,7 +8,7 @@
 			<longname>Absolute Space Coordinates</longname>
 			<description>Coordinates in absolute space. (Relative to the center of the Universe)</description>
 			<descstruct>
-				<structure />
+				<structure/>
 			</descstruct>
 			<usestruct>
 				<structure>
@@ -34,7 +34,7 @@
 			<longname>Time</longname>
 			<description>The number of turns before something happens.</description>
 			<descstruct>
-				<structure />
+				<structure/>
 			</descstruct>
 			<usestruct>
 				<structure>
@@ -54,7 +54,7 @@
 			<longname>Object</longname>
 			<description>An object's ID number.</description>
 			<descstruct>
-				<structure />
+				<structure/>
 			</descstruct>
 			<usestruct>
 				<structure>
@@ -83,7 +83,7 @@
 			<longname>Player</longname>
 			<description>A player's ID number.</description>
 			<descstruct>
-				<structure />
+				<structure/>
 			</descstruct>
 			<usestruct>
 				<structure>
@@ -111,7 +111,7 @@
 			<longname>Relative Space Coordinates</longname>
 			<description>Coordinates relative to an object</description>
 			<descstruct>
-				<structure />
+				<structure/>
 			</descstruct>
 			<usestruct>
 				<structure>
@@ -142,7 +142,7 @@
 			<longname>Range</longname>
 			<description>A number value from a range.</description>
 			<descstruct>
-				<structure />
+				<structure/>
 			</descstruct>
 			<usestruct>
 				<structure>
@@ -172,7 +172,7 @@
 			<longname>List</longname>
 			<description>A in which numerous items can be selected.</description>
 			<descstruct>
-				<structure />
+				<structure/>
 			</descstruct>
 			<usestruct>
 				<structure>
@@ -222,7 +222,7 @@
 			<longname>String</longname>
 			<description>A textual string.</description>
 			<descstruct>
-				<structure />
+				<structure/>
 			</descstruct>
 			<usestruct>
 				<structure>	
@@ -242,7 +242,7 @@
 			<longname>Generic Reference</longname>
 			<description>A reference to something.</description>
 			<descstruct>
-				<structure />
+				<structure/>
 			</descstruct>
 			<usestruct>
 				<structure>	
@@ -270,7 +270,7 @@
 			<longname>Generic Reference List</longname>
 			<description>A list of references to something.</description>
 			<descstruct>
-				<structure />
+				<structure/>
 			</descstruct>
 			<usestruct>
 				<structure>
@@ -303,13 +303,13 @@
 		</parameter>
 	</parameterset>
 	<parameterset name="ObjectParams">
-		<longname>Order Parameters</longname>
-		<description>These are the parameters for Orders and OrderDescriptions.</description>
+		<longname>Object Parameters</longname>
+		<description>These are the parameters for Objects.</description>
 		<parameter name="objectParamPosition3d" type="0">
 			<longname>Position in 3D</longname>
 			<description>A vector for the position.</description>
 			<descstruct>
-				<structure />
+				<structure/>
 			</descstruct>
 			<usestruct>
 				<structure>
@@ -340,7 +340,7 @@
 			<longname>Velocity in 3D</longname>
 			<description>A vector for the velocity.</description>
 			<descstruct>
-				<structure />
+				<structure/>
 			</descstruct>
 			<usestruct>
 				<structure>
@@ -371,7 +371,7 @@
 			<longname>Acceleration in 3D</longname>
 			<description>A vector for the acceleration.</description>
 			<descstruct>
-				<structure />
+				<structure/>
 			</descstruct>
 			<usestruct>
 				<structure>
@@ -402,7 +402,7 @@
 			<longname>Bound Position</longname>
 			<description>Object is bound to ('in') an Object.</description>
 			<descstruct>
-				<structure />
+				<structure/>
 			</descstruct>
 			<usestruct>
 				<structure>
@@ -462,7 +462,7 @@
 			<longname>Resource List</longname>
 			<description>A list of resources.</description>
 			<descstruct>
-				<structure />
+				<structure/>
 			</descstruct>
 			<usestruct>
 				<structure>
@@ -500,7 +500,7 @@
 			<longname>Reference</longname>
 			<description>A generic reference to something.</description>
 			<descstruct>
-				<structure />
+				<structure/>
 			</descstruct>
 			<usestruct>
 				<structure>
@@ -520,7 +520,7 @@
 			<longname>Reference Quality List</longname>
 			<description>Gives a list of references and how many of each of them.</description>
 			<descstruct>
-				<structure />
+				<structure/>
 			</descstruct>
 			<usestruct>
 				<structure>
@@ -551,7 +551,7 @@
 			<longname>Integer</longname>
 			<description>An Integer, informational.</description>
 			<descstruct>
-				<structure />
+				<structure/>
 			</descstruct>
 			<usestruct>
 				<structure>
@@ -567,7 +567,7 @@
 			<longname>Size</longname>
 			<description>The diameter of the object.</description>
 			<descstruct>
-				<structure />
+				<structure/>
 			</descstruct>
 			<usestruct>
 				<structure>
@@ -583,7 +583,7 @@
 			<longname>Media Url</longname>
 			<description>The url for the media for this object, either relative to the base url given in the Game frame, of absolute.</description>
 			<descstruct>
-				<structure />
+				<structure/>
 			</descstruct>
 			<usestruct>
 				<structure>
@@ -628,7 +628,7 @@
 				<name>type</name>
 				<longname>Type</longname>
 				<description>Type of packet</description>
-				<subtype />
+				<subtype/>
 				<example>2</example>
 			</integer>
 			<integer type="unsigned" size="32">
@@ -878,7 +878,7 @@
 		<string>
 			<name>URI</name>
 			<longname>Universal Resource Identifier</longname>
-			<description></description>
+			<description/>
 		</string>
 	</structure>
 	<note>
@@ -1211,7 +1211,7 @@
 			<name>id</name>
 			<longname>object type</longname>
 			<description>object type</description>
-			<subtype />
+			<subtype/>
 		</integer>
 		<string>
 			<name>name</name>
@@ -1254,20 +1254,20 @@
 						<string>
 							<name>name</name>
 							<longname>argument name</longname>
-							<description></description>
+							<description/>
 						</string>
 						<integer type="unsigned" size="32">
 							<name>type</name>
 							<longname>argument type ID</longname>
 							<description>argument type ID</description>
-							<subtype />
+							<subtype/>
 						</integer>
 						<string>
 							<name>description</name>
 							<longname>Description</longname>
 							<description>Description of this parameter.</description>
 						</string>
-						<descparameter ref="ObjectParams" />
+						<descparameter ref="ObjectParams"/>
 					</structure>
 				</list>
 			</structure>
@@ -1313,7 +1313,7 @@
 			<name>otype</name>
 			<longname>Object Type</longname>
 			<description>The type of the object.</description>
-			<subtype />
+			<subtype/>
 		</integer>
 		<string>
 			<name>name</name>
@@ -1350,7 +1350,7 @@
 		<character size="16">
 			<name>padding</name>
 		</character>
-		<useparameters ref="ObjectParams" />
+		<useparameters ref="ObjectParams"/>
 	</structure>
 </packet>
 
@@ -1433,17 +1433,17 @@
 			<name>id</name>
 			<longname>order type</longname>
 			<description>order type</description>
-			<subtype />
+			<subtype/>
 		</integer>
 		<string>
 			<name>name</name>
-			<longname></longname>
-			<description></description>
+			<longname/>
+			<description/>
 		</string>
 		<string>
 			<name>description</name>
-			<longname></longname>
-			<description></description>
+			<longname/>
+			<description/>
 		</string>
 		<list>
 			<name>parameters</name>
@@ -1452,20 +1452,20 @@
 					<string>
 						<name>name</name>
 						<longname>argument name</longname>
-						<description></description>
+						<description/>
 					</string>
 					<integer type="unsigned" size="32">
 						<name>type</name>
 						<longname>argument type ID</longname>
 						<description>argument type ID</description>
-						<subtype />
+						<subtype/>
 					</integer>
 					<string>
 						<name>description</name>
-						<longname></longname>
-						<description></description>
+						<longname/>
+						<description/>
 					</string>
-					<descparameter ref="OrderParams" />
+					<descparameter ref="OrderParams"/>
 			</structure>
 		</list>
 		<integer type="unsigned" size="64">
@@ -1521,7 +1521,7 @@
 			<name>Order Type ID</name>
 			<longname>Order Type ID</longname>
 			<description>Order Type ID</description>
-			<subtype />
+			<subtype/>
 		</integer>
 		<integer type="unsigned" size="32" readonly="yes">
 			<name>turns</name>
@@ -1546,7 +1546,7 @@
 				</integer>
 			</structure>
 		</list>
-		<useparameters ref="OrderParams" />
+		<useparameters ref="OrderParams"/>
 		<!-- <li>extra data, required by the order is appended to the end</li>
 	
 -->
