@@ -452,7 +452,6 @@
 					</list>
 				</structure>
 			</usestruct>
-			<note>The &lt;q&gt;default&lt;/q&gt; order queue (IE The most use queue) should have the same ID as the object it is on. Other order queue's can have any ID but the ID should not be the same as an object ID (as it would conflict with the information above). How servers solve this problem is up to them.</note>
 			<note>
 				Note: The number of orders should be the number of orders the person can see on the
 				object. Not the total number of orders on the object. 
