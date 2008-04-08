@@ -33,15 +33,29 @@
 <!ELEMENT list (name, longname, description?, structure, example?, note*)  >
 <!ATTLIST list readonly CDATA "no" >
 <!ELEMENT group (name, longname, description?, structure, example?, note*) >
-<!ELEMENT useparameters EMPTY >
+<!ELEMENT useparameters (name, longname, description?, typefield, typeframe?) >
+<!--
+	useparameters/typefield and useparameters/typeframe
+	are used to describe how to get parameter ids from
+	an "indirect" frame; lack of typeframe means that the
+	parameter is embedded directly and no extra frame is
+	necessary.
+-->
 <!ATTLIST useparameters ref IDREF #REQUIRED >
-<!ELEMENT descparameter EMPTY >
-<!ATTLIST descparameter ref IDREF #REQUIRED >
+<!ELEMENT typefield (#PCDATA) >
+<!ELEMENT typeframe ((getfield | getlist)) >
+<!ATTLIST typeframe name IDREF #REQUIRED idfield CDATA #REQUIRED >
+<!ELEMENT getfield ((getfield | getlist)?) >
+<!ATTLIST getfield name CDATA #REQUIRED >
+<!ELEMENT getlist ((getfield | getlist)?) >
+<!ATTLIST getlist name CDATA #REQUIRED >
+<!ELEMENT descparameter (name, longname, description?) >
+<!ATTLIST descparameter ref IDREF #REQUIRED typefield CDATA #REQUIRED >
 
 <!-- Parameterset -->
 <!ELEMENT parameterset (longname?, description?, parameter+, note*) >
 <!ATTLIST parameterset name ID #REQUIRED >
-<!ELEMENT parameter (longname?, description?, descstruct, usestruct, note*) >
+<!ELEMENT parameter (longname?, description?, descstruct?, usestruct, note*) >
 <!ATTLIST parameter name ID #REQUIRED type NMTOKEN #REQUIRED >
 <!ELEMENT descstruct (structure) >
 <!ELEMENT usestruct (structure) >

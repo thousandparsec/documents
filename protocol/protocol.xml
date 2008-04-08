@@ -7,9 +7,6 @@
 		<parameter name="orderParamAbsSpaceCoords" type="0">
 			<longname>Absolute Space Coordinates</longname>
 			<description>Coordinates in absolute space. (Relative to the center of the Universe)</description>
-			<descstruct>
-				<structure/>
-			</descstruct>
 			<usestruct>
 				<structure>
 					<group>
@@ -33,9 +30,6 @@
 		<parameter name="orderParamTime" type="1">
 			<longname>Time</longname>
 			<description>The number of turns before something happens.</description>
-			<descstruct>
-				<structure/>
-			</descstruct>
 			<usestruct>
 				<structure>
 					<integer type="signed" size="32">
@@ -53,9 +47,6 @@
 		<parameter name="orderParamObject" type="2">
 			<longname>Object</longname>
 			<description>An object's ID number.</description>
-			<descstruct>
-				<structure/>
-			</descstruct>
 			<usestruct>
 				<structure>
 					<integer type="unsigned" size="32">
@@ -82,9 +73,6 @@
 		<parameter name="orderParamPlayer" type="3">
 			<longname>Player</longname>
 			<description>A player's ID number.</description>
-			<descstruct>
-				<structure/>
-			</descstruct>
 			<usestruct>
 				<structure>
 					<integer type="unsigned" size="32">
@@ -110,9 +98,6 @@
 		<parameter name="orderParamRelSpaceCoords" type="4">
 			<longname>Relative Space Coordinates</longname>
 			<description>Coordinates relative to an object</description>
-			<descstruct>
-				<structure/>
-			</descstruct>
 			<usestruct>
 				<structure>
 					<integer type="unsigned" size="32">
@@ -141,9 +126,6 @@
 		<parameter name="orderParamRange" type="5">
 			<longname>Range</longname>
 			<description>A number value from a range.</description>
-			<descstruct>
-				<structure/>
-			</descstruct>
 			<usestruct>
 				<structure>
 					<integer type="signed" size="32">
@@ -171,9 +153,6 @@
 		<parameter name="orderParamList" type="6">
 			<longname>List</longname>
 			<description>A in which numerous items can be selected.</description>
-			<descstruct>
-				<structure/>
-			</descstruct>
 			<usestruct>
 				<structure>
 					<list readonly="yes">
@@ -221,9 +200,6 @@
 		<parameter name="orderParamString" type="7">
 			<longname>String</longname>
 			<description>A textual string.</description>
-			<descstruct>
-				<structure/>
-			</descstruct>
 			<usestruct>
 				<structure>	
 					<integer type="unsigned" size="32" readonly="yes">
@@ -241,9 +217,6 @@
 		<parameter name="orderParamReference" type="8">
 			<longname>Generic Reference</longname>
 			<description>A reference to something.</description>
-			<descstruct>
-				<structure/>
-			</descstruct>
 			<usestruct>
 				<structure>	
 					<integer type="unsigned" size="32">
@@ -269,9 +242,6 @@
 		<parameter name="orderParamReferenceList" type="9">
 			<longname>Generic Reference List</longname>
 			<description>A list of references to something.</description>
-			<descstruct>
-				<structure/>
-			</descstruct>
 			<usestruct>
 				<structure>
 					<list>
@@ -555,7 +525,7 @@
 			<usestruct>
 				<structure>
 					<integer type="unsigned" size="32">
-						<name>int</name>
+						<name>intvalue</name>
 						<longname>Value</longname>
 						<description>The value of the integer parameter.</description>
 					</integer>
@@ -851,9 +821,9 @@
 			<description>Modification Times of each ID</description>
 			<structure>
 				<integer type="unsigned" size="32">
-					<name>ID</name>
-					<longname>the IDs</longname>
-					<description>the IDs</description>
+					<name>id</name>
+					<longname>the ID</longname>
+					<description>the ID</description>
 				</integer>
 				<integer type="unsigned" size="64">
 					<name>modtime</name>
@@ -1101,6 +1071,7 @@
 			<longname>Protocol Versions</longname>
 			<description>Supported protocol versions.</description>
 			<structure>
+				<!-- TODO: integer? otherwise, what's the format? -->
 				<string>
 					<name>proto</name>
 					<longname>Protocol version</longname>
@@ -1266,7 +1237,10 @@
 							<longname>Description</longname>
 							<description>Description of this parameter.</description>
 						</string>
-						<descparameter ref="ObjectParams"/>
+						<descparameter ref="ObjectParams" typefield="type">
+							<name>extradata</name>
+							<longname>extra data for this parameter</longname>
+						</descparameter>
 					</structure>
 				</list>
 			</structure>
@@ -1335,9 +1309,9 @@
 			<description>IDs of the objects contained by this object.</description>
 			<structure>
 				<integer type="unsigned" size="32" readonly="yes">
-					<name>ID</name>
-					<longname>the IDs</longname>
-					<description>the IDs</description>
+					<name>id</name>
+					<longname>the ID</longname>
+					<description>the ID</description>
 				</integer>
 			</structure>
 		</list>
@@ -1349,7 +1323,18 @@
 		<character size="16">
 			<name>padding</name>
 		</character>
-		<useparameters ref="ObjectParams"/>
+		<useparameters ref="ObjectParams">
+			<name>parameters</name>
+			<longname>the object's parameters</longname>
+			<typefield>otype</typefield>
+			<typeframe name="ObjectDesc" idfield="id">
+				<getlist name="propertygroups">
+					<getlist name="parameters">
+						<getfield name="type"/>
+					</getlist>
+				</getlist>
+			</typeframe>
+		</useparameters>
 	</structure>
 </packet>
 
@@ -1464,7 +1449,6 @@
 						<longname/>
 						<description/>
 					</string>
-					<descparameter ref="OrderParams"/>
 			</structure>
 		</list>
 		<integer type="unsigned" size="64">
@@ -1517,7 +1501,7 @@
 			<note>-1 will insert at the last position, otherwise it is inserted before the number</note>
 		</integer>
 		<integer type="unsigned" size="32">
-			<name>Order Type ID</name>
+			<name>otype</name>
 			<longname>Order Type ID</longname>
 			<description>Order Type ID</description>
 			<subtype/>
@@ -1545,10 +1529,17 @@
 				</integer>
 			</structure>
 		</list>
-		<useparameters ref="OrderParams"/>
-		<!-- <li>extra data, required by the order is appended to the end</li>
-	
--->
+		<useparameters ref="OrderParams">
+			<name>parameters</name>
+			<longname>this order's parameters</longname>
+			<description>extra data, required by the order is appended to the end</description>
+			<typefield>otype</typefield>
+			<typeframe name="OrderDesc" idfield="id">
+				<getlist name="parameters">
+					<getfield name="type"/>
+				</getlist>
+			</typeframe>
+		</useparameters>
 	</structure>
 	<note>
 			The extra data is defined by Order descriptions frames.
@@ -1839,7 +1830,7 @@
 
 	<structure>
 		<integer type="unsigned" size="32">
-			<name>Resource ID</name>
+			<name>id</name>
 			<longname>Resource ID</longname>
 			<description>Resource ID</description>
 		</integer>
@@ -2002,12 +1993,12 @@
 			<description>The time at which this design was last modified.</description>
 		</integer>
 		<list>
-                        <name>catlist</name>
-                        <longname>Category List</longname>
+			<name>catlist</name>
+			<longname>Category List</longname>
 			<structure>
 				<integer type="unsigned" size="32">
 					<name>catid</name>
-                                        <longname>Category ID</longname>
+					<longname>Category ID</longname>
 				</integer>
 			</structure>
 		</list>
@@ -2016,7 +2007,7 @@
 			<longname>name of the design</longname>
 		</string>
 		<string type="formatted">
-                        <name>description</name>
+			<name>description</name>
 			<longname>description of the design</longname>
 		</string>
 		<integer type="semisigned" size="32">
@@ -2045,7 +2036,7 @@
 			</structure>
 		</list>
 		<string type="formatted">
-                        <name>feedback</name>
+			<name>feedback</name>
 			<longname>human readable feedback on the design</longname>
 		</string>
 		<list>
@@ -2059,7 +2050,7 @@
 				</integer>
 				<string type="formatted">
 					<name>displaystring</name>
-                                        <longname>String value of the property</longname>
+					<longname>String value of the property</longname>
 				</string>
 			</structure>
 		</list>
@@ -2112,7 +2103,7 @@
 	<longname>Component</longname>
 	<structure>
 		<integer type="unsigned" size="32">
-			<name>component ID</name>
+			<name>id</name>
 			<longname>component ID</longname>
 			<description>component ID</description>
 		</integer>
@@ -2122,18 +2113,21 @@
 			<description>The time at which this component was last modified.</description>
 		</integer>
 		<list>
-                        <name>catlist</name>
-                        <longname>Category List</longname>
+			<name>catlist</name>
+			<longname>Category List</longname>
 			<structure>
-				<integer type="unsigned" size="32"><name>categories this component is in</name></integer>
+				<integer type="unsigned" size="32">
+					<name>catid</name>
+					<longname>category this component is in</longname>
+				</integer>
 			</structure>
 		</list>
 		<string type="formatted">
-                        <name>name</name>
+			<name>name</name>
 			<longname>name of the component</longname>
 		</string>
 		<string type="formatted">
-                        <name>description</name>
+			<name>description</name>
 			<longname>description of the component</longname>
 		</string>
 		<string>
@@ -2190,16 +2184,17 @@
 			<description>The time at which this property was last modified.</description>
 		</integer>
 		<list>
-                        <name>catlist</name>
-                        <longname>Category List</longname>
+			<name>catlist</name>
+			<longname>Category List</longname>
 			<structure>
 				<integer type="unsigned" size="32">
-					<name>categories this component is in</name>
+					<name>catid</name>
+					<longname>category this component is in</longname>
 				</integer>
 			</structure>
 		</list>
 		<integer type="unsigned" size="32">
-			<name>rank of the property</name>
+			<name>rank</name>
 			<longname>rank of the property</longname>
 			<description>rank of the property</description>
 		</integer>
@@ -2209,11 +2204,11 @@
 			<description>A valid TPCL identifier for this property.</description>
 		</string>
 		<string type="formatted">
-                        <name>dispalyname</name>
+			<name>dispalyname</name>
 			<longname>display name of the property</longname>
 		</string>
 		<string type="formatted">
-                        <name>description</name>
+			<name>description</name>
 			<longname>description of the property</longname>
 		</string>
 		<string>
