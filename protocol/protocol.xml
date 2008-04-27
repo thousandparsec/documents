@@ -1563,6 +1563,7 @@
 
 <packet id="12" base="Order" name="OrderInsert">
 	<direction>server</direction>
+        <note>Now returns the order frame, not Okay frame.</note>
 </packet>
 
 <packet id="34" base="Order" name="OrderProbe">
