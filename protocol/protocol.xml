@@ -271,6 +271,58 @@
 				</structure>
 			</usestruct>
 		</parameter>
+                <parameter name="orderParamResourceList" type="10">
+			<longname>Resource List</longname>
+                        <description>A list of resources to be deal with by the order.</description>
+                        <usestruct>
+                                <structure>
+                                        <list>
+                                              <name>allowed</name>
+                                              <longname>Allowed Resources</longname>
+                                              <description>The list of possible resources and allowable maximums.</description>
+                                              <structure>
+                                                      <integer type="unsigned" size="32" readonly="yes">
+                                                              <name>resourcetype</name>
+                                                              <longname>Resource type</longname>
+                                                              <description>An allowed resource type</description>
+                                                      </integer>
+                                                      <integer type="unsigned" size="32" readonly="yes">
+                                                              <name>max</name>
+                                                              <longname>Maximum Quantity</longname>
+                                                              <description>The maximum quantity allowed for this resource type.</description>
+                                                      </integer>
+                                              </structure>
+                                        </list>
+                                        <integer type="unsigned" size="32" readonly="yes">
+                                              <name>maxmass</name>
+                                              <longname>Maximum Mass</longname>
+                                              <description>The maximum mass allowed.</description>
+                                        </integer>
+                                        <integer type="unsigned" size="32" readonly="yes">
+                                              <name>maxvolument</name>
+                                              <longname>Maximum Volume</longname>
+                                              <description>The maximum volume allowed.</description>
+                                        </integer>
+                                        <list>
+                                              <name>selected</name>
+                                              <longname>Selected Resources</longname>
+                                              <description>The list of the selected Resources and quantities.</description>
+                                              <structure>
+                                                      <integer type="unsigned" size="32" readonly="yes">
+                                                              <name>resourcetype</name>
+                                                              <longname>Resource type</longname>
+                                                              <description>A selected resource type</description>
+                                                      </integer>
+                                                      <integer type="unsigned" size="32" readonly="yes">
+                                                              <name>quantity</name>
+                                                              <longname>Quantity</longname>
+                                                              <description>The selected quantity of this resource type.</description>
+                                                      </integer>
+                                              </structure>
+                                        </list>
+                                </structure>
+                        </usestruct>
+                </parameter>
 	</parameterset>
 	<parameterset name="ObjectParams">
 		<longname>Object Parameters</longname>
