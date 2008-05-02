@@ -1968,6 +1968,14 @@
 	</note>
 </packet>
 
+<packet id="72" base="GetIDSequence" name="GetPlayerIDs">
+	<longname>Get Player IDs</longname>
+</packet>
+
+
+<packet id="73" base="IDSequence" name="PlayerIDs">
+	<longname>List Of Player IDs</longname>
+</packet>
 
 <packet id="41" base="GetWithID" name="GetCategory">
 	<longname>Get Category Frame</longname>
