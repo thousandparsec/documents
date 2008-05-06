@@ -323,6 +323,113 @@
                                 </structure>
                         </usestruct>
                 </parameter>
+                <parameter name="orderParamGenericReferenceQuantityList" type="11">
+                        <longname>Generic Reference Quantity List</longname>
+                        <description>A quantity selection list of generic references.</description>
+                        <usestruct>
+                                <structure>
+                                        <list readonly="yes">
+                                                <name>weightmaximums</name>
+                                                <longname>List of Weight Maximums</longname>
+                                                <description>Defines the maximums for the various weights.</description>
+                                                <structure>
+                                                        <integer type="unsigned" size="32" readonly="yes">
+                                                                <name>max</name>
+                                                                <longname>Maximum</longname>
+                                                                <description>The maximum for the given this weight.</description>
+                                                        </integer>
+                                                        <list readonly="yes">
+                                                                <name>reflist</name>
+                                                                <longname>Reference List</longname>
+                                                                <description>The list of references that this weight limit refers to.</description>
+                                                                <structure>
+                                                                        <integer type="signed" size="32" readonly="yes">
+                                                                                <name>reftype</name>
+                                                                                <longname>Reference Type</longname>
+                                                                                <description>type of thing being referenced</description>
+                                                                        </integer>
+                                                                        <integer type="unsigned" size="32" readonly="yes">
+                                                                                <name>refid</name>
+                                                                                <longname>Reference ID</longname>
+                                                                                <longname>The ID of the thing referenced</longname>
+                                                                        </integer>
+                                                                </structure>
+                                                        </list>
+                                                </structure>
+                                        </list>
+                                        <list readonly="yes">
+                                                <name>possibles</name>
+                                                <longname>List of possible selections</longname>
+                                                <description>This list defines the types of things that can be selected, weights and maximums.</description>
+                                                <structure>
+                                                        <integer type="unsigned" size="32" readonly="yes">
+                                                                <name>optionid</name>
+                                                                <longname>Option Id</longname>
+                                                                <description>The id that is option has.</description>
+                                                        </integer>
+                                                        <string readonly="yes">
+                                                                <name>name</name>
+                                                                <longname>Name</longname>
+                                                                <description>The name of this option.</description>
+                                                        </string>
+                                                        <integer type="semisigned" size="32" readonly="yes">
+                                                                <name>max</name>
+                                                                <longname>Maximum</longname>
+                                                                <description>The maximum that can be selected</description>
+                                                                <note>-1 is no limit.</note>
+                                                        </integer>
+                                                        <list readonly="yes">
+                                                                <name>reflist</name>
+                                                                <longname>Reference List</longname>
+                                                                <description>The list of references that this option refers to.</description>
+                                                                <structure>
+                                                                        <integer type="signed" size="32" readonly="yes">
+                                                                                <name>reftype</name>
+                                                                                <longname>Reference Type</longname>
+                                                                                <description>type of thing being referenced</description>
+                                                                        </integer>
+                                                                        <integer type="unsigned" size="32" readonly="yes">
+                                                                                <name>refid</name>
+                                                                                <longname>Reference ID</longname>
+                                                                                <longname>The ID of the thing referenced</longname>
+                                                                        </integer>
+                                                                </structure>
+                                                        </list>
+                                                        <list readonly="yes">
+                                                                <name>weights</name>
+                                                                <longname>List of Weights</longname>
+                                                                <description>The list of weights for this option.</description>
+                                                                <structure>
+                                                                        <integer type="unsigned" size="32" readonly="yes">
+                                                                                <name>weight</name>
+                                                                                <longname>Weight</longname>
+                                                                                <description>The weight for this option for the corresponding maximum weight in the same position in the list.</description>
+                                                                        </integer>
+                                                                </structure>
+                                                                <note>This list is &lt;strong&gt;always&lt;/strong&gt; the same length as the List of Weight Maximums.</note>
+                                                        </list>
+                                                </structure>
+                                        </list>
+                                        <list>
+						<name>selection</name>
+						<longname>The Selection</longname>
+						<description>A list of the items which have been selected.</description>
+						<structure>
+							<integer type="unsigned" size="32">
+								<name>id</name>
+								<longname>ID</longname>
+								<description>ID of what is selected</description>
+							</integer>
+							<integer type="unsigned" size="32">
+								<name>number</name>
+								<longname>Number Selected</longname>
+								<description>The number of this item which have been selected</description>
+							</integer>
+						</structure>
+					</list>
+                                </structure>
+                        </usestruct>
+                </parameter>
 	</parameterset>
 	<parameterset name="ObjectParams">
 		<longname>Object Parameters</longname>
