@@ -351,7 +351,7 @@
                                                                         <integer type="unsigned" size="32" readonly="yes">
                                                                                 <name>refid</name>
                                                                                 <longname>Reference ID</longname>
-                                                                                <longname>The ID of the thing referenced</longname>
+                                                                                <description>The ID of the thing referenced</description>
                                                                         </integer>
                                                                 </structure>
                                                         </list>
@@ -391,7 +391,7 @@
                                                                         <integer type="unsigned" size="32" readonly="yes">
                                                                                 <name>refid</name>
                                                                                 <longname>Reference ID</longname>
-                                                                                <longname>The ID of the thing referenced</longname>
+                                                                                <description>The ID of the thing referenced</description>
                                                                         </integer>
                                                                 </structure>
                                                         </list>
