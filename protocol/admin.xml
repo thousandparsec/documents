@@ -1,0 +1,358 @@
+<?xml version="1.0"?>
+<!DOCTYPE protocol SYSTEM "protocol.dtd">
+<protocol version="TP04">
+	<parameterset name="CommandParams">
+		<longname>Command Parameters</longname>
+		<description>These are the parameters for Commands and CommandDescriptions.</description>
+	</parameterset>
+	
+	
+	<packet name="Header">
+		<direction>any</direction>
+		<structure>
+			<character size="2">
+				<name>magic</name>
+				<longname>Magic letters</longname>
+				<description>Always has value &amp;quot;TP&amp;quot;, no null terminator.</description>
+				<example>TP</example>
+			</character>
+			<integer type="unsigned" size="8">
+				<name>protocolversion</name>
+				<longname>Protocol Version</longname>
+				<description>Always (binary) '4', for this protocol.</description>
+				<example>4</example>
+			</integer>
+			<integer type="unsigned" size="8">
+				<name>frameversion</name>
+				<longname>Frame Version</longname>
+				<description>Gives the version of the frame in the data of this frame. Defaults to '0'.</description>
+			</integer>
+			<integer type="unsigned" size="32">
+				<name>sequence</name>
+				<longname>Sequence Number</longname>
+				<description>An incrementing number "sequence number". The sequence number should always be one more then the previous frames sequence number.</description>
+				<example>2345</example>
+			</integer>
+			<integer type="unsigned" size="32">
+				<name>type</name>
+				<longname>Type</longname>
+				<description>Type of packet</description>
+				<subtype/>
+				<example>2</example>
+			</integer>
+			<integer type="unsigned" size="32">
+				<name>length</name>
+				<longname>Length</longname>
+				<description>Length of the packet</description>
+				<example>32</example>
+			</integer>
+		</structure>
+		<failtype type="0">
+			<description>Unable to decode frame header correctly.</description>
+		</failtype>
+		<failtype type="1">
+			<description>Something was wrong with decoding the contents of the frame.</description>
+		</failtype>
+		<failtype type="5">
+			<description>This frame is now allowed.</description>
+		</failtype>
+		<failtype type="7">
+			<description>The version of the frame is not supported.</description>
+		</failtype>
+		<failtype type="8">
+			<description>The frame that was going to be sent was too large for the protocol.</description>
+		</failtype>
+	</packet>
+
+	<packet base="Header" name="Request">
+		<direction>server</direction>
+	</packet>
+	
+	<packet base="Header" name="Response">
+		<direction>client</direction>
+	</packet>
+
+	<packet base="Response" name="Okay" id="0">
+		<description>A request was successful in some sort of way.</description>
+		<structure>
+			<string>
+				<name>result</name>
+				<longname>Result</longname>
+				<description>The string can be safely ignored (However it may contain useful information for debugging purposes).</description>
+				<example>Order was created successfully in slot 1.</example>
+			</string>
+		</structure>
+	</packet>
+
+	<packet base="Response" name="Fail" id="1">
+		<description>A request has failed in some sort of way.</description>
+		<structure>
+			<enumeration type="unsigned" size="32" style="single">
+				<name>code</name>
+				<longname>Error Code</longname>
+				<description>Text message of the error.</description>
+				<values>
+					<value id="0" name="Protocol">Protocol Error, Something went wrong with the protocol</value>
+					<value id="1" name="Frame">Frame Error, One of the frames sent was bad or corrupted</value>
+					<value id="2" name="UnavailablePermanently">Unavailable Permanently, This operation is unavailable</value>
+					<value id="3" name="UnavailableTemporarily">Unavailable Temporarily, This operation is unavailable at this moment</value>
+					<value id="4" name="NoSuchThing">No Such Thing, The object/order/message does not exist</value>
+					<value id="5" name="PermissionDenied">Permission Denied, You don't have permission to do this operation</value>
+					<value id="6" name="Gone">Object/order/message has gone.</value>
+					<value id="7" name="FrameVersionNotSupported">The frame version is not supported</value>
+					<value id="8" name="RequestTooBig">The requested reply is too big</value>
+				</values>
+			</enumeration>
+			<string>
+				<name>result</name>
+				<longname>Result</longname>
+				<description>Text message of the error.</description>
+				<example>Order was created successfully in slot 1.</example>
+			</string>
+			<list>
+				<name>references</name>
+				<longname>References</longname>
+				<description>A list of references that this error relates to.</description>
+				<structure>
+					<integer type="signed" size="32">
+						<name>type</name>
+						<longname>Reference Type</longname>
+						<description>type of thing being referenced</description>
+					</integer>
+					<integer type="unsigned" size="32">
+						<name>id</name>
+						<longname>The ID of the thing referenced</longname>
+					</integer>
+				</structure>
+			</list>
+		</structure>
+		<note>If the connect frame is not valid TP frame, this frame will not be returned, instead a plain text string will be sent saying that the wrong protocol has been used. A fail frame may be send if the wrong protocol version is detected. This does not affect clients as they should always get the connect frame right.</note>
+	</packet>
+
+	<packet base="Response" name="Sequence" id="2">
+		<description>Frame which says that there are multiple frames coming in response to the request.</description>
+		<structure>
+			<integer type="unsigned" size="32">
+				<name>number</name>
+				<longname>Number of Frames</longname>
+				<description>Number of frames which will follow this one.</description>
+				<example>34</example>
+			</integer>
+		</structure>
+	</packet>
+
+	<packet base="Request" name="GetWithID">
+		<longname>Get (something) using IDs</longname>
+		<description>This packet is used to get things using their IDs. Such things would be objects, message boards, etc.</description>
+		<structure>
+			<list>
+				<name>ids</name>
+				<longname>IDs</longname>
+				<description>The IDs to get.</description>
+				<structure>
+					<integer type="unsigned" size="32">
+						<name>id</name>
+						<longname>ID</longname>
+					</integer>
+				</structure>
+				<example>10, 5, 6</example>
+			</list>
+		</structure>
+	</packet>
+
+<packet base="Request" name="GetIDSequence">
+	<longname>Get ID Sequence</longname>
+	<structure>
+		<integer type="semisigned" size="32">
+			<name>key</name>
+			<longname>the sequence key</longname>
+			<description>the sequence key</description>
+		</integer>
+		<integer type="unsigned" size="32">
+			<name>start</name>
+			<longname>the starting number in the sequence</longname>
+			<description>the starting number in the sequence</description>
+		</integer>
+		<integer type="semisigned" size="32">
+			<name>amount</name>
+			<longname>the number of IDs to get</longname>
+			<description>the number of IDs to get</description>
+		</integer>
+		<integer type="semisigned" size="64">
+			<name>from</name>
+			<longname>Get changes from</longname>
+			<description>The timestamp from which the changes should be pulled.</description>
+			<note>If -1, the list return are currently visible objects, otherwise deleted objects appear also.</note>
+		</integer>
+	</structure>
+	<note>
+			Requirements:
+			&lt;ul&gt;
+				&lt;li&gt;To start a sequence, the key of -1 should be sent in the first request&lt;/li&gt;
+				&lt;li&gt;Subsequent requests in a sequence should use the key which is returned&lt;/li&gt;
+				&lt;li&gt;All requests must be continuous and ascending&lt;/li&gt;
+				&lt;li&gt;Only one sequence key can exist at any time, starting a new sequence causes the old one to be discarded&lt;/li&gt;
+				&lt;li&gt;Key persist for only as long as the connection remains and there are IDs left in the sequence&lt;/li&gt;
+			&lt;/ul&gt;
+			Other Information:
+			&lt;ul&gt;
+				&lt;li&gt;
+					If the number of IDs to get is -1, then all (remaining) IDs should be returned.
+				&lt;/li&gt;&lt;li&gt;
+					If a key becomes invalid because of some change on the server (IE the ID order changes because
+					of modification by another client) a Fail packet will be returned
+				&lt;/li&gt;&lt;li&gt;
+					If the client for a key requests any of the following a Fail packet will be returned
+					&lt;ul&gt;
+						&lt;li&gt;a range has already had any part already given (IE no overlaps)&lt;/li&gt;
+						&lt;li&gt;a range specifies a range which starts below the ending (IE requesting from 6, 10 then 0 to 5)&lt;/li&gt;
+						&lt;li&gt;a range is bigger then the remaining IDs left (IE requesting 6 when only 4 remain)&lt;/li&gt;
+					&lt;/ul&gt;
+				&lt;/li&gt;
+			&lt;/ul&gt;
+
+			&lt;b&gt;Note:&lt;/b&gt; All servers must follow all the requirements above even if the server could allow otherwise.
+	</note>
+</packet>
+
+<packet base="Response" name="IDSequence">
+	<longname>ID Sequence</longname>
+	<description>A sequence of IDs and their last modified times.</description>
+	<structure>
+		<integer type="semisigned" size="32">
+			<name>key</name>
+			<longname>the sequence key</longname>
+			<description>the sequence key</description>
+		</integer>
+		<integer type="semisigned" size="32">
+			<name>remaining</name>
+			<longname>the number of IDs remaining</longname>
+			<description>the number of IDs remaining</description>
+		</integer>
+		<list>
+			<name>modtimes</name>
+			<longname>Modification Times</longname>
+			<description>Modification Times of each ID</description>
+			<structure>
+				<integer type="unsigned" size="32">
+					<name>id</name>
+					<longname>the ID</longname>
+					<description>the ID</description>
+				</integer>
+				<integer type="unsigned" size="64">
+					<name>modtime</name>
+					<longname>Last Modification Time</longname>
+					<description>The time at which the thing which this ID referes to was last modified.</description>
+				</integer>
+			</structure>
+		</list>
+		<integer type="semisigned" size="64">
+			<name>from</name>
+			<longname>Changes from</longname>
+			<description>The timestamp from which the changes are present.</description>
+			<note>If -1, the list has only currently visible objects, otherwise deleted objects appear also.</note>
+		</integer>
+	</structure>
+	<note>These IDs are not guaranteed to be in any order.</note>
+</packet>
+
+<packet base="Request" name="Connect" id="3">
+	<longname>Connect</longname>
+	<structure>
+		<string>
+			<name>string</name>
+			<longname>Client Identification String</longname>
+			<description>
+				The client identification string can be any string but will mostly
+				used to produce stats of who uses which client. The server may return 
+				either a OK, Fail or Redirect frame.
+			</description>
+		</string>
+	</structure>
+	<note>
+			If the server wants to return a Redirect and the client only supports
+			the old protocol a Fail should be returned instead.
+	</note>
+</packet>
+
+
+<packet base="Request" name="Login" id="4">
+	<longname>Login</longname>
+	<structure>
+		<string>
+			<name>username</name>
+			<longname>Username</longname>
+			<description>The username to login with.</description>
+		</string>
+		<string>
+			<name>password</name>
+			<longname>Password</longname>
+			<description>The password for the username.</description>
+		</string>
+	</structure>
+	<note>
+		Currently the password will be transmitted in plain text. 
+		To avoid interception SSL service should be used. Some
+		servers may refuse to authenticate on the unencrypted service and only
+	</note>
+</packet>
+
+<packet base="Request" name="Ping" id="27">
+	<longname>Ping</longname>
+	<note>
+		The Ping frame is empty and is only used to keep a connection alive
+		that would possibly terminate otherwise. No more then 1 ping frame every 
+		second should be sent and then only if no other data has been sent.
+	</note>
+</packet>
+
+
+<packet base="Response" name="LogMessage" id="1000">
+	<longname>Log Message</longname>
+	<structure>
+		<integer type="unsigned" size="32">
+			<name>timestamp</name>
+			<longname>Time Stamp</longname>
+			<description>The time the log message was generated on the server.</description>
+		</integer>
+		<enumeration type="unsigned" size="32" style="single">
+			<name>level</name>
+			<longname>Level</longname>
+			<description>The severity level of the log message.</description>
+			<values>
+				<value id="0x0" name="Debug">Debugging message.</value>
+				<value id="0x1" name="Info">Information message.</value>
+				<value id="0x2" name="Warning">Warning message.</value>
+				<value id="0x3" name="Error">Error message.</value>
+			</values>
+		</enumeration>
+		<string>
+			<name>message</name>
+			<longname>Message</longname>
+			<description>The log message.</description>
+		</string>
+	</structure>
+</packet>
+
+
+<packet base="Response" name="CommandUpdate" id="1001">
+	<longname>Command Update</longname>
+	<note>
+		The Command Update frame instructs an administration client to
+		update its locally stored set of command descriptions. It should
+		be sent by the server whenever the command set changes.
+	</note>
+</packet>
+
+
+<packet base="GetIDSequence" name="GetCommandDescIDs" id="1004">
+	<longname>Get Command Description IDs</longname>
+</packet>
+
+
+<packet base="IDSequence" name="CommandDescIDs" id="1005">
+	<longname>List of Command Description IDs</longname>
+</packet>
+
+
+</protocol>
