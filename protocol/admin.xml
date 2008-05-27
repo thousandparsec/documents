@@ -4,6 +4,37 @@
 	<parameterset name="CommandParams">
 		<longname>Command Parameters</longname>
 		<description>These are the parameters for Commands and CommandDescriptions.</description>
+		<parameter name="commandParamString" type="0">
+			<longname>String</longname>
+			<description>A textual string.</description>
+			<usestruct>
+				<structure>
+					<integer type="unsigned" size="32" readonly="yes">
+						<name>maxlength</name>
+						<longname>Maximum Length</longname>
+						<description>The maximum length of the string.</longname>
+					</integer>
+					<string>
+						<name>string</name>
+						<longname>String</longname>
+						<description>The string.</longname>
+					</string>
+				</structure>
+			</usestruct>
+		</parameter>
+		<parameter name="commandParamInteger" type="1">
+			<longname>Integer</longname>
+			<description>An integer.</description>
+			<usestruct>
+				<structure>
+					<integer type="unsigned" size="32">
+						<name>intvalue</name>
+						<longname>Value</longname>
+						<description>The value of the integer parameter.</description>
+					</integer>
+				</structure>
+			</usestruct>
+		</parameter>
 	</parameterset>
 	
 	
@@ -310,7 +341,7 @@
 <packet base="Response" name="LogMessage" id="1000">
 	<longname>Log Message</longname>
 	<structure>
-		<integer type="unsigned" size="32">
+		<integer type="unsigned" size="64">
 			<name>timestamp</name>
 			<longname>Time Stamp</longname>
 			<description>The time the log message was generated on the server.</description>
@@ -342,6 +373,51 @@
 		update its locally stored set of command descriptions. It should
 		be sent by the server whenever the command set changes.
 	</note>
+</packet>
+
+
+<packet base="GetWithID" name="GetCommandDesc" id="1002">
+	<longname>Get Command Description</longname>
+</packet>
+
+
+<packet base="Response" name="CommandDesc" id="1003">
+	<longname>Command Description</longname>
+	<structure>
+		<integer type="unsigned" size="32">
+			<name>id</name>
+			<longname>Command Type</longname>
+			<description/>
+			<subtype/>
+		</integer>
+		<string>
+			<name>name</name>
+			<longname>Command Name</longname>
+			<description/>
+		</string>
+		<list>
+			<name>parameters</name>
+			<longname>Command Parameters</longname>
+			<structure>
+				<string>
+					<name>name</name>
+					<longname>Argument Name</longname>
+					<description/>
+				</string>
+				<integer type="unsigned" size="32">
+					<name>type</name>
+					<longname>Argument Type ID</longname>
+					<description/>
+					<subtype/>
+				</integer>
+				<string>
+					<name>description</name>
+					<longname>Argument Description</longname>
+					<description/>
+				</string>
+			</structure>
+		</list>
+	</structure>
 </packet>
 
 
