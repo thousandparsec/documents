@@ -351,10 +351,10 @@
 			<longname>Level</longname>
 			<description>The severity level of the log message.</description>
 			<values>
-				<value id="0x0" name="Debug">Debugging message.</value>
-				<value id="0x1" name="Info">Information message.</value>
-				<value id="0x2" name="Warning">Warning message.</value>
-				<value id="0x3" name="Error">Error message.</value>
+				<value id="0" name="debug">Debugging message.</value>
+				<value id="1" name="info">Information message.</value>
+				<value id="2" name="warning">Warning message.</value>
+				<value id="3" name="error">Error message.</value>
 			</values>
 		</enumeration>
 		<string>
@@ -428,6 +428,51 @@
 
 <packet base="IDSequence" name="CommandDescIDs" id="1005">
 	<longname>List of Command Description IDs</longname>
+</packet>
+
+
+<packet base="Request" name="Command" id="1006">
+	<longname>Command</longname>
+	<structure>
+		<integer type="unsigned" size="32">
+			<name>ctype</name>
+			<longname>Command Type ID</longname>
+			<description>Command type ID.</longname>
+			<subtype/>
+		</integer>
+		<useparameters ref="CommandParams">
+			<name>parameters</name>
+			<longname>Command Parameters</longname>
+			<description>Arguments passed with this command.</description>
+			<typefield>ctype</typefield>
+			<typeframe name="CommandDesc" idfield="id">
+				<getlist name="parameters">
+					<getfield name="type"/>
+				</getlist>
+			</typeframe>
+		</useparameters>
+	</structure>
+</packet>
+
+
+<packet base="Response" name="CommandResult" id="1007">
+	<longname>Command Result</longname>
+	<structure>
+		<enumeration type="unsigned" size="32" style="list">
+			<name>status</name>
+			<longname>Status</longname>
+			<description>The exit status of a command.</description>
+			<values>
+				<value id="0" name="ok">Command was successful.</value>
+				<value id="1" name="fail">Command failed.</value>
+			</values>
+		</enumeration>
+		<string>
+			<name>output</name>
+			<longname>Command Output</longname>
+			<description>The text output of the command.</description>
+		</string>
+	</structure>
 </packet>
 
 
