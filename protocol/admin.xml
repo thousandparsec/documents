@@ -12,7 +12,7 @@
 					<integer type="unsigned" size="32" readonly="yes">
 						<name>maxlength</name>
 						<longname>Maximum Length</longname>
-						<description>The maximum length of the string.</longname>
+						<description>The maximum length of the string.</description>
 					</integer>
 					<string>
 						<name>string</name>
