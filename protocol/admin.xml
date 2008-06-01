@@ -437,7 +437,7 @@
 		<integer type="unsigned" size="32">
 			<name>ctype</name>
 			<longname>Command Type ID</longname>
-			<description>Command type ID.</longname>
+			<description>Command type ID.</description>
 			<subtype/>
 		</integer>
 		<useparameters ref="CommandParams">
