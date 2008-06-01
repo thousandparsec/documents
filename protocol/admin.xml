@@ -17,7 +17,7 @@
 					<string>
 						<name>string</name>
 						<longname>String</longname>
-						<description>The string.</longname>
+						<description>The string.</description>
 					</string>
 				</structure>
 			</usestruct>
