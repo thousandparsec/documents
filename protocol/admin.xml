@@ -395,6 +395,11 @@
 			<longname>Command Name</longname>
 			<description/>
 		</string>
+        <string>
+            <name>help</name>
+            <longname>Command Help</longname>
+            <description/>
+        </string>
 		<list>
 			<name>parameters</name>
 			<longname>Command Parameters</longname>
