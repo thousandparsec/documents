@@ -1735,6 +1735,17 @@
 				<value id="0x5" name="EndOfTurnStarted">End of turn started.</value>
 			</values>
 		</enumeration>
+		<integer type="unsigned" size="32">
+			<name>turn</name>
+			<longname>Current Turn</longname>
+			<description>The current turn.</description>
+		</integer>
+		<string>
+			<name>turnname</name>
+			<longname>Turn Name</longname>
+			<description>The name of the current turn.  May be
+			empty.</description>
+		</string>
 	</structure>
 	<note>
 		If the value is 0 then the end of turn has just started.
