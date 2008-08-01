@@ -351,6 +351,30 @@
 				</structure>
 			</usestruct>
 		</parameter>
+		<parameter name="Wormhole" type="5">
+			<longname>the Universe</longname>
+			<description>
+				The Wormhole is a top level object that links to locations together.
+				It was added as a quick hack to make the Risk ruleset a little easier to play.
+				It has 3 int64 arguments which are the "other end" of the wormhole.
+			</description>
+			<usestruct>
+				<structure>
+					<integer type="unsigned" readonly="yes" size="64">
+						<name>endx</name>
+						<longname>X coordinate of the other end</longname>
+					</integer>
+					<integer type="unsigned" readonly="yes" size="64">
+						<name>endy</name>
+						<longname>Y coordinate of the other end</longname>
+					</integer>
+					<integer type="unsigned" readonly="yes" size="64">
+						<name>endz</name>
+						<longname>Z coordinate of the other end</longname>
+					</integer>
+				</structure>
+			</usestruct>
+		</parameter>
 	</parameterset>
 	
 	
