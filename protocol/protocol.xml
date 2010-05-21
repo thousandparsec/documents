@@ -2131,7 +2131,7 @@
 
 
 	<structure>
-		<integer type="unsigned" size="32">
+		<integer type="semisigned" size="32">
 			<name>id</name>
 			<longname>Design ID</longname>
 			<description>Design ID</description>
