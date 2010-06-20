@@ -1897,8 +1897,13 @@
 		&lt;li&gt;5 - Message (Should also include a Board reference)&lt;/li&gt;
 		&lt;li&gt;6 - Resource Description&lt;/li&gt;
 		&lt;li&gt;7 - Player&lt;/li&gt;
-		&lt;li&gt;8? - Category&lt;/li&gt;
-		&lt;li&gt;9? - Component&lt;/li&gt;
+		&lt;li&gt;8 - Category&lt;/li&gt;
+		&lt;li&gt;9 - Design&lt;/li&gt;
+		&lt;li&gt;10 - Component&lt;/li&gt;
+		&lt;li&gt;11 - Property&lt;/li&gt;
+        &lt;li&gt;12 - Object Type (type of an object)&lt;/li&gt;
+        &lt;li&gt;13 - OrderQueue&lt;/li&gt;
+        
 	&lt;/ul&gt;
 	
 
