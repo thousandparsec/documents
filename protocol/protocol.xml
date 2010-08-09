@@ -1533,6 +1533,34 @@
 	<longname>List of Object IDs</longname>
 </packet>
 
+<packet id="74" base="GetWithID" name="GetOrderQueue">
+	<longname>Get Order Queue</longname>
+<packet>
+
+<packet id="75" base="Response" name="OrderQueue">
+	<longname>Order Queue</longname>
+	<structure>
+		<integer type="unsigned" size="32">
+			<name>id</name>
+			<longname>order queue id</longname>
+			<description>The orderqueue id</description>
+		</integer>
+		
+		<integer type="unsigned" size="64">
+			<name>serial</name>
+			<longname>serial number</longname>
+			<description>The serial number of the change</description>
+		</integer>
+	</structure>
+</packet>
+
+<packet id="76" base="GetIDSequence" name="GetOrderQueueIds">
+	<longname>Get OrderQueue Ids</longname>
+</packet>
+
+<packet id="77" base="IDSequence" name="OrderQueueIds">
+	<longname>OrderQueue Ids</longname>
+</packet>
 
 <packet id="8" base="GetWithID" name="GetOrderDesc">
 	<longname>Get Order Description</longname>
