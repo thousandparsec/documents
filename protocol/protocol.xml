@@ -1514,6 +1514,11 @@
 <packet id="75" base="Response" name="OrderQueue">
 	<longname>Order Queue</longname>
 	<structure>
+		<integer type="unsigned" size="32">
+			<name>id</name>
+			<longname>Order Queue ID</longname>
+			<description>Order Queue ID of the order is on/to be placed on</description>
+		</integer>
 		<integer type="unsigned" size="64">
 			<name>serial</name>
 			<longname>serial number</longname>
