@@ -1509,7 +1509,7 @@
 
 <packet id="74" base="GetWithID" name="GetOrderQueue">
 	<longname>Get Order Queue</longname>
-<packet>
+</packet>
 
 <packet id="75" base="Response" name="OrderQueue">
 	<longname>Order Queue</longname>
