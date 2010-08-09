@@ -534,15 +534,6 @@
 		<parameter name="objectParamOrderQueue" type="4">
 			<longname>Order Queue</longname>
 			<description>An order queue.</description>
-			<descstruct>
-				<structure>
-					<integer type="unsigned" size="32" readonly="yes">
-						<name>maxslots</name>
-						<longname>Maximum slots</longname>
-						<description>The maximum number of slots that can be used in this queue.</description>
-					</integer>
-				</structure>
-			</descstruct>
 			<usestruct>
 				<structure>
 					<integer type="unsigned" size="32" readonly="yes">
@@ -550,23 +541,6 @@
 						<longname>Queue ID</longname>
 						<description>The ID number of the queue.</description>
 					</integer>
-					<integer type="unsigned" size="32" readonly="yes">
-						<name>numorders</name>
-						<longname>Number of Orders</longname>
-						<description>The number of orders in the queue.</description>
-					</integer>
-					<list>
-						<name>ordertypes</name>
-						<longname>List of Order Types</longname>
-						<description>A list of order types that can be put in this queue.</description>
-						<structure>
-							<integer type="unsigned" size="32" readonly="yes">
-								<name>ordertype</name>
-								<longname>Order Type</longname>
-								<description>The number of the order type.</description>
-							</integer>
-						</structure>
-					</list>
 				</structure>
 			</usestruct>
 			<note>
@@ -1540,27 +1514,46 @@
 <packet id="75" base="Response" name="OrderQueue">
 	<longname>Order Queue</longname>
 	<structure>
-		<integer type="unsigned" size="32">
-			<name>id</name>
-			<longname>order queue id</longname>
-			<description>The orderqueue id</description>
-		</integer>
-		
 		<integer type="unsigned" size="64">
 			<name>serial</name>
 			<longname>serial number</longname>
 			<description>The serial number of the change</description>
 		</integer>
+		<integer type="unsigned" size="32" readonly="yes">
+			<name>maxslots</name>
+			<longname>Maximum slots</longname>
+			<description>The maximum number of slots that can be used in this queue.</description>
+		</integer>
+		<integer type="unsigned" size="32" readonly="yes">
+			<name>numorders</name>
+			<longname>Number of Orders</longname>
+			<description>The number of orders in the queue.</description>
+		</integer>
+		<list>
+			<name>ordertypes</name>
+			<longname>List of Order Types</longname>
+			<description>A list of order types that can be put in this queue.</description>
+			<structure>
+				<integer type="unsigned" size="32" readonly="yes">
+					<name>ordertype</name>
+					<longname>Order Type</longname>
+					<description>The number of the order type.</description>
+				</integer>
+			</structure>
+		</list>
 	</structure>
 </packet>
 
-<packet id="76" base="GetIDSequence" name="GetOrderQueueIds">
+<packet id="76" base="GetIDSequence" name="GetOrderQueueIDs">
 	<longname>Get OrderQueue Ids</longname>
 </packet>
 
-<packet id="77" base="IDSequence" name="OrderQueueIds">
+<packet id="77" base="IDSequence" name="OrderQueueIDs">
 	<longname>OrderQueue Ids</longname>
 </packet>
+
+
+
 
 <packet id="8" base="GetWithID" name="GetOrderDesc">
 	<longname>Get Order Description</longname>
