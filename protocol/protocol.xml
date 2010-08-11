@@ -1769,9 +1769,19 @@
 		<string>
 			<name>turnname</name>
 			<longname>Turn Name</longname>
-			<description>The name of the current turn.  May be
-			empty.</description>
+			<description>The name of the current turn. May be empty.</description>
 		</string>
+		<list>
+			<name>waiting</name>
+			<longname>Players that have yet to finish their turn.</longname>
+			<structure>
+				<integer type="unsigned" size="32">
+					<name>playerid</name>
+					<longname>Player ID</longname>
+					<description>The player's id number.</description>
+				</integer>
+			</structure>
+		</list>
 	</structure>
 	<note>
 		If the value is 0 then the end of turn has just started.
